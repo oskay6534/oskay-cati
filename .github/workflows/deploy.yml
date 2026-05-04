@@ -1,0 +1,42 @@
+name: Deploy to Hetzner
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy with Docker Compose
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 178.104.33.193
+          username: root
+          password: ${{ secrets.HETZNER_PASSWORD }}
+          port: 22
+          script: |
+            set -e
+            apt-get update
+            apt-get install -y git ca-certificates curl
+
+            if ! command -v docker >/dev/null 2>&1; then
+              curl -fsSL https://get.docker.com | sh
+            fi
+
+            mkdir -p /opt
+            if [ ! -d /opt/oskay-cati/.git ]; then
+              git clone https://github.com/oskay6534/oskay-cati.git /opt/oskay-cati
+            fi
+
+            cd /opt/oskay-cati
+            git fetch origin main
+            git reset --hard origin/main
+
+            if [ ! -f .env ]; then
+              cp .env.example .env
+            fi
+
+            docker compose up -d --build
