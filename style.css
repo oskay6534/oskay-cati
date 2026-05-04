@@ -1,93 +1,165 @@
-/* Genel Ayarlar */
 :root {
-    --primary-gold: #eab308;
-    --dark-blue: #0f172a;
-    --light-gray: #f8fafc;
-    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --gold: #d8a31a;
+    --gold-soft: #fff4cf;
+    --ink: #15171a;
+    --muted: #667085;
+    --line: #e6e8ec;
+    --paper: #ffffff;
+    --surface: #f6f7f9;
+    --charcoal: #111827;
+    --shadow: 0 20px 60px rgba(17, 24, 39, 0.12);
+    --transition: all 0.25s ease;
+}
+
+* {
+    letter-spacing: 0;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
+    margin: 0;
     font-family: 'Poppins', sans-serif;
-    color: #333;
-    scroll-behavior: smooth;
-    background-color: #fff;
+    color: var(--ink);
+    background: var(--paper);
 }
 
-h1, h2, h3, .navbar-brand {
+h1,
+h2,
+h3,
+h4,
+.navbar-brand {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
 }
 
-/* Navigasyon Çubuğu Güncelleme */
-#mainNav {
-    padding: 1rem 0;
+a {
     transition: var(--transition);
-    background: rgba(15, 23, 42, 0.95) !important;
-    backdrop-filter: blur(12px);
+}
+
+.section-pad {
+    padding: 80px 0;
+}
+
+.surface-section {
+    background: var(--surface);
+}
+
+.section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: var(--gold);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.section-kicker::before {
+    content: "";
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+}
+
+.section-heading {
+    max-width: 760px;
+    margin-inline: auto;
+}
+
+.section-heading p {
+    margin: 14px auto 0;
+    max-width: 640px;
+    color: var(--muted);
+}
+
+#mainNav {
+    padding: 14px 0;
+    background: rgba(17, 24, 39, 0.92) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
 }
 
 .navbar-brand {
-    font-size: 1.6rem;
-    letter-spacing: -0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+}
+
+.navbar-brand strong {
+    color: var(--gold);
+}
+
+.brand-mark {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: var(--charcoal);
+    background: var(--gold);
 }
 
 .nav-link {
-    font-weight: 600;
-    margin: 0 12px;
-    position: relative;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    transition: color 0.3s ease;
+    margin: 0 8px;
+    color: rgba(255, 255, 255, 0.78) !important;
+    font-size: 0.84rem;
+    font-weight: 700;
 }
 
-/* Link Altı Çizgi Animasyonu */
-.nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: var(--primary-gold);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
+.nav-link:hover,
+.admin-login-link {
+    color: #fff !important;
 }
 
-.nav-link:hover::after {
-    width: 80%;
+.nav-cta,
+.btn {
+    border-radius: 8px;
 }
 
-/* Hero Section */
+.btn-warning {
+    color: var(--charcoal);
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+.btn-warning:hover {
+    color: var(--charcoal);
+    background: #c69113;
+    border-color: #c69113;
+}
+
+.btn-dark {
+    background: var(--charcoal);
+    border-color: var(--charcoal);
+}
+
 .hero-section {
-    height: 90vh;
-    position: relative; 
+    min-height: 88vh;
+    position: relative;
     overflow: hidden;
 }
 
-.hero-bg {
+.hero-bg,
+.hero-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('img/9.jpg');
-    background-size: cover;
-    background-position: center;
-    z-index: 0;
-    animation: cinematicSweep 30s ease-in-out infinite alternate;
+    inset: 0;
+}
+
+.hero-bg {
+    background: url('img/9.jpg') center/cover no-repeat;
+    transform: scale(1.04);
+    animation: cinematicSweep 24s ease-in-out infinite alternate;
 }
 
 .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 50%, rgba(15, 23, 42, 0.9) 100%);
-    background-size: 200% 200%;
-    animation: overlayLight 15s ease infinite;
-    z-index: 1;
+    background:
+        linear-gradient(90deg, rgba(8, 12, 20, 0.9) 0%, rgba(8, 12, 20, 0.72) 46%, rgba(8, 12, 20, 0.28) 100%),
+        linear-gradient(0deg, rgba(8, 12, 20, 0.82) 0%, rgba(8, 12, 20, 0) 42%);
 }
 
 .hero-section .container {
@@ -95,199 +167,371 @@ h1, h2, h3, .navbar-brand {
     z-index: 2;
 }
 
-.hero-section h1 {
-    text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+.hero-content {
+    max-width: 760px;
 }
 
-/* Divider (Başlık Altı Çizgisi) */
-.divider {
-    width: 60px;
-    height: 4px;
-    background-color: var(--primary-gold);
-    margin-top: 15px;
-    border-radius: 2px;
+.hero-content h1 {
+    line-height: 1.02;
 }
 
-/* Hizmet Kartları */
+.hero-content .lead {
+    max-width: 640px;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    max-width: 620px;
+    margin-top: 46px;
+}
+
+.hero-metrics div {
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+}
+
+.hero-metrics strong {
+    display: block;
+    color: #fff;
+    font-size: 1.35rem;
+}
+
+.hero-metrics span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.86rem;
+}
+
 .service-card {
-    transition: var(--transition);
-    border-radius: 15px;
-    cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.05) !important;
+    height: 100%;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+    box-shadow: 0 8px 30px rgba(17, 24, 39, 0.04);
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important;
+    transform: translateY(-6px);
+    box-shadow: var(--shadow);
 }
 
 .icon-circle {
-    width: 80px;
-    height: 80px;
-    background-color: #fefce8;
+    width: 58px;
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
+    border-radius: 8px;
+    color: var(--charcoal);
+    background: var(--gold-soft);
+    font-size: 1.35rem;
 }
 
-/* Proje Kartları */
+.about-carousel {
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+#about .carousel-item img {
+    height: 460px;
+    object-fit: cover;
+}
+
+.experience-badge {
+    z-index: 2;
+    min-width: 150px;
+    padding: 20px 24px;
+    border-radius: 8px;
+    color: var(--charcoal);
+    background: var(--gold);
+    box-shadow: var(--shadow);
+}
+
 .project-card {
-    cursor: pointer; 
-    transition: var(--transition);
-    perspective: 1000px;
+    min-height: 300px;
+    cursor: zoom-in;
+    border-radius: 8px;
+    background: #111;
+    box-shadow: 0 8px 28px rgba(17, 24, 39, 0.1);
 }
 
 .project-card img {
-    transition: transform 0.8s ease-in-out;
+    display: block;
     height: 300px;
     object-fit: cover;
+    transition: transform 0.55s ease;
 }
 
 .project-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
- 
-    opacity: 0;
-    transition: all 0.4s ease;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0) 30%, rgba(17, 24, 39, 0.88) 100%);
+    opacity: 1;
+    transition: var(--transition);
+}
+
+.project-overlay small {
+    display: block;
+    margin-bottom: 6px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .project-card:hover {
-    box-shadow: 0 30px 60px rgba(0,0,0,0.15) !important;
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
 }
 
 .project-card:hover img {
-    transform: scale(1.1);
+    transform: scale(1.06);
 }
 
-.project-card:hover .project-overlay {
-    opacity: 1;
+.project-tag {
+    display: inline-flex;
+    padding: 7px 10px;
+    border-radius: 999px;
+    color: var(--charcoal);
+    background: var(--gold);
+    font-size: 0.78rem;
+    font-weight: 800;
 }
 
-/* Form Kontrolleri */
 .form-control {
+    min-height: 46px;
     border-radius: 8px;
-    padding: 12px;
-    border: 1px solid #dee2e6;
+    border-color: var(--line);
 }
 
-/* Admin Paneli Stilleri */
-.admin-only { display: none; }
-body.admin-logged-in .admin-only { display: block; }
+.form-control:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 0.22rem rgba(216, 163, 26, 0.18);
+}
+
+.admin-only {
+    display: none;
+}
+
+body.admin-logged-in .admin-only {
+    display: block;
+}
+
+body.admin-logged-in li.admin-only {
+    display: list-item;
+}
+
+.admin-panel {
+    padding: 24px;
+    border: 1px solid rgba(216, 163, 26, 0.34);
+    border-left: 5px solid var(--gold);
+    border-radius: 8px;
+    background: #fffdf6;
+    box-shadow: 0 10px 35px rgba(17, 24, 39, 0.06);
+}
+
+.admin-panel-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.admin-thumb {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.admin-thumb img {
+    width: 100%;
+    height: 86px;
+    object-fit: cover;
+}
+
+.admin-thumb small {
+    display: block;
+    padding: 8px 10px;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.admin-thumb .btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 50%;
+}
 
 .delete-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
-    border-radius: 50%;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
     width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
 }
 
-.form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
-    border-color: var(--primary-gold);
+.notification-drawer .offcanvas-header {
+    border-bottom: 1px solid var(--line);
+    background: #fff;
 }
 
-.animate-fade-in {
-    animation: fadeIn 5s ease-out;
+.notification-drawer .offcanvas-body {
+    background: var(--surface);
 }
 
-@keyframes cinematicSweep {
-    0% { transform: scale(1.1) translate(0, 0); }
-    100% { transform: scale(1.2) translate(-2%, -1%); }
+.nav-pills .nav-link {
+    color: var(--muted) !important;
+    border-radius: 8px;
 }
 
-@keyframes overlayLight {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+.nav-pills .nav-link.active {
+    color: var(--charcoal) !important;
+    background: var(--gold);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.message-card {
+    margin-bottom: 14px;
+    cursor: pointer;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(17, 24, 39, 0.05);
 }
 
-@keyframes spinFastToSlow {
-    0% { transform: scale(1) rotateY(0deg); }
-    50% { transform: scale(1.2) rotateY(180deg); }
-    100% { transform: scale(1.25) rotateY(0deg); }
+.message-unread {
+    border-left: 5px solid #dc3545;
 }
 
-/* Mobil Uyumluluk */
-@media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 2.5rem;
-    }
-    .hero-section {
-        height: 70vh;
-        background-attachment: scroll;
-    }
+.modal-content,
+.login-card {
+    border: 0;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
 }
 
-/* Modal Arka Planı Karartma */
-.modal-backdrop.show {
-    opacity: 0.85;
+.modal-head-dark {
+    color: #fff;
+    background: var(--charcoal);
 }
 
-/* İletişim Numarası Dropdown Ayarları */
+.site-footer {
+    background:
+        linear-gradient(135deg, rgba(17, 24, 39, 0.96), rgba(17, 24, 39, 0.9)),
+        url('img/8.jpg') center/cover no-repeat;
+}
+
+.contact-card {
+    padding: 28px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: var(--shadow);
+}
+
 .contact-info .dropdown-toggle::after {
-    color: var(--primary-gold);
-    vertical-align: middle;
+    color: var(--gold);
 }
 
 .contact-info .dropdown-menu {
-    min-width: 200px;
+    min-width: 210px;
     padding: 0;
-    border-radius: 8px;
     overflow: hidden;
-    border: 2px solid #ffc107;
+    border: 1px solid var(--gold);
+    border-radius: 8px;
 }
 
-/* Bildirim Rozeti Ayarı */
 .nav-link .badge {
     font-size: 0.65rem;
     padding: 0.35em 0.5em;
 }
 
-/* Bildirim Paneli Tab Ayarları */
-.nav-pills .nav-link.active {
-    background-color: var(--primary-gold);
-    color: #fff;
+.animate-fade-in {
+    animation: fadeIn 0.7s ease both;
 }
 
-.nav-pills .nav-link {
-    color: #666;
-}
-/* Hakkımızda Bölümü */
-#about .carousel-item img {
-    height: 450px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+@keyframes cinematicSweep {
+    from {
+        transform: scale(1.04) translate(0, 0);
+    }
+
+    to {
+        transform: scale(1.12) translate(-1.5%, -1%);
+    }
 }
 
-#about .carousel-item img:hover {
-    transform: scale(1.03);
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.experience-badge {
-    z-index: 2;
-}
-.renk{
-    background-color: #f8fafc; /* Daha temiz bir gri-beyaz tonu */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        padding-top: 16px;
+    }
+
+    .nav-link {
+        margin: 4px 0;
+    }
+
+    .hero-section {
+        min-height: auto;
+        padding: 120px 0 70px;
+    }
+
+    .hero-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    #about .carousel-item img {
+        height: 360px;
+    }
 }
 
-/* Yeni Buton Stilleri */
-.btn-warning {
-    background-color: var(--primary-gold);
-    border-color: var(--primary-gold);
-    color: #fff;
+@media (max-width: 576px) {
+    .section-pad {
+        padding: 56px 0;
+    }
+
+    .hero-content h1 {
+        font-size: 2.35rem;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .project-card,
+    .project-card img {
+        height: 260px !important;
+        min-height: 260px;
+    }
+
+    .admin-panel,
+    .contact-card {
+        padding: 18px;
+    }
 }
