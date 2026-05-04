@@ -52,7 +52,10 @@ try {
 
 $action = $_GET['action'] ?? '';
 $method = $_SERVER['REQUEST_METHOD'];
-$input = json_decode(file_get_contents('php://input'), true);
+$input = [];
+if (stripos($_SERVER['CONTENT_TYPE'] ?? '', 'multipart/form-data') === false) {
+    $input = json_decode(file_get_contents('php://input'), true) ?: [];
+}
 $isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true;
 
 // Yetki Kontrol Fonksiyonu
@@ -63,6 +66,13 @@ function requireAdmin() {
         echo json_encode(['error' => 'Yetkisiz erişim']);
         exit;
     }
+}
+
+function slugFileName($name) {
+    $name = strtolower(pathinfo($name, PATHINFO_FILENAME));
+    $name = preg_replace('/[^a-z0-9]+/', '-', $name);
+    $name = trim($name, '-');
+    return $name !== '' ? $name : 'gorsel';
 }
 
 switch ($action) {
@@ -87,6 +97,60 @@ switch ($action) {
     case 'logout':
         session_destroy();
         echo json_encode(['success' => true]);
+        break;
+
+    case 'upload-image':
+        requireAdmin();
+        if ($method !== 'POST') {
+            http_response_code(405);
+            echo json_encode(['error' => 'Geçersiz istek yöntemi']);
+            break;
+        }
+
+        if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Görsel yüklenemedi']);
+            break;
+        }
+
+        if ($_FILES['image']['size'] > 6 * 1024 * 1024) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Görsel 6 MB üzerinde olamaz']);
+            break;
+        }
+
+        $tmpPath = $_FILES['image']['tmp_name'];
+        $info = getimagesize($tmpPath);
+        $allowedTypes = [
+            IMAGETYPE_JPEG => 'jpg',
+            IMAGETYPE_PNG => 'png',
+            IMAGETYPE_WEBP => 'webp',
+            IMAGETYPE_GIF => 'gif'
+        ];
+
+        if (!$info || !isset($allowedTypes[$info[2]])) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Sadece JPG, PNG, WEBP veya GIF yükleyebilirsiniz']);
+            break;
+        }
+
+        $uploadDir = __DIR__ . '/img/uploads';
+        if (!is_dir($uploadDir) && !mkdir($uploadDir, 0775, true)) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Yükleme klasörü oluşturulamadı']);
+            break;
+        }
+
+        $fileName = slugFileName($_FILES['image']['name']) . '-' . date('YmdHis') . '-' . bin2hex(random_bytes(4)) . '.' . $allowedTypes[$info[2]];
+        $targetPath = $uploadDir . '/' . $fileName;
+
+        if (!move_uploaded_file($tmpPath, $targetPath)) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Görsel kaydedilemedi']);
+            break;
+        }
+
+        echo json_encode(['success' => true, 'path' => 'img/uploads/' . $fileName]);
         break;
 
     case 'projects':

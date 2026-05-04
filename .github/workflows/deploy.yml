@@ -39,4 +39,7 @@ jobs:
               cp .env.example .env
             fi
 
+            mkdir -p img/uploads
+            chmod 777 img/uploads
+
             docker compose up -d --build

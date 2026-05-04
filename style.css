@@ -23,7 +23,9 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     color: var(--ink);
-    background: var(--paper);
+    background:
+        radial-gradient(circle at top left, rgba(216, 163, 26, 0.10), transparent 28rem),
+        linear-gradient(180deg, #fff 0%, #f7f8fb 42%, #fff 100%);
 }
 
 h1,
@@ -43,7 +45,9 @@ a {
 }
 
 .surface-section {
-    background: var(--surface);
+    background:
+        linear-gradient(180deg, rgba(246, 247, 249, 0.96), rgba(246, 247, 249, 0.98)),
+        repeating-linear-gradient(135deg, rgba(17, 24, 39, 0.03) 0 1px, transparent 1px 18px);
 }
 
 .section-kicker {
@@ -375,6 +379,63 @@ body.admin-logged-in li.admin-only {
     border-radius: 50%;
 }
 
+.upload-zone {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1.5px dashed rgba(17, 24, 39, 0.24);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.72);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.upload-zone i {
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    border-radius: 8px;
+    color: var(--charcoal);
+    background: var(--gold-soft);
+    font-size: 1.2rem;
+}
+
+.upload-zone strong,
+.upload-zone span {
+    display: block;
+}
+
+.upload-zone span {
+    color: var(--muted);
+    font-size: 0.86rem;
+}
+
+.upload-zone .btn {
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.upload-zone:hover,
+.upload-zone.drag-over {
+    border-color: var(--gold);
+    background: #fffaf0;
+    box-shadow: 0 12px 30px rgba(216, 163, 26, 0.12);
+}
+
+.upload-zone.uploading {
+    opacity: 0.72;
+    pointer-events: none;
+}
+
+.upload-zone.uploaded {
+    border-color: #198754;
+    background: #f2fbf6;
+}
+
 .delete-btn {
     position: absolute;
     top: 12px;
@@ -533,5 +594,15 @@ body.admin-logged-in li.admin-only {
     .admin-panel,
     .contact-card {
         padding: 18px;
+    }
+
+    .upload-zone {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .upload-zone .btn {
+        width: 100%;
+        margin-left: 0;
     }
 }

@@ -212,6 +212,15 @@
                     <div class="col-md-3"><input type="number" id="newAboutOrder" class="form-control" placeholder="Sıra (Örn: 1)"></div>
                     <div class="col-md-3"><button onclick="addAboutImage()" class="btn btn-success w-100 fw-bold"><i class="fas fa-plus me-2"></i>Slider'a Ekle</button></div>
                 </div>
+                <div class="upload-zone mb-3" data-target="newAboutImg">
+                    <input type="file" class="d-none image-upload-input" accept="image/*">
+                    <i class="fas fa-cloud-arrow-up"></i>
+                    <div>
+                        <strong>Slider görseli yükle</strong>
+                        <span>Bilgisayardan/telefondan seç veya buraya sürükle bırak.</span>
+                    </div>
+                    <button type="button" class="btn btn-outline-dark btn-sm">Dosya Seç</button>
+                </div>
                 <div id="aboutImagesAdminList" class="row g-2">
                     <!-- Mevcut slider resimleri burada listelenecek -->
                 </div>
@@ -230,6 +239,15 @@
                     <div class="col-md-3"><input type="text" id="newProjType" class="form-control" placeholder="Tür"></div>
                     <div class="col-md-3"><input type="text" id="newProjImg" class="form-control" placeholder="Resim Yolu (Örn: img/1.jpg)"></div> <!-- BURASI: Adminin resim yolunu yazdığı kutu -->
                     <div class="col-md-2"><button onclick="addProject()" class="btn btn-success w-100 fw-bold"><i class="fas fa-plus me-2"></i>Ekle</button></div>
+                </div>
+                <div class="upload-zone mt-3" data-target="newProjImg">
+                    <input type="file" class="d-none image-upload-input" accept="image/*">
+                    <i class="fas fa-image"></i>
+                    <div>
+                        <strong>Proje görseli yükle</strong>
+                        <span>Görsel yüklenince resim yolu otomatik doldurulur.</span>
+                    </div>
+                    <button type="button" class="btn btn-outline-dark btn-sm">Dosya Seç</button>
                 </div>
             </div>
 
@@ -434,6 +452,56 @@
             modalImg.src = src;
             new bootstrap.Modal(document.getElementById('imageModal')).show();
         }
+
+        async function uploadImage(file, targetInputId, zone) {
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                alert('Lütfen sadece görsel dosyası seçin.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+            zone.classList.add('uploading');
+
+            try {
+                const res = await fetch('api.php?action=upload-image', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    alert(data.error || 'Görsel yüklenemedi.');
+                    return;
+                }
+                document.getElementById(targetInputId).value = data.path;
+                zone.classList.add('uploaded');
+                zone.querySelector('span').innerText = data.path;
+            } catch (err) {
+                alert('Görsel yükleme sırasında hata oluştu.');
+            } finally {
+                zone.classList.remove('uploading');
+            }
+        }
+
+        document.querySelectorAll('.upload-zone').forEach(zone => {
+            const input = zone.querySelector('.image-upload-input');
+            const targetInputId = zone.dataset.target;
+            zone.addEventListener('click', event => {
+                if (event.target.tagName !== 'INPUT') input.click();
+            });
+            input.addEventListener('change', () => uploadImage(input.files[0], targetInputId, zone));
+            zone.addEventListener('dragover', event => {
+                event.preventDefault();
+                zone.classList.add('drag-over');
+            });
+            zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+            zone.addEventListener('drop', event => {
+                event.preventDefault();
+                zone.classList.remove('drag-over');
+                uploadImage(event.dataTransfer.files[0], targetInputId, zone);
+            });
+        });
 
         async function login() {
             const password = document.getElementById('adminPassword').value;
