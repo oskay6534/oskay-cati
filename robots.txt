@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /api.php
+Disallow: /hash.php
+Disallow: /generateHash.js
+
 Sitemap: https://www.oskaycati.com/sitemap.xml

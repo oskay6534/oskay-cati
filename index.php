@@ -31,6 +31,13 @@ function esc($value) {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
+function absoluteSiteUrl($value) {
+    if (preg_match('/^https?:\/\//i', $value)) {
+        return $value;
+    }
+    return 'https://www.oskaycati.com/' . ltrim($value, '/');
+}
+
 $defaults = [
     'meta_title' => 'Oskay Çatı Sistemleri | İstanbul Çatı Tamiri ve İzolasyon Ustası',
     'meta_description' => "İstanbul'da profesyonel çatı tamiri, izolasyon ve yeni çatı yapımı hizmetleri. 10 yıllık tecrübe ile garantili işçilik. Ücretsiz keşif için hemen arayın!",
@@ -77,6 +84,8 @@ try {
 }
 
 $html = file_get_contents(__DIR__ . '/index.html');
+$ogImage = absoluteSiteUrl($seo['og_image']);
+
 $replacements = [
     '/<title>.*?<\/title>/s' => '<title>' . esc($seo['meta_title']) . '</title>',
     '/<meta name="description" content=".*?">/s' => '<meta name="description" content="' . esc($seo['meta_description']) . '">',
@@ -85,7 +94,7 @@ $replacements = [
     '/<meta property="og:url" content=".*?">/s' => '<meta property="og:url" content="' . esc($seo['canonical_url']) . '">',
     '/<meta property="og:title" content=".*?">/s' => '<meta property="og:title" content="' . esc($seo['og_title']) . '">',
     '/<meta property="og:description" content=".*?">/s' => '<meta property="og:description" content="' . esc($seo['og_description']) . '">',
-    '/<meta property="og:image" content=".*?">/s' => '<meta property="og:image" content="' . esc($seo['og_image']) . '">'
+    '/<meta property="og:image" content=".*?">/s' => '<meta property="og:image" content="' . esc($ogImage) . '">'
 ];
 
 echo preg_replace(array_keys($replacements), array_values($replacements), $html);

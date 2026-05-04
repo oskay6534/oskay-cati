@@ -10,6 +10,7 @@
     <link rel="canonical" href="https://www.oskaycati.com/">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="mask-icon" href="/favicon.svg" color="#111827">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -234,6 +235,17 @@
                     <div class="col-lg-6">
                         <label class="form-label fw-bold" for="seoOgImage">Sosyal Medya Görseli</label>
                         <input type="text" id="seoOgImage" class="form-control" maxlength="255" placeholder="https://www.oskaycati.com/img/9.jpg">
+                    </div>
+                    <div class="col-12">
+                        <div class="upload-zone" data-target="seoOgImage" data-absolute-url="true">
+                            <input type="file" class="d-none image-upload-input" accept="image/*">
+                            <i class="fas fa-share-nodes"></i>
+                            <div>
+                                <strong>Sosyal medya görseli yükle</strong>
+                                <span>WhatsApp/Facebook paylaşımında çıkacak görseli seç veya buraya sürükle bırak.</span>
+                            </div>
+                            <button type="button" class="btn btn-outline-dark btn-sm">Dosya Seç</button>
+                        </div>
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-bold" for="seoOgDescription">Sosyal Medya Açıklaması</label>
@@ -601,9 +613,12 @@
                     alert(data.error || 'Görsel yüklenemedi.');
                     return;
                 }
-                document.getElementById(targetInputId).value = data.path;
+                const imagePath = zone.dataset.absoluteUrl === 'true'
+                    ? new URL(data.path, window.location.origin).href
+                    : data.path;
+                document.getElementById(targetInputId).value = imagePath;
                 zone.classList.add('uploaded');
-                zone.querySelector('span').innerText = data.path;
+                zone.querySelector('span').innerText = imagePath;
             } catch (err) {
                 alert('Görsel yükleme sırasında hata oluştu.');
             } finally {
