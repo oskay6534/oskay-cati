@@ -6,3 +6,5 @@
 
 # İnsanların tarayıcıdan klasör içindeki dosyaları liste halinde görmesini engeller
 Options -Indexes
+
+DirectoryIndex index.php index.html

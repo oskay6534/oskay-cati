@@ -58,6 +58,39 @@ if (stripos($_SERVER['CONTENT_TYPE'] ?? '', 'multipart/form-data') === false) {
 }
 $isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true;
 
+function ensureSeoSettingsTable($pdo) {
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS seo_settings (
+            id INT PRIMARY KEY DEFAULT 1,
+            meta_title VARCHAR(255) NOT NULL,
+            meta_description TEXT NOT NULL,
+            meta_keywords TEXT NOT NULL,
+            og_title VARCHAR(255) NOT NULL,
+            og_description TEXT NOT NULL,
+            og_image VARCHAR(255) NOT NULL,
+            canonical_url VARCHAR(255) NOT NULL,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )
+    ");
+
+    $stmt = $pdo->prepare("
+        INSERT INTO seo_settings (id, meta_title, meta_description, meta_keywords, og_title, og_description, og_image, canonical_url)
+        VALUES (1, ?, ?, ?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE id = id
+    ");
+    $stmt->execute([
+        'Oskay Çatı Sistemleri | İstanbul Çatı Tamiri ve İzolasyon Ustası',
+        "İstanbul'da profesyonel çatı tamiri, izolasyon ve yeni çatı yapımı hizmetleri. 10 yıllık tecrübe ile garantili işçilik. Ücretsiz keşif için hemen arayın!",
+        'çatı tamiri, istanbul çatı ustası, çatı izolasyon, yeni çatı yapımı, çelik çatı, oskay çatı',
+        'Oskay Çatı Sistemleri | İstanbul Çatı Tamiri',
+        'Profesyonel çatı çözümleri, tamir ve izolasyon hizmetleri.',
+        'https://www.oskaycati.com/img/9.jpg',
+        'https://www.oskaycati.com/'
+    ]);
+}
+
+ensureSeoSettingsTable($pdo);
+
 // Yetki Kontrol Fonksiyonu
 function requireAdmin() {
     global $isAdmin;
@@ -92,6 +125,50 @@ switch ($action) {
 
     case 'admin-status':
         echo json_encode(['isAdmin' => $isAdmin]);
+        break;
+
+    case 'seo-settings':
+        if ($method === 'GET') {
+            $stmt = $pdo->query("SELECT meta_title, meta_description, meta_keywords, og_title, og_description, og_image, canonical_url FROM seo_settings WHERE id = 1");
+            echo json_encode($stmt->fetch(PDO::FETCH_ASSOC));
+        } elseif ($method === 'POST') {
+            requireAdmin();
+            $fields = [
+                'meta_title' => 255,
+                'meta_description' => 500,
+                'meta_keywords' => 500,
+                'og_title' => 255,
+                'og_description' => 500,
+                'og_image' => 255,
+                'canonical_url' => 255
+            ];
+            $values = [];
+            foreach ($fields as $field => $maxLength) {
+                $values[$field] = substr(trim($input[$field] ?? ''), 0, $maxLength);
+            }
+
+            if ($values['meta_title'] === '' || $values['meta_description'] === '') {
+                http_response_code(400);
+                echo json_encode(['error' => 'Meta başlık ve açıklama zorunludur']);
+                break;
+            }
+
+            $stmt = $pdo->prepare("
+                UPDATE seo_settings
+                SET meta_title = ?, meta_description = ?, meta_keywords = ?, og_title = ?, og_description = ?, og_image = ?, canonical_url = ?
+                WHERE id = 1
+            ");
+            $stmt->execute([
+                htmlspecialchars($values['meta_title'], ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars($values['meta_description'], ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars($values['meta_keywords'], ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars($values['og_title'] ?: $values['meta_title'], ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars($values['og_description'] ?: $values['meta_description'], ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars($values['og_image'] ?: 'https://www.oskaycati.com/img/9.jpg', ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars($values['canonical_url'] ?: 'https://www.oskaycati.com/', ENT_QUOTES, 'UTF-8')
+            ]);
+            echo json_encode(['success' => true]);
+        }
         break;
 
     case 'logout':

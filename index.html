@@ -199,6 +199,50 @@
                 <p>Uygulama kalitesini ve malzeme detaylarını yakından görmek için projeleri inceleyin.</p>
             </div>
 
+            <!-- SEO Yönetimi (Sadece Admin) -->
+            <div class="admin-only admin-panel seo-panel mb-4">
+                <div class="admin-panel-title">
+                    <div>
+                        <span class="section-kicker">Yönetim</span>
+                        <h4 class="fw-bold mb-0"><i class="fas fa-magnifying-glass-chart me-2"></i>SEO Ayarları</h4>
+                    </div>
+                    <span class="seo-save-state" id="seoSaveState"></span>
+                </div>
+                <div class="row g-3">
+                    <div class="col-lg-6">
+                        <label class="form-label fw-bold" for="seoMetaTitle">Meta Title</label>
+                        <input type="text" id="seoMetaTitle" class="form-control" maxlength="255" placeholder="Google'da görünecek başlık">
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label fw-bold" for="seoCanonicalUrl">Canonical URL</label>
+                        <input type="url" id="seoCanonicalUrl" class="form-control" maxlength="255" placeholder="https://www.oskaycati.com/">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold" for="seoMetaDescription">Meta Description</label>
+                        <textarea id="seoMetaDescription" class="form-control" rows="3" maxlength="500" placeholder="Google açıklaması"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold" for="seoMetaKeywords">Meta Keywords</label>
+                        <input type="text" id="seoMetaKeywords" class="form-control" maxlength="500" placeholder="çatı tamiri, istanbul çatı ustası, izolasyon">
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label fw-bold" for="seoOgTitle">Sosyal Medya Başlığı</label>
+                        <input type="text" id="seoOgTitle" class="form-control" maxlength="255" placeholder="Paylaşım başlığı">
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label fw-bold" for="seoOgImage">Sosyal Medya Görseli</label>
+                        <input type="text" id="seoOgImage" class="form-control" maxlength="255" placeholder="https://www.oskaycati.com/img/9.jpg">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold" for="seoOgDescription">Sosyal Medya Açıklaması</label>
+                        <textarea id="seoOgDescription" class="form-control" rows="2" maxlength="500" placeholder="WhatsApp/Facebook paylaşım açıklaması"></textarea>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                        <button type="button" onclick="saveSeoSettings()" class="btn btn-dark fw-bold px-4"><i class="fas fa-floppy-disk me-2"></i>SEO Ayarlarını Kaydet</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Hakkımızda Slider Yönetimi (Sadece Admin) -->
             <div class="admin-only admin-panel mb-4">
                 <div class="admin-panel-title">
@@ -383,6 +427,86 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const seoFields = {
+            meta_title: 'seoMetaTitle',
+            meta_description: 'seoMetaDescription',
+            meta_keywords: 'seoMetaKeywords',
+            og_title: 'seoOgTitle',
+            og_description: 'seoOgDescription',
+            og_image: 'seoOgImage',
+            canonical_url: 'seoCanonicalUrl'
+        };
+
+        function upsertMeta(selector, attr, value) {
+            let tag = document.head.querySelector(selector);
+            if (!tag) {
+                tag = document.createElement('meta');
+                const match = selector.match(/\[(name|property)="([^"]+)"\]/);
+                if (match) tag.setAttribute(match[1], match[2]);
+                document.head.appendChild(tag);
+            }
+            tag.setAttribute(attr, value || '');
+        }
+
+        function applySeoToHead(settings) {
+            if (!settings) return;
+            document.title = settings.meta_title || document.title;
+            upsertMeta('meta[name="description"]', 'content', settings.meta_description);
+            upsertMeta('meta[name="keywords"]', 'content', settings.meta_keywords);
+            upsertMeta('meta[property="og:title"]', 'content', settings.og_title || settings.meta_title);
+            upsertMeta('meta[property="og:description"]', 'content', settings.og_description || settings.meta_description);
+            upsertMeta('meta[property="og:image"]', 'content', settings.og_image);
+            upsertMeta('meta[property="og:url"]', 'content', settings.canonical_url);
+
+            let canonical = document.head.querySelector('link[rel="canonical"]');
+            if (!canonical) {
+                canonical = document.createElement('link');
+                canonical.setAttribute('rel', 'canonical');
+                document.head.appendChild(canonical);
+            }
+            canonical.setAttribute('href', settings.canonical_url || 'https://www.oskaycati.com/');
+        }
+
+        async function loadSeoSettings(isAdmin = false) {
+            const res = await fetch('api.php?action=seo-settings');
+            if (!res.ok) return;
+            const settings = await res.json();
+            applySeoToHead(settings);
+
+            if (isAdmin) {
+                Object.entries(seoFields).forEach(([key, id]) => {
+                    const input = document.getElementById(id);
+                    if (input) input.value = settings[key] || '';
+                });
+            }
+        }
+
+        async function saveSeoSettings() {
+            const state = document.getElementById('seoSaveState');
+            const payload = {};
+            Object.entries(seoFields).forEach(([key, id]) => {
+                payload[key] = document.getElementById(id).value.trim();
+            });
+
+            state.innerText = 'Kaydediliyor...';
+            const res = await fetch('api.php?action=seo-settings', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                state.innerText = '';
+                alert(data.error || 'SEO ayarları kaydedilemedi.');
+                return;
+            }
+
+            applySeoToHead(payload);
+            state.innerText = 'Kaydedildi';
+            setTimeout(() => state.innerText = '', 2500);
+        }
+
         async function loadAboutImages() {
             const res = await fetch('api.php?action=about-images');
             const images = await res.json();
@@ -396,6 +520,7 @@
                 loginBtn.removeAttribute('data-bs-toggle');
                 loginBtn.onclick = logout;
                 loadMessages(); // Admin ise mesajları yükle
+                loadSeoSettings(true);
             }
 
             // Slider'ı doldur
@@ -697,6 +822,7 @@
 
         loadAboutImages();
         loadProjects();
+        loadSeoSettings();
     </script>
 </body>
 </html>
