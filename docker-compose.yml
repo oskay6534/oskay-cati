@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    container_name: oskay-cati-app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      MYSQLHOST: db
+      MYSQLPORT: 3306
+      MYSQLDATABASE: osman_cati
+      MYSQLUSER: oskay_user
+      MYSQLPASSWORD: oskay_password
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.4
+    container_name: oskay-cati-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: osman_cati
+      MYSQL_USER: oskay_user
+      MYSQL_PASSWORD: oskay_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/001-database.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  mysql_data:

@@ -1,0 +1,8 @@
+# .env dosyasının tarayıcıdan indirilmesini engeller
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# İnsanların tarayıcıdan klasör içindeki dosyaları liste halinde görmesini engeller
+Options -Indexes

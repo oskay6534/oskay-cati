@@ -1,0 +1,293 @@
+/* Genel Ayarlar */
+:root {
+    --primary-gold: #eab308;
+    --dark-blue: #0f172a;
+    --light-gray: #f8fafc;
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    scroll-behavior: smooth;
+    background-color: #fff;
+}
+
+h1, h2, h3, .navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+/* Navigasyon Çubuğu Güncelleme */
+#mainNav {
+    padding: 1rem 0;
+    transition: var(--transition);
+    background: rgba(15, 23, 42, 0.95) !important;
+    backdrop-filter: blur(12px);
+}
+
+.navbar-brand {
+    font-size: 1.6rem;
+    letter-spacing: -0.5px;
+}
+
+.nav-link {
+    font-weight: 600;
+    margin: 0 12px;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+/* Link Altı Çizgi Animasyonu */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--primary-gold);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 90vh;
+    position: relative; 
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('img/9.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    animation: cinematicSweep 30s ease-in-out infinite alternate;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 50%, rgba(15, 23, 42, 0.9) 100%);
+    background-size: 200% 200%;
+    animation: overlayLight 15s ease infinite;
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section h1 {
+    text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Divider (Başlık Altı Çizgisi) */
+.divider {
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-gold);
+    margin-top: 15px;
+    border-radius: 2px;
+}
+
+/* Hizmet Kartları */
+.service-card {
+    transition: var(--transition);
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important;
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background-color: #fefce8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Proje Kartları */
+.project-card {
+    cursor: pointer; 
+    transition: var(--transition);
+    perspective: 1000px;
+}
+
+.project-card img {
+    transition: transform 0.8s ease-in-out;
+    height: 300px;
+    object-fit: cover;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+ 
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.project-card:hover {
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15) !important;
+}
+
+.project-card:hover img {
+    transform: scale(1.1);
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+/* Form Kontrolleri */
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #dee2e6;
+}
+
+/* Admin Paneli Stilleri */
+.admin-only { display: none; }
+body.admin-logged-in .admin-only { display: block; }
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+    border-color: var(--primary-gold);
+}
+
+.animate-fade-in {
+    animation: fadeIn 5s ease-out;
+}
+
+@keyframes cinematicSweep {
+    0% { transform: scale(1.1) translate(0, 0); }
+    100% { transform: scale(1.2) translate(-2%, -1%); }
+}
+
+@keyframes overlayLight {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spinFastToSlow {
+    0% { transform: scale(1) rotateY(0deg); }
+    50% { transform: scale(1.2) rotateY(180deg); }
+    100% { transform: scale(1.25) rotateY(0deg); }
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    .hero-section {
+        height: 70vh;
+        background-attachment: scroll;
+    }
+}
+
+/* Modal Arka Planı Karartma */
+.modal-backdrop.show {
+    opacity: 0.85;
+}
+
+/* İletişim Numarası Dropdown Ayarları */
+.contact-info .dropdown-toggle::after {
+    color: var(--primary-gold);
+    vertical-align: middle;
+}
+
+.contact-info .dropdown-menu {
+    min-width: 200px;
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #ffc107;
+}
+
+/* Bildirim Rozeti Ayarı */
+.nav-link .badge {
+    font-size: 0.65rem;
+    padding: 0.35em 0.5em;
+}
+
+/* Bildirim Paneli Tab Ayarları */
+.nav-pills .nav-link.active {
+    background-color: var(--primary-gold);
+    color: #fff;
+}
+
+.nav-pills .nav-link {
+    color: #666;
+}
+/* Hakkımızda Bölümü */
+#about .carousel-item img {
+    height: 450px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+#about .carousel-item img:hover {
+    transform: scale(1.03);
+}
+
+.experience-badge {
+    z-index: 2;
+}
+.renk{
+    background-color: #f8fafc; /* Daha temiz bir gri-beyaz tonu */
+}
+
+/* Yeni Buton Stilleri */
+.btn-warning {
+    background-color: var(--primary-gold);
+    border-color: var(--primary-gold);
+    color: #fff;
+}

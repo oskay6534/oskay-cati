@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oskay Çatı Sistemleri | İstanbul Çatı Tamiri ve İzolasyon Ustası</title>
+    <meta name="description" content="İstanbul'da profesyonel çatı tamiri, izolasyon ve yeni çatı yapımı hizmetleri. 10 yıllık tecrübe ile garantili işçilik. Ücretsiz keşif için hemen arayın!">
+    <meta name="keywords" content="çatı tamiri, istanbul çatı ustası, çatı izolasyon, yeni çatı yapımı, çelik çatı, oskay çatı">
+    <meta name="author" content="Oskay Çatı Sistemleri">
+    <link rel="canonical" href="https://www.oskaycati.com/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.oskaycati.com/">
+    <meta property="og:title" content="Oskay Çatı Sistemleri | İstanbul Çatı Tamiri">
+    <meta property="og:description" content="Profesyonel çatı çözümleri, tamir ve izolasyon hizmetleri.">
+    <meta property="og:image" content="https://www.oskaycati.com/img/9.jpg">
+    
+    <!-- JSON-LD Yapılandırılmış Veri (Google için İşletme Bilgisi) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Oskay Çatı Sistemleri",
+      "image": "https://www.oskaycati.com/img/9.jpg",
+      "@id": "",
+      "url": "https://www.oskaycati.com/",
+      "telephone": "+905433588204",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "İstanbul",
+        "addressLocality": "İstanbul",
+        "addressCountry": "TR"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+        ],
+        "opens": "08:00",
+        "closes": "20:00"
+      }
+    }
+    </script>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Montserrat & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome (İkonlar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Özel CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-bs-spy="scroll" data-bs-target="#mainNav">
+
+    <!-- Navigasyon Çubuğu -->
+    <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-hammer text-warning me-2"></i>Oskay <span class="text-warning">ÇATI</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Anasayfa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Hizmetler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Hakkımızda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projelerimiz</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">İletişim</a></li>
+                    <li class="nav-item admin-only">
+                        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" onclick="loadMessages()">
+                            <i class="fas fa-bell"></i>
+                            <span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-warning" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginNavBtn">Yönetici</a></li>
+                </ul>
+                <a href="tel:+905550000000" class="btn btn-warning ms-lg-3 fw-bold rounded-pill px-4">Hemen Ara</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero (Giriş) Bölümü -->
+    <header id="home" class="hero-section d-flex align-items-center text-white">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container text-center">
+            <h1 class="display-2 fw-bold mb-3 animate-fade-in">Çatınızda <span class="text-warning">Ustalık</span> Konuşsun</h1>
+            <p class="lead mb-5 opacity-75">Oskay Çatı ile estetik görünüm ve maksimum dayanıklılığı bir araya getiriyoruz.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#projects" class="btn btn-warning btn-lg px-5 py-3 fw-bold shadow">Projeleri Gör</a>
+                <a href="#contact" class="btn btn-outline-light btn-lg px-5 py-3 fw-bold">İletişime Geç</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hizmetler Bölümü -->
+    <section id="services" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Neler Yapıyoruz?</h2>
+                <div class="divider mx-auto"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card service-card h-100 border-0 shadow-sm p-4 text-center">
+                        <div class="icon-circle mb-4 mx-auto"><i class="fas fa-tools fa-2x text-warning"></i></div>
+                        <h4>Çatı Tamiri</h4>
+                        <p class="text-muted">Sızıntı ve hasarları profesyonel ekipmanlarla kalıcı olarak çözüyoruz.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100 border-0 shadow-sm p-4 text-center">
+                        <div class="icon-circle mb-4 mx-auto"><i class="fas fa-shield-virus fa-2x text-warning"></i></div>
+                        <h4>İzolasyon</h4>
+                        <p class="text-muted">Isı ve su yalıtımı ile evinizin konforunu artırıp enerji tasarrufu sağlıyoruz.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100 border-0 shadow-sm p-4 text-center">
+                        <div class="icon-circle mb-4 mx-auto"><i class="fas fa-home fa-2x text-warning"></i></div>
+                        <h4>Yeni Çatı Yapımı</h4>
+                        <p class="text-muted">Modern mimariye uygun, estetik ve uzun ömürlü çatılar inşa ediyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hakkımızda Bölümü -->
+    <section id="about" class="py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="position-relative about-carousel-container">
+                        <!-- Hakkımızda Slider -->
+                        <div id="aboutCarousel" class="carousel slide carousel-fade shadow-lg rounded-4 overflow-hidden" data-bs-ride="carousel">
+                            <div class="carousel-inner" id="aboutCarouselInner">
+                                <!-- Veriler API'den gelecek -->
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Geri</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">İleri</span>
+                            </button>
+                        </div>
+                        <div class="experience-badge bg-warning text-dark p-4 rounded-4 shadow position-absolute bottom-0 start-0 translate-middle-x d-none d-md-block" style="margin-left: 50px; margin-bottom: -30px;">
+                            <h2 class="fw-bold mb-0">10+</h2>
+                            <p class="mb-0 fw-bold">Yıllık Tecrübe</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 ps-lg-5">
+                    <h6 class="text-warning fw-bold text-uppercase">Hakkımızda</h6>
+                    <h2 class="display-5 fw-bold mb-4">Güvenilir Çatı Çözümlerinin Adresi</h2>
+                    <p class="text-muted mb-4">Oskay Çatı olarak, çatı yapımı, onarımı ve izolasyonu konularında uzmanlaşmış kadromuzla yıllardır İstanbul ve çevresinde hizmet vermekteyiz. Her projeye kendi evimiz gibi yaklaşıyor, en kaliteli malzemeleri en titiz işçilikle birleştiriyoruz.</p>
+                    <div class="row g-4 mb-4">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-award text-warning fa-2x me-3"></i>
+                                <span class="fw-bold">Garantili İşçilik</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-clock text-warning fa-2x me-3"></i>
+                                <span class="fw-bold">Hızlı Teslimat</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-dark btn-lg px-4 py-2 rounded-pill fw-bold">Daha Fazla Bilgi</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projelerimiz (Oskay Klasörü) -->
+    <section id="projects" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Tamamlanan Projelerimiz</h2>
+                
+                <div class="divider mx-auto"></div>
+            </div>
+
+            <!-- Hakkımızda Slider Yönetimi (Sadece Admin) -->
+            <div class="admin-only mb-4 p-4 bg-light rounded shadow-sm border-warning border-start border-5">
+                <h4 class="fw-bold mb-3"><i class="fas fa-images me-2"></i>Hakkımızda Slider Yönetimi</h4>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6"><input type="text" id="newAboutImg" class="form-control" placeholder="Resim Yolu (Örn: img/8.jpg)"></div>
+                    <div class="col-md-3"><input type="number" id="newAboutOrder" class="form-control" placeholder="Sıra (Örn: 1)"></div>
+                    <div class="col-md-3"><button onclick="addAboutImage()" class="btn btn-success w-100 fw-bold">Slider'a Ekle</button></div>
+                </div>
+                <div id="aboutImagesAdminList" class="row g-2">
+                    <!-- Mevcut slider resimleri burada listelenecek -->
+                </div>
+            </div>
+
+            <!-- Proje Ekleme Formu (Sadece Admin) -->
+            <div class="admin-only mb-5 p-4 bg-light rounded shadow-sm">
+                <h4 class="fw-bold mb-3">Yeni Proje Ekle</h4>
+                <div class="row g-3">
+                    <div class="col-md-4"><input type="text" id="newProjTitle" class="form-control" placeholder="Başlık"></div>
+                    <div class="col-md-3"><input type="text" id="newProjType" class="form-control" placeholder="Tür"></div>
+                    <div class="col-md-3"><input type="text" id="newProjImg" class="form-control" placeholder="Resim Yolu (Örn: img/1.jpg)"></div> <!-- BURASI: Adminin resim yolunu yazdığı kutu -->
+                    <div class="col-md-2"><button onclick="addProject()" class="btn btn-success w-100 fw-bold">Ekle</button></div>
+                </div>
+            </div>
+
+            <div class="row g-4" id="projectsContainer">
+                <!-- Veriler API'den gelecek -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Bildirim Paneli (Offcanvas) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel" aria-labelledby="notificationPanelLabel">
+        <div class="offcanvas-header bg-dark text-white">
+            <h5 class="offcanvas-title fw-bold" id="notificationPanelLabel"><i class="fas fa-envelope-open-text me-2"></i>Gelen Mesajlar</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body bg-light">
+            <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active fw-bold" id="pills-new-tab" data-bs-toggle="pill" data-bs-target="#pills-new" type="button" role="tab">Yeni</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link fw-bold" id="pills-read-tab" data-bs-toggle="pill" data-bs-target="#pills-read" type="button" role="tab">Okunmuş</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-new" role="tabpanel"></div>
+                <div class="tab-pane fade" id="pills-read" role="tabpanel"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mesaj Detay Modalı -->
+    <div class="modal fade" id="messageDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-envelope-open me-2"></i>Mesaj Detayı</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="messageDetailBody">
+                    <!-- Detaylar buraya gelecek -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Giriş Modalı -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title fw-bold">Yönetici Girişi</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="password" id="adminPassword" class="form-control" placeholder="Şifre">
+                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <button onclick="login()" class="btn btn-warning w-100 fw-bold">Giriş Yap</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resim Görüntüleme Modalı -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content bg-transparent border-0" data-bs-dismiss="modal" style="cursor: zoom-out;">
+                <div class="modal-body p-0 text-center position-relative">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 1055;"></button>
+                    <img src="" id="modalImage" class="img-fluid rounded shadow-lg" style="max-height: 90vh;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- İletişim Bölümü -->
+    <footer id="contact" class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4">Bize Ulaşın</h2>
+                    <p class="opacity-75 mb-4">Ücretsiz keşif ve fiyat teklifi için formu doldurabilir veya bizi doğrudan arayabilirsiniz.</p>
+                    <div class="contact-info">
+                        <div class="dropend mb-3">
+                            <span class="dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                                <i class="fas fa-phone text-warning me-3"></i> +90 543 358 82 04
+                            </span>
+                            <ul class="dropdown-menu shadow border-warning ms-2">
+                                <li><a class="dropdown-item py-2 fw-bold" href="tel:+905433588204"><i class="fas fa-phone me-2 text-primary"></i> Hemen Ara</a></li>
+                                <li><a class="dropdown-item py-2 fw-bold" href="https://wa.me/905433588204" target="_blank"><i class="fab fa-whatsapp me-2 text-success"></i> WhatsApp'tan Yaz</a></li>
+                            </ul>
+                        </div>
+                        <p>
+                            <a href="mailto:Osmanoskay564@gmail.com" class="text-white text-decoration-none"><i class="fas fa-envelope text-warning me-3"></i> Osmanoskay564@gmail.com</a>
+                        </p>
+                         <p><i class="fas fa-map-marker-alt text-warning me-3"></i> İstanbul, Türkiye</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <form id="contactForm" class="bg-white p-4 rounded-4 shadow text-dark" onsubmit="sendMessage(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Adınız Soyadınız</label>
+                            <input type="text" id="msgName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">E-posta</label>
+                            <input type="email" id="msgEmail" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Telefon Numaranız</label>
+                            <input type="tel" id="msgPhone" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Mesajınız</label>
+                            <textarea id="msgText" class="form-control" rows="4" placeholder="Nasıl yardımcı olabiliriz?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 fw-bold py-3">Mesajı Gönder</button>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-5 opacity-25">
+            <div class="text-center opacity-50">
+                <p>&copy; 2026 Oskay Çatı Sistemleri. Tüm Hakları Saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        async function loadAboutImages() {
+            const res = await fetch('api.php?action=about-images');
+            const images = await res.json();
+            const adminRes = await fetch('api.php?action=admin-status');
+            const { isAdmin } = await adminRes.json();
+
+            const loginBtn = document.getElementById('loginNavBtn');
+            if (isAdmin) {
+                document.body.classList.add('admin-logged-in');
+                loginBtn.innerText = "Çıkış Yap";
+                loginBtn.removeAttribute('data-bs-toggle');
+                loginBtn.onclick = logout;
+                loadMessages(); // Admin ise mesajları yükle
+            }
+
+            // Slider'ı doldur
+            const carouselInner = document.getElementById('aboutCarouselInner');
+            carouselInner.innerHTML = images.map((img, index) => `
+                <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                    <img src="${img.img}" class="d-block w-100" alt="Oskay Çatı">
+                </div>
+            `).join('');
+
+            // Admin listesini doldur
+            if (isAdmin) {
+                const adminList = document.getElementById('aboutImagesAdminList');
+                adminList.innerHTML = images.map(img => `
+                    <div class="col-md-3">
+                        <div class="card p-2 position-relative">
+                            <img src="${img.img}" class="img-fluid rounded mb-1" style="height: 60px; object-fit: cover;">
+                            <small class="text-center">Sıra: ${img.sort_order}</small>
+                            <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" onclick="deleteAboutImage(${img.id})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        async function loadProjects() {
+            const res = await fetch('api.php?action=projects');
+            const projects = await res.json();
+            const adminRes = await fetch('api.php?action=admin-status'); // Zaten doğru
+            const { isAdmin } = await adminRes.json();
+
+            const container = document.getElementById('projectsContainer');
+            container.innerHTML = projects.map(proj => `
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card position-relative overflow-hidden rounded-4 shadow" onclick="viewImage('${proj.img}')">
+                        ${isAdmin ? `<button class="btn btn-danger delete-btn admin-only" onclick="event.stopPropagation(); deleteProject(${proj.id})"><i class="fas fa-trash"></i></button>` : ''}
+                        <img src="${proj.img}" class="img-fluid w-100" style="height:300px; object-fit:cover;"> <!-- BURASI: Resmin ekranda gösterildiği etiket -->
+                        <div class="project-overlay d-flex align-items-center justify-content-center">
+                            <div class="text-center text-white p-3">
+                                <h5 class="fw-bold">${proj.title}</h5>
+                                <span class="badge bg-warning text-dark">${proj.type}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewImage(src) {
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = src;
+            new bootstrap.Modal(document.getElementById('imageModal')).show();
+        }
+
+        async function login() {
+            const password = document.getElementById('adminPassword').value;
+            const res = await fetch('api.php?action=login', { // Zaten doğru
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ password })
+            });
+            if(res.ok) location.reload(); else alert('Hatalı şifre!');
+        }
+
+        async function logout() {
+            const res = await fetch('api.php?action=logout', { method: 'POST' }); // Zaten doğru
+            if(res.ok) location.reload();
+        }
+
+        async function addProject() {
+            const title = document.getElementById('newProjTitle').value;
+            const type = document.getElementById('newProjType').value;
+            const img = document.getElementById('newProjImg').value;
+            await fetch('api.php?action=projects', { // Zaten doğru
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ title, type, img })
+            });
+            
+            // Kutuları temizle
+            document.getElementById('newProjTitle').value = '';
+            document.getElementById('newProjType').value = '';
+            document.getElementById('newProjImg').value = '';
+            loadProjects();
+        }
+
+        async function deleteProject(id) {
+            if(confirm('Silmek istediğine emin misin abi?')) {
+                await fetch(`api.php?action=projects&id=${id}`, { method: 'DELETE' }); // Zaten doğru
+                loadProjects();
+            }
+        }
+
+        async function addAboutImage() {
+            const img = document.getElementById('newAboutImg').value;
+            const sort_order = document.getElementById('newAboutOrder').value;
+            
+            if (!img) {
+                alert("Lütfen bir resim yolu girin (Örn: img/8.jpg)");
+                return;
+            }
+
+            const res = await fetch('api.php?action=about-images', { // Zaten doğru
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ img, sort_order })
+            });
+            
+            if (!res.ok) {
+                const data = await res.json();
+                alert("Hata: " + data.error);
+                return;
+            }
+            
+            // Kutuları temizle
+            document.getElementById('newAboutImg').value = '';
+            document.getElementById('newAboutOrder').value = '';
+            loadAboutImages();
+        }
+
+        async function deleteAboutImage(id) {
+            if(confirm('Bu slider resmini silmek istediğine emin misin abi?')) {
+                await fetch(`api.php?action=about-images&id=${id}`, { method: 'DELETE' }); // Zaten doğru
+                loadAboutImages();
+            }
+        }
+
+        // Şifre göster/gizle özelliği
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('adminPassword');
+            const icon = this.querySelector('i');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+
+        async function sendMessage(e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('msgName').value,
+                email: document.getElementById('msgEmail').value,
+                phone: document.getElementById('msgPhone').value,
+                message: document.getElementById('msgText').value
+            };
+
+            const res = await fetch('api.php?action=messages', { // Zaten doğru
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+
+            if(res.ok) {
+                alert('Mesajınız başarıyla iletildi!');
+                document.getElementById('contactForm').reset();
+            }
+        }
+
+        let allMessages = [];
+        async function loadMessages() {
+            const res = await fetch('api.php?action=messages'); // Zaten doğru
+            if (!res.ok) return;
+            allMessages = await res.json();
+            
+            const unreadMessages = allMessages.filter(m => !m.is_read).reverse();
+            const readMessages = allMessages.filter(m => m.is_read).reverse();
+            
+            const badge = document.getElementById('notificationBadge');
+            
+            if (unreadMessages.length > 0) {
+                badge.innerText = unreadMessages.length;
+                badge.classList.remove('d-none');
+            } else {
+                badge.classList.add('d-none');
+            }
+
+            const newPane = document.getElementById('pills-new');
+            const readPane = document.getElementById('pills-read');
+
+            if (newPane && readPane) {
+                newPane.innerHTML = unreadMessages.length > 0 
+                    ? unreadMessages.map(m => renderMessageCard(m)).join('') 
+                    : '<p class="text-muted small text-center mt-4">Yeni mesaj yok.</p>';
+
+                readPane.innerHTML = readMessages.length > 0 
+                    ? readMessages.map(m => renderMessageCard(m)).join('') 
+                    : '<p class="text-muted small text-center mt-4">Okunmuş mesaj yok.</p>';
+            }
+        }
+
+        function renderMessageCard(m) {
+            return `
+                <div class="card mb-3 shadow-sm border-0 ${!m.is_read ? 'border-start border-danger border-4' : ''}" 
+                     onclick="viewMessageDetails(${m.id})" style="cursor: pointer;">
+                    <div class="card-body position-relative">
+                        <div class="position-absolute top-0 end-0 p-2 d-flex gap-1">
+                            ${!m.is_read ? `<button class="btn btn-link text-success p-0 me-2" onclick="event.stopPropagation(); markAsRead(${m.id})" title="Okundu İşaretle"><i class="fas fa-check-circle fa-lg"></i></button>` : ''}
+                            <button class="btn btn-link text-danger p-0" onclick="event.stopPropagation(); deleteMessage(${m.id})" title="Sil"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                        <h6 class="fw-bold mb-1 pe-5">${m.name}</h6>
+                        <p class="small text-muted mb-2"><i class="fas fa-clock me-1"></i>${m.date}</p>
+                        <p class="mb-2 text-truncate" style="font-size: 0.9rem;">${m.message}</p>
+                        <div class="d-flex gap-2">
+                            <a href="tel:${m.phone}" class="btn btn-sm btn-outline-primary" onclick="event.stopPropagation();"><i class="fas fa-phone"></i></a>
+                            <a href="mailto:${m.email}" class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation();"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function viewMessageDetails(id) {
+            const msg = allMessages.find(m => m.id == id);
+            if (!msg) return;
+
+            const body = document.getElementById('messageDetailBody');
+            body.innerHTML = `
+                <div class="mb-3"><strong>Gönderen:</strong> <br> ${msg.name}</div>
+                <div class="mb-3"><strong>Tarih:</strong> <br> ${msg.date}</div>
+                <div class="mb-3"><strong>Telefon:</strong> <br> <a href="tel:${msg.phone}">${msg.phone}</a></div>
+                <div class="mb-3"><strong>E-posta:</strong> <br> <a href="mailto:${msg.email}">${msg.email}</a></div>
+                <div class="mb-0"><strong>Mesaj:</strong> <br> <p class="mt-2 p-3 bg-light rounded border" style="white-space: pre-wrap;">${msg.message}</p></div>
+            `;
+            
+            new bootstrap.Modal(document.getElementById('messageDetailModal')).show();
+        }
+
+        async function deleteMessage(id) {
+            if(confirm('Bu mesajı silmek istediğine emin misin abi?')) {
+                await fetch(`api.php?action=messages&id=${id}`, { method: 'DELETE' }); // Zaten doğru
+                loadMessages();
+            }
+        }
+
+        async function markAsRead(id) {
+            await fetch(`api.php?action=mark-read&id=${id}`, { method: 'POST' }); // Zaten doğru
+            loadMessages();
+        }
+
+        async function markMessagesAsRead() {
+            await fetch('api.php?action=mark-read-all', { method: 'POST' }); // Zaten doğru
+            setTimeout(loadMessages, 500); // Rozeti güncelle
+        }
+
+        loadAboutImages();
+        loadProjects();
+    </script>
+</body>
+</html>
