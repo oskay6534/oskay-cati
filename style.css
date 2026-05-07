@@ -327,36 +327,34 @@ max-width: 100% !important;
 
 /* 1. Ana taşıyıcıyı 450px'e kilitliyoruz */
 .polyester-carousel {
-    height: 450px !important;
-    min-height: 450px !important;
-    max-height: 450px !important;
+    width: 100%;
+    background: #f8f9fa;
+}
+
+.polyester-wrapper {
+    height: 65vh; 
     overflow: hidden;
 }
 
-/* 2. İçindeki tüm katmanları (wrapper, item vb.) 450px olmaya zorluyoruz */
-.polyester-carousel .carousel-inner,
-.polyester-carousel .carousel-item,
-.polyester-wrapper {
-    height: 100% !important;
-    display: block; /* Flex çakışmasını önlemek için */
-}
-
-/* 3. RESMİ ZORLAMA KISMI: Burası çok kritik! */
 .polyester-main-img {
-    width: 100% !important;
-    height: 100% !important; /* Resim kısa olsa bile 450px'e uzatır */
-    object-fit: cover !important; /* Uzatırken resmi yaymaz/bozmaz, sığdırır */
-    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: none !important;
 }
 
-/* 4. Sağdaki Kart (Zaten 450px'di, teyit ediyoruz) */
-.polyester-content-col {
-    height: 430px !important;
-    min-height: 4300px !important;
-    display: flex;
-    align-items: center;
-    padding: 40px !important;
-    background-color: #1a1a1a !important;
+.polyester-control {
+    background: #ffc107 !important;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1 !important;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(1);
 }
 
 .form-control {
