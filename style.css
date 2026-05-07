@@ -330,8 +330,8 @@ max-width: 100% !important;
 .polyester-right-panel, 
 #polyesterCarouselInner,
 #polyesterCarousel .carousel-item {
-    height: 550px !important;
-    min-height: 550px !important;
+    height: 500px !important;
+    min-height: 500px !important;
     overflow: hidden;
 }
 
