@@ -318,7 +318,7 @@ a {
 
 .polyester-gallery-item {
     position: relative;
-    height: 180px;
+    height: 90px;
     overflow: hidden;
     cursor: zoom-in;
     border-radius: 8px;
@@ -685,7 +685,7 @@ body.admin-logged-in li.admin-only {
     }
 
     .polyester-gallery-item {
-        height: 160px;
+        height: 80px;
     }
 
     .admin-panel,
