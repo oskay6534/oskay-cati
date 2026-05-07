@@ -663,10 +663,13 @@
      
 function loadPolyesterGallery() {
     const container = document.getElementById('polyesterCarouselInner');
-    if (!container) return;
+    if (!container) {
+        console.error("Hata: polyesterCarouselInner bulunamadı!");
+        return;
+    }
 
     container.innerHTML = polyesterImages.map((src, index) => `
-        <div class="carousel-item h-100 ${index === 0 ? 'active' : ''}">
+        <div class="carousel-item ${index === 0 ? 'active' : ''}">
             <div class="polyester-wrapper">
                 <img src="${src}" class="d-block w-100 polyester-main-img" alt="Polyester Uygulama">
             </div>
