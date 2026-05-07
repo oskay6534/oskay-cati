@@ -311,9 +311,9 @@ a {
 
 .polyester-carousel {
     position: relative;
-    max-width: 1460px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 54px;
+    padding: 0;
 }
 
 .polyester-gallery-item {
@@ -372,11 +372,11 @@ a {
 }
 
 .polyester-control.carousel-control-prev {
-    left: 0;
+    left: 18px;
 }
 
 .polyester-control.carousel-control-next {
-    right: 0;
+    right: 18px;
 }
 
 .form-control {
@@ -687,7 +687,7 @@ body.admin-logged-in li.admin-only {
     }
 
     .polyester-carousel {
-        padding: 0 42px;
+        padding: 0;
     }
 
     .polyester-gallery-item {
