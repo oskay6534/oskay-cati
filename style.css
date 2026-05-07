@@ -351,8 +351,8 @@ max-width: 100% !important;
 
 /* 4. Sağdaki Kart (Zaten 450px'di, teyit ediyoruz) */
 .polyester-content-col {
-    height: 450px !important;
-    min-height: 450px !important;
+    height: 430px !important;
+    min-height: 4300px !important;
     display: flex;
     align-items: center;
     padding: 40px !important;
