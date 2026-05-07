@@ -327,38 +327,46 @@ max-width: 100% !important;
 
 /* 1. Ana taşıyıcıyı 450px'e kilitliyoruz */
 /* --- Sorunsuz ve Eşit Boyda Polyester CSS --- */
-.polyester-carousel {
-    height: 450px !important;
+/* 1. Tüm sızıntıları sıfırla */
+#polyester-roof .row.g-0, 
+#polyester-roof .col-lg-7, 
+#polyester-roof .col-lg-5 {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 2. Yükseklik Kilidi (550px üzerinden gidiyoruz) */
+#polyester-roof,
+#polyesterCarousel,
+.polyester-right-panel,
+#polyesterCarousel .carousel-item {
+    height: 550px !important;
+    min-height: 550px !important;
     overflow: hidden;
 }
 
-/* Sadece aktif olan ve geçiş yapan resimleri göster */
-.polyester-carousel .carousel-inner {
+/* 3. RESİM BOŞLUĞUNU ÖLDÜREN KRİTİK KOD */
+.polyester-main-img {
+    width: 100% !important;
+    height: 100% !important; /* Kapsayıcısının (550px) tamamını doldur */
+    object-fit: cover !important; 
+    display: block !important; /* Alt taraftaki 4px'lik hayalet boşluğu siler */
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+}
+
+/* 4. Carousel Inner için ekstra güvenlik */
+.carousel-inner {
     height: 100% !important;
 }
 
-.polyester-carousel .carousel-item {
-    height: 450px !important;
-}
-
-.polyester-wrapper {
-    height: 100%;
-    width: 100%;
-}
-
-.polyester-main-img {
-    width: 100%;
-    height: 450px !important; /* Yüksekliği burada sabitledik */
-    object-fit: cover;
-}
-
-/* Sağdaki Kartın Yüksekliği de Eşit Olsun */
-.polyester-content-col {
-    height: 450px !important;
-    display: flex;
+/* 5. Sağdaki kartın padding'ini tekrar verelim (çünkü col'u sıfırladık) */
+.polyester-right-panel {
+    display: flex !important;
     align-items: center;
-    padding: 40px !important;
-    background-color: #1a1a1a !important;
+    padding: 60px !important; /* İçerik için güvenli alan */
 }
 .form-control {
     min-height: 46px;
