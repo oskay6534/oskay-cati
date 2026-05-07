@@ -321,112 +321,100 @@ max-width: 100% !important;
    POLYESTER SECTION - YENİ NESİL YAN YANA TASARIM (SPLIT)
    ========================================================================== */
 
-/* 1. Genel Bölüm Ayarı */
+/*/* ==========================================================================
+   POLYESTER SECTION - DENGELİ VE KİBAR YAN YANA TASARIM
+   ========================================================================== */
+
 .polyester-showcase-section {
     padding: 0 !important;
-    background: #1a1a1a; /* Sağ tarafla bütünleşik dursun */
+    background: #1a1a1a;
     overflow: hidden;
 }
 
-/* 2. Sol Taraf (Carousel) ve Resimlerin Sağdaki Kartla Eşitlenmesi */
-/* Bu kısım resmin yüksekliğini sağdaki yazı kutusuna kelepçeler */
-.polyester-carousel, 
-.polyester-carousel .carousel-inner, 
-.polyester-carousel .carousel-item, 
-.polyester-wrapper {
-    height: 100% !important;
+/* 1. Yüksekliği Burada Kısıtlıyoruz */
+.polyester-carousel {
+    /* Eski 550px-600px yerine daha insancıl bir boy veriyoruz */
+    height: 450px !important; 
+    min-height: 450px !important;
 }
 
-.polyester-carousel {
-    min-height: 550px; /* Mobilde veya az yazı olduğunda çökmemesi için */
+/* Resim ve yazı alanının yüksekliğini kilitliyoruz */
+.polyester-carousel .carousel-inner, 
+.polyester-carousel .carousel-item, 
+.polyester-wrapper,
+.polyester-content-col {
+    height: 450px !important; 
 }
 
 .polyester-main-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Yükseklik değiştikçe resmi bozmadan sığdırır */
-    filter: brightness(0.9);
+    object-fit: cover;
 }
 
-/* 3. Sağ Taraf: Sabit Bilgi Kartı Alanı */
+/* 2. Sağ Taraf: Boşlukları Azaltıyoruz */
 .polyester-content-col {
-    background-color: #1a1a1a !important; /* Koyu modern antrasit */
+    background-color: #1a1a1a !important;
     display: flex;
-    align-items: center; /* İçerik dikeyde tam ortada dursun */
-    padding: 80px 60px !important; /* Yüksekliği bu padding belirler */
+    align-items: center;
+    /* Padding'i 80px'den 40px'e düşürdük, böylece kutu şişmez */
+    padding: 40px !important; 
 }
 
 .polyester-static-card {
     color: #fff;
-    max-width: 500px; /* Yazının çok yayılmaması için */
 }
 
 .vurgu-metni-mini {
-    color: #ffc107; /* Oskay Sarısı */
+    color: #ffc107;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 0.85rem;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
     font-weight: 700;
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
 }
 
 .vurgu-metni-mini::before {
     content: "";
-    width: 30px;
+    width: 25px;
     height: 2px;
     background: #ffc107;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
 .polyester-static-card h2 {
-    font-size: 2.8rem;
+    /* Başlığı biraz küçülttük */
+    font-size: 2.2rem; 
     font-weight: 800;
-    margin: 20px 0;
-    line-height: 1.1;
+    margin-bottom: 15px;
+    line-height: 1.2;
 }
 
 .polyester-static-card p {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.6;
     opacity: 0.8;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
-/* 4. Navigasyon Okları (Sarı ve Belirgin) */
+/* 3. Oklar (Boyutu biraz küçülttük) */
 .polyester-control {
     background: rgba(255, 193, 7, 0.9) !important;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 1 !important;
-    transition: 0.3s;
 }
 
-.polyester-control:hover {
-    background: #ffc107 !important;
-    transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-control-prev-icon, 
-.carousel-control-next-icon {
-    filter: invert(1); /* Ok simgesi siyah olsun */
-    width: 20px;
-}
-
-/* 5. Mobil Uyumluluk */
+/* Mobil Ayarı */
 @media (max-width: 991px) {
-    .polyester-carousel {
-        height: 400px; /* Mobilde resim alanı sabitlensin */
-        min-height: 400px;
-    }
+    .polyester-carousel,
     .polyester-content-col {
-        padding: 50px 30px !important;
-    }
-    .polyester-static-card h2 {
-        font-size: 2.2rem;
+        height: auto !important; /* Mobilde her şey kendi boyuna dönsün */
+        min-height: 350px !important;
     }
 }
 
