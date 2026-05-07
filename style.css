@@ -311,18 +311,18 @@ a {
 
 .polyester-carousel {
     position: relative;
-    max-width: 730px;
+    max-width: 1460px;
     margin: 0 auto;
     padding: 0 54px;
 }
 
 .polyester-gallery-item {
     position: relative;
-    height: 525px;
+    height: 1050px;
     overflow: hidden;
     cursor: zoom-in;
     border-radius: 8px;
-    background: #111;
+    background: var(--paper);
     box-shadow: 0 8px 28px rgba(17, 24, 39, 0.1);
 }
 
@@ -691,7 +691,7 @@ body.admin-logged-in li.admin-only {
     }
 
     .polyester-gallery-item {
-        height: 455px;
+        height: 910px;
     }
 
     .modal-preview-image {
