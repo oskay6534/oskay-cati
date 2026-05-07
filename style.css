@@ -322,49 +322,41 @@ max-width: 100% !important;
    ========================================================================== */
 
 /*/* ==========================================================================
-   POLYESTER GALERİ - TAŞMA VE BÜYÜME SORUNU ÇÖZÜMÜ
+   POLYESTER - SOL RESMİ 450PX BOYUNA ZORLAMA VE SABİTLEME
    ========================================================================== */
 
-/* 1. Ana çerçeve yüksekliğini kilitleyelim (Örn: 450px) */
+/* 1. Ana taşıyıcıyı 450px'e kilitliyoruz */
 .polyester-carousel {
-    height: 450px !important; 
+    height: 450px !important;
     min-height: 450px !important;
-    overflow: hidden; /* Dışarı sarkan her şeyi gizle */
+    max-height: 450px !important;
+    overflow: hidden;
 }
 
-/* 2. Karoselin tüm iç parçalarını aynı boya zorla */
-.polyester-carousel .carousel-inner, 
-.polyester-carousel .carousel-item, 
+/* 2. İçindeki tüm katmanları (wrapper, item vb.) 450px olmaya zorluyoruz */
+.polyester-carousel .carousel-inner,
+.polyester-carousel .carousel-item,
 .polyester-wrapper {
     height: 100% !important;
-    max-height: 450px !important;
-    position: relative;
+    display: block; /* Flex çakışmasını önlemek için */
 }
 
-/* 3. RESİM AYARI (Asıl çözüm burada) */
+/* 3. RESMİ ZORLAMA KISMI: Burası çok kritik! */
 .polyester-main-img {
-    width: 100%;
-    height: 100% !important; /* Yüksekliği babasına (450px) eşitle */
-    object-fit: cover; /* Resmi ezme, sığmayan kısımları kırp (Devleşmeyi engeller) */
+    width: 100% !important;
+    height: 100% !important; /* Resim kısa olsa bile 450px'e uzatır */
+    object-fit: cover !important; /* Uzatırken resmi yaymaz/bozmaz, sığdırır */
     display: block;
 }
 
-/* 4. Sağdaki Kart (Yüksekliği resimle aynı kalsın) */
+/* 4. Sağdaki Kart (Zaten 450px'di, teyit ediyoruz) */
 .polyester-content-col {
-    background-color: #1a1a1a !important;
+    height: 450px !important;
+    min-height: 450px !important;
     display: flex;
     align-items: center;
     padding: 40px !important;
-    height: 450px !important; /* Resimle aynı boyda tutar */
-}
-
-/* 5. Mobilde resim devleşmesin diye ayar */
-@media (max-width: 991px) {
-    .polyester-carousel,
-    .polyester-content-col,
-    .polyester-main-img {
-        height: 350px !important; /* Mobilde biraz daha küçük olsun */
-    }
+    background-color: #1a1a1a !important;
 }
 
 .form-control {
