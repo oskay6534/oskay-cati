@@ -348,7 +348,7 @@ max-width: 100% !important;
 
 .polyester-main-img {
     width: 100%;
-    height: 650px !important; /* Yüksekliği burada sabitledik */
+    height: 450px !important; /* Yüksekliği burada sabitledik */
     object-fit: cover;
 }
 
