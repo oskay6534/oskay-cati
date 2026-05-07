@@ -194,30 +194,42 @@
     </section>
 
     <!-- Polyester Cati Uygulamalari -->
-   <section id="polyester-roof" class="section-pad bg-white">
-    <div class="container mb-5">
-        <div class="section-heading text-center">
-            <div class="d-flex align-items-center justify-content-center mb-2">
-                <div style="width: 40px; height: 2px; background: #ffc107; margin-right: 10px;"></div>
-                <span class="text-warning fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.9rem;">UYGULAMALAR</span>
+  <section id="polyester-roof" class="section-pad bg-white">
+    <div class="container-fluid p-0"> <div class="row g-0 align-items-stretch"> <div class="col-lg-7">
+                <div id="polyesterCarousel" class="carousel slide polyester-carousel h-100" data-bs-ride="false">
+                    <div class="carousel-inner h-100" id="polyesterCarouselInner">
+                        </div>
+                    <button class="carousel-control-prev polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
             </div>
-            <h2 class="display-4 fw-bold text-dark">Polyester Çatı Uygulamalarımız</h2>
-            <p class="lead text-muted mx-auto mt-3" style="max-width: 750px;">
-                Yüksek ışık geçirgenliği ve maksimum dayanıklılık sağlayan profesyonel kaplama çözümlerimizi aşağıdaki galeriden inceleyebilirsiniz.
-            </p>
+
+            <div class="col-lg-5 d-flex align-items-center bg-dark text-white p-5">
+                <div class="polyester-static-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <div style="width: 40px; height: 3px; background: #ffc107; margin-right: 15px;"></div>
+                        <span class="text-warning fw-bold text-uppercase" style="letter-spacing: 2px;">PROJELERİMİZ</span>
+                    </div>
+                    <h2 class="display-5 fw-bold mb-4">Polyester Çatı Çözümleri</h2>
+                    <p class="lead opacity-75 mb-4">
+                        Oskay Çatı güvencesiyle, fabrikalar ve modern yapılar için yüksek dayanımlı polyester kaplama uygulamaları sunuyoruz.
+                    </p>
+                    <ul class="list-unstyled mb-5">
+                        <li class="mb-2"><i class="fas fa-check text-warning me-2"></i> %100 Su Yalıtımı</li>
+                        <li class="mb-2"><i class="fas fa-check text-warning me-2"></i> UV Işınlarına Dayanıklı</li>
+                        <li class="mb-2"><i class="fas fa-check text-warning me-2"></i> Uzun Ömürlü İşçilik</li>
+                    </ul>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="#contact" class="btn btn-warning btn-lg px-4 me-md-2 fw-bold">Teklif Al</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
-
-    <div id="polyesterCarousel" class="carousel slide polyester-carousel" data-bs-ride="false">
-        <div class="carousel-inner" id="polyesterCarouselInner">
-            </div>
-
-        <button class="carousel-control-prev polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
     </div>
 </section>
 
@@ -653,11 +665,10 @@ function loadPolyesterGallery() {
     const container = document.getElementById('polyesterCarouselInner');
     if (!container) return;
 
-    // Sadece tertemiz resimleri basıyoruz
     container.innerHTML = polyesterImages.map((src, index) => `
-        <div class="carousel-item ${index === 0 ? 'active' : ''}">
+        <div class="carousel-item h-100 ${index === 0 ? 'active' : ''}">
             <div class="polyester-wrapper">
-                <img src="${src}" class="d-block w-100 polyester-main-img" alt="Polyester Çatı Uygulaması">
+                <img src="${src}" class="d-block w-100 polyester-main-img" alt="Polyester Uygulama">
             </div>
         </div>
     `).join('');

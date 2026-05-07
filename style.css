@@ -316,37 +316,100 @@ max-width: 100% !important;
     font-weight: 800;
 }
 
-/* Ana Kapsayıcı - Resmin boyunu ayarlar */
-.polyester-wrapper {
-    position: relative;
-    height: 65vh; /* Ekranın %65'i kadar yükseklik, idealdir */
+/* 1. Ana Kapsayıcı Ayarları */
+.polyester-showcase-section {
+    padding: 0 !important;
     overflow: hidden;
-    background: #000;
+    background: #fff;
 }
 
-/* Resim Stili - Tertemiz ve net */
+/* 2. Sol Taraf: Carousel ve Resim Ayarları */
+.polyester-carousel {
+    height: 600px; /* Masaüstü için ideal yükseklik */
+    background: #f8f9fa;
+}
+
+.polyester-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
 .polyester-main-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Resmi ezmeden kutuya doldurur */
-    filter: none; /* Hiçbir karartma veya filtre yok, resim olduğu gibi */
+    object-fit: cover; /* Resmi kutuya tam yayar, yamultmaz */
+    filter: brightness(0.9); /* Resimleri hafifçe daha profesyonel gösterir */
 }
 
-/* Ok Butonları - Sarı ve şık */
+/* 3. Sağ Taraf: Sabit Bilgi Kartı Alanı */
+.polyester-content-col {
+    background-color: #1a1a1a !important; /* Koyu Antrasit Arka Plan */
+    display: flex;
+    align-items: center;
+    padding: 60px !important;
+}
+
+.polyester-static-card {
+    color: #fff;
+}
+
+.vurgu-metni-mini {
+    color: #ffc107;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.polyester-static-card h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin: 20px 0;
+    line-height: 1.2;
+}
+
+.polyester-static-card p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    opacity: 0.8;
+}
+
+/* 4. Navigasyon Okları (Sarı ve Şeffaf) */
 .polyester-control {
-    background: #ffc107 !important;
+    background: rgba(255, 193, 7, 0.9) !important;
     width: 50px;
     height: 50px;
     border-radius: 50%;
     top: 50%;
     transform: translateY(-50%);
     opacity: 1 !important;
+    transition: all 0.3s ease;
 }
 
-/* Okların içindeki ikonları siyah yapar */
+.polyester-control:hover {
+    background: #ffc107 !important;
+    transform: translateY(-50%) scale(1.1);
+}
+
 .carousel-control-prev-icon, 
 .carousel-control-next-icon {
-    filter: invert(1);
+    filter: invert(1); /* Ok simgelerini siyah yapar */
+    width: 20px;
+}
+
+/* 5. Mobil Uyumluluk (Responsive) */
+@media (max-width: 991px) {
+    .polyester-carousel {
+        height: 350px; /* Mobilde resim alanı kısalır */
+    }
+    
+    .polyester-content-col {
+        padding: 40px 20px !important;
+    }
+    
+    .polyester-static-card h2 {
+        font-size: 2rem;
+    }
 }
 
 .form-control {
