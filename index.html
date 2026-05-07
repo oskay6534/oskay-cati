@@ -193,6 +193,29 @@
         </div>
     </section>
 
+    <!-- Polyester Cati Uygulamalari -->
+    <section id="polyester-roof" class="section-pad">
+        <div class="container py-5">
+            <div class="section-heading text-center mb-5">
+                <span class="section-kicker">Uygulamalar</span>
+                <h2 class="display-5 fw-bold">Polyester çatı uygulamaları</h2>
+                <p>Polyester çatı uygulamalarımızdan örnekleri sağ-sol oklarla gezebilir, her görsele tıklayarak detaylı inceleyebilirsiniz.</p>
+            </div>
+
+            <div id="polyesterCarousel" class="carousel slide polyester-carousel" data-bs-ride="false">
+                <div class="carousel-inner" id="polyesterCarouselInner">
+                    <!-- yeni_resimler klasorundeki gorseller JS ile eklenecek -->
+                </div>
+                <button class="carousel-control-prev polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="prev" aria-label="Onceki gorseller">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="next" aria-label="Sonraki gorseller">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Projelerimiz (Oskay Klasörü) -->
     <section id="projects" class="section-pad surface-section">
         <div class="container py-5">
@@ -592,6 +615,58 @@
             new bootstrap.Modal(document.getElementById('imageModal')).show();
         }
 
+        const polyesterImages = [
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08 (1).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08 (2).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08 (3).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08 (4).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08.jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (1).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (2).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (3).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (4).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (5).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (6).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09.jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (1).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (2).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (3).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (4).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (5).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10.jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (1).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (2).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (3).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (4).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (5).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (6).jpeg',
+            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11.jpeg'
+        ];
+
+        function loadPolyesterGallery() {
+            const container = document.getElementById('polyesterCarouselInner');
+            if (!container) return;
+
+            const slides = [];
+            for (let i = 0; i < polyesterImages.length; i += 3) {
+                slides.push(polyesterImages.slice(i, i + 3));
+            }
+
+            container.innerHTML = slides.map((slide, index) => `
+                <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                    <div class="row g-4">
+                        ${slide.map((src, imgIndex) => `
+                            <div class="col-lg-4 col-md-6">
+                                <button type="button" class="polyester-gallery-item border-0 p-0 w-100" onclick='viewImage(${JSON.stringify(src)})' aria-label="Polyester çatı uygulaması ${index * 3 + imgIndex + 1}">
+                                    <img src="${src}" alt="Polyester çatı uygulaması ${index * 3 + imgIndex + 1}" loading="lazy">
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
         async function uploadImage(file, targetInputId, zone) {
             if (!file) return;
             if (!file.type.startsWith('image/')) {
@@ -837,6 +912,7 @@
             setTimeout(loadMessages, 500); // Rozeti güncelle
         }
 
+        loadPolyesterGallery();
         loadAboutImages();
         loadProjects();
         loadSeoSettings();

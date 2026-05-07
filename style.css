@@ -309,6 +309,74 @@ a {
     font-weight: 800;
 }
 
+.polyester-carousel {
+    position: relative;
+    padding: 0 54px;
+}
+
+.polyester-gallery-item {
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+    cursor: zoom-in;
+    border-radius: 8px;
+    background: #111;
+    box-shadow: 0 8px 28px rgba(17, 24, 39, 0.1);
+}
+
+.polyester-gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s ease;
+}
+
+.polyester-gallery-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0) 45%, rgba(17, 24, 39, 0.5) 100%);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.polyester-gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+.polyester-gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.polyester-gallery-item:hover::after {
+    opacity: 1;
+}
+
+.polyester-control {
+    top: 50%;
+    bottom: auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--charcoal);
+    opacity: 1;
+    transform: translateY(-50%);
+}
+
+.polyester-control:hover {
+    background: var(--gold);
+}
+
+.polyester-control.carousel-control-prev {
+    left: 0;
+}
+
+.polyester-control.carousel-control-next {
+    right: 0;
+}
+
 .form-control {
     min-height: 46px;
     border-radius: 8px;
@@ -608,6 +676,14 @@ body.admin-logged-in li.admin-only {
     .project-card img {
         height: 260px !important;
         min-height: 260px;
+    }
+
+    .polyester-carousel {
+        padding: 0 42px;
+    }
+
+    .polyester-gallery-item {
+        height: 240px;
     }
 
     .admin-panel,
