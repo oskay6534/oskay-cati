@@ -635,20 +635,20 @@
             'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11.jpeg'
         ];
 
-        function loadPolyesterGallery() {
-            const container = document.getElementById('polyesterCarouselInner');
+     function loadPolyesterGallery() {
+    const container = document.getElementById('polyesterCarouselInner');
     if (!container) return;
 
     container.innerHTML = polyesterImages.map((src, index) => `
         <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <div class="polyester-wrapper position-relative">
-                <img src="${src}" class="d-block w-100 polyester-main-img" alt="Polyester çatı uygulaması ${index + 1}" loading="lazy">
+            <div class="polyester-wrapper">
+                <img src="${src}" class="polyester-main-img" alt="Polyester Uygulama ${index + 1}">
                 
                 <div class="polyester-info-card">
-                    <span class="vurgu-metni">İşçilik Detayı</span>
-                    <h3 class="fw-bold">Polyester Çatı Uygulaması</h3>
-                    <p>Yüksek ışık geçirgenliği ve maksimum dayanıklılık sağlayan profesyonel kaplama çözümlerimiz.</p>
-                    <div class="info-footer">Oskay Çatı Uygulama Örneği ${index + 1}</div>
+                    <span class="vurgu-metni">İleri Teknoloji</span>
+                    <h3>Polyester Kaplama Uygulamaları</h3>
+                    <p>Çelik ve ahşap yapıların üzerine, UV korumalı ve darbelere dayanıklı panellerle modern çözümler.</p>
+                    <div class="info-footer">Dış ve iç mekan detaylarını keşfedin.</div>
                 </div>
 
                 <button class="expand-btn" onclick='viewImage(${JSON.stringify(src)})'>
@@ -657,7 +657,7 @@
             </div>
         </div>
     `).join('');
-        }
+}
 
         async function uploadImage(file, targetInputId, zone) {
             if (!file) return;
