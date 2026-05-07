@@ -324,85 +324,61 @@ max-width: 100% !important;
 /*/* ==========================================================================
    POLYESTER - SOL RESMİ 450PX BOYUNA ZORLAMA VE SABİTLEME
    ========================================================================== */
-
-/* 1. Ana taşıyıcıyı 450px'e kilitliyoruz */
-/* --- Sorunsuz ve Eşit Boyda Polyester CSS --- */
-/* 1. Tüm sızıntıları sıfırla */
-#polyester-roof .row.g-0, 
-#polyester-roof .col-lg-7, 
-#polyester-roof .col-lg-5 {
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-/* 2. Yükseklik Kilidi (550px üzerinden gidiyoruz) */
-#polyester-roof,
-#polyesterCarousel,
-.polyester-right-panel,
+/* 1. Yükseklik ve Kutu Kilidi */
+#polyester-roof, 
+#polyesterCarousel, 
+.polyester-right-panel, 
+#polyesterCarouselInner,
 #polyesterCarousel .carousel-item {
     height: 550px !important;
     min-height: 550px !important;
     overflow: hidden;
 }
 
-/* 3. RESİM BOŞLUĞUNU ÖLDÜREN KRİTİK KOD */
+/* 2. Resim Boşluğunu Öldüren Ayar */
 .polyester-main-img {
     width: 100% !important;
-    height: 100% !important; /* Kapsayıcısının (550px) tamamını doldur */
-    object-fit: cover !important; 
-    display: block !important; /* Alt taraftaki 4px'lik hayalet boşluğu siler */
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    outline: none !important;
-}
-
-/* 4. Carousel Inner için ekstra güvenlik */
-.carousel-inner {
     height: 100% !important;
-}
-
-/* 5. Sağdaki kartın padding'ini tekrar verelim (çünkü col'u sıfırladık) */
-.polyester-right-panel {
-    display: flex !important;
-    align-items: center;
-    padding: 60px !important; /* İçerik için güvenli alan */
-}
-/* --- POLYESTER BÖLÜMÜ FINAL CSS --- */
-
-/* 1. Yükseklik Kilidi */
-#polyester-roof,
-#polyesterCarousel,
-.polyester-right-panel,
-.carousel-item {
-    height: 550px !important;
-    min-height: 550px !important;
-}
-
-/* 2. Resmin Kapsayıcısı (Boşlukları Sıfırlayan Kısım) */
-.carousel-item {
-    line-height: 0 !important; 
-    font-size: 0 !important;   
-    vertical-align: bottom;
-    overflow: hidden;
-}
-
-/* 3. Resmin Kendisi */
-.polyester-main-img {
-    width: 100% !important;
-    height: 550px !important; 
     object-fit: cover !important;
-    display: block !important; 
+    display: block !important;
     margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
 }
 
-/* 4. Carousel İç Yapısı */
-#polyesterCarouselInner {
-    display: flex; 
-    align-items: stretch;
-    height: 100% !important;
+/* 3. Sağ Taraf Yazı Panelini Dikeyde Ortala */
+.polyester-right-panel {
+    background-color: #1a1a1a !important; /* Koyu Gri/Siyah */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important; /* Yazıları yukarıdan aşağıya TAM ORTALAR */
+    padding-left: 10% !important; /* Yazılara soldan nefes aldırır */
+    padding-right: 10% !important;
+}
+
+/* 4. Butonlar (Görseldeki gibi yuvarlak ve ortada) */
+.polyester-control {
+    background: rgba(255, 193, 7, 0.9) !important;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1 !important;
+    margin: 0 20px;
+    border: none;
+}
+
+.carousel-control-prev-icon, 
+.carousel-control-next-icon {
+    filter: invert(1); /* İkonları siyah yapar */
+    width: 20px;
+}
+
+/* Mobil için esneklik */
+@media (max-width: 991px) {
+    #polyester-roof, .polyester-right-panel, .polyester-main-img {
+        height: auto !important;
+        min-height: 450px !important;
+    }
 }
 .form-control {
     min-height: 46px;
