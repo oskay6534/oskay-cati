@@ -194,27 +194,19 @@
     </section>
 
     <!-- Polyester Cati Uygulamalari -->
-    <section id="polyester-roof" class="section-pad">
-        <div class="container py-5">
-            <div class="section-heading text-center mb-5">
-                <span class="section-kicker">Uygulamalar</span>
-                <h2 class="display-5 fw-bold">Polyester çatı uygulamaları</h2>
-                <p>Polyester çatı uygulamalarımızdan örnekleri sağ-sol oklarla gezebilir, her görsele tıklayarak detaylı inceleyebilirsiniz.</p>
+    <section id="polyester-roof" class="polyester-showcase-section">
+    <div id="polyesterCarousel" class="carousel slide polyester-carousel" data-bs-ride="false">
+        <div class="carousel-inner" id="polyesterCarouselInner">
             </div>
 
-            <div id="polyesterCarousel" class="carousel slide polyester-carousel" data-bs-ride="false">
-                <div class="carousel-inner" id="polyesterCarouselInner">
-                    <!-- yeni_resimler klasorundeki gorseller JS ile eklenecek -->
-                </div>
-                <button class="carousel-control-prev polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="prev" aria-label="Onceki gorseller">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </button>
-                <button class="carousel-control-next polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="next" aria-label="Sonraki gorseller">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </button>
-            </div>
-        </div>
-    </section>
+        <button class="carousel-control-prev polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</section>
 
     <!-- Projelerimiz (Oskay Klasörü) -->
     <section id="projects" class="section-pad surface-section">
@@ -645,15 +637,26 @@
 
         function loadPolyesterGallery() {
             const container = document.getElementById('polyesterCarouselInner');
-            if (!container) return;
+    if (!container) return;
 
-            container.innerHTML = polyesterImages.map((src, index) => `
-                <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                    <button type="button" class="polyester-gallery-item border-0 p-0 w-100" onclick='viewImage(${JSON.stringify(src)})' aria-label="Polyester çatı uygulaması ${index + 1}">
-                        <img src="${src}" alt="Polyester çatı uygulaması ${index + 1}" loading="lazy">
-                    </button>
+    container.innerHTML = polyesterImages.map((src, index) => `
+        <div class="carousel-item ${index === 0 ? 'active' : ''}">
+            <div class="polyester-wrapper position-relative">
+                <img src="${src}" class="d-block w-100 polyester-main-img" alt="Polyester çatı uygulaması ${index + 1}" loading="lazy">
+                
+                <div class="polyester-info-card">
+                    <span class="vurgu-metni">İşçilik Detayı</span>
+                    <h3 class="fw-bold">Polyester Çatı Uygulaması</h3>
+                    <p>Yüksek ışık geçirgenliği ve maksimum dayanıklılık sağlayan profesyonel kaplama çözümlerimiz.</p>
+                    <div class="info-footer">Oskay Çatı Uygulama Örneği ${index + 1}</div>
                 </div>
-            `).join('');
+
+                <button class="expand-btn" onclick='viewImage(${JSON.stringify(src)})'>
+                    <i class="fas fa-search-plus"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
         }
 
         async function uploadImage(file, targetInputId, zone) {

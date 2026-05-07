@@ -316,74 +316,108 @@ max-width: 100% !important;
     font-weight: 800;
 }
 
+/* --- Polyester Section Genel Reset --- */
+.polyester-showcase-section {
+    padding: 0 !important;
+    background: #000;
+    overflow: hidden;
+}
+
 .polyester-carousel {
     position: relative;
-    max-width: 100%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 0;
 }
 
-.polyester-gallery-item {
+/* --- Yeni Resim Çerçevesi (Eski gallery-item yerine) --- */
+.polyester-wrapper {
     position: relative;
-    height: 450px;
+    height: 75vh; /* Ekranın %75'ini kaplar */
+    min-height: 500px;
+    width: 100%;
     overflow: hidden;
-    cursor: zoom-in;
-    border-radius: 8px;
-    background: var(--paper);
-    box-shadow: 0 8px 28px rgba(17, 24, 39, 0.1);
 }
 
-.polyester-gallery-item img {
-    display: block;
+.polyester-main-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.55s ease;
+    filter: brightness(0.7); /* Yazıların okunması için karartma */
+    transition: transform 0.8s ease;
 }
 
-.polyester-gallery-item::after {
-    content: "";
+.polyester-wrapper:hover .polyester-main-img {
+    transform: scale(1.03); /* Hafif bir derinlik hissi */
+}
+
+/* --- Profesyonel Bilgi Kartı (Görseldeki Yapı) --- */
+.polyester-info-card {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(17, 24, 39, 0) 45%, rgba(17, 24, 39, 0.5) 100%);
-    opacity: 0;
-    transition: var(--transition);
+    bottom: 60px;
+    left: 5%;
+    background: rgba(0, 0, 0, 0.85); /* Şeffaf siyah/kahve */
+    color: white;
+    padding: 30px 40px;
+    border-left: 6px solid #ffc107; /* Oskay Sarı Vurgu */
+    max-width: 650px;
+    z-index: 10;
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+    border-radius: 0 8px 8px 0;
 }
 
-.polyester-gallery-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow);
+.vurgu-metni {
+    color: #ffc107;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    display: block;
+    margin-bottom: 10px;
 }
 
-.polyester-gallery-item:hover img {
-    transform: scale(1.05);
+.polyester-info-card h3 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.2;
 }
 
-.polyester-gallery-item:hover::after {
-    opacity: 1;
+.polyester-info-card p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+    line-height: 1.6;
 }
 
+.info-footer {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 15px;
+    font-size: 0.85rem;
+    color: #ffc107;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* --- Ok Butonları (Polyester'e Özel) --- */
 .polyester-control {
-    top: 50%;
-    bottom: auto;
-    width: 42px;
-    height: 42px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 193, 7, 0.8) !important; /* Sarı oklar */
     border-radius: 50%;
-    background: var(--charcoal);
-    opacity: 1;
+    top: 50%;
     transform: translateY(-50%);
+    opacity: 1 !important;
+    transition: 0.3s;
 }
 
 .polyester-control:hover {
-    background: var(--gold);
+    background: #ffc107 !important;
+    transform: translateY(-50%) scale(1.1);
 }
 
-.polyester-control.carousel-control-prev {
-    left: 18px;
-}
-
-.polyester-control.carousel-control-next {
-    right: 18px;
+.polyester-control-prev-icon,
+.polyester-control-next-icon {
+    filter: invert(1); /* Ok ikonlarını siyah yapar (sarı üzerinde daha net) */
 }
 
 .form-control {
