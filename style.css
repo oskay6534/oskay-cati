@@ -577,6 +577,12 @@ body.admin-logged-in li.admin-only {
     box-shadow: var(--shadow);
 }
 
+.modal-preview-image {
+    max-width: 86vw;
+    max-height: 64vh;
+    object-fit: contain;
+}
+
 .modal-head-dark {
     color: #fff;
     background: var(--charcoal);
@@ -686,6 +692,11 @@ body.admin-logged-in li.admin-only {
 
     .polyester-gallery-item {
         height: 80px;
+    }
+
+    .modal-preview-image {
+        max-width: 92vw;
+        max-height: 58vh;
     }
 
     .admin-panel,
