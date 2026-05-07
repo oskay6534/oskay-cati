@@ -828,37 +828,25 @@ function loadPolyesterGallery() {
         }
 
         let allMessages = [];
-        async function loadMessages() {
-            const res = await fetch('api.php?action=messages'); // Zaten doğru
-            if (!res.ok) return;
-            allMessages = await res.json();
-            
-            const unreadMessages = allMessages.filter(m => !m.is_read).reverse();
-            const readMessages = allMessages.filter(m => m.is_read).reverse();
-            
-            const badge = document.getElementById('notificationBadge');
-            
-            if (unreadMessages.length > 0) {
-                badge.innerText = unreadMessages.length;
-                badge.classList.remove('d-none');
-            } else {
-                badge.classList.add('d-none');
-            }
+        function loadPolyesterGallery() {
+    const container = document.getElementById('polyesterCarouselInner');
+    if (!container) return;
 
-            const newPane = document.getElementById('pills-new');
-            const readPane = document.getElementById('pills-read');
+    // Resimleri basarken aradaki boşlukları (new line) yok etmek için .join('') kullanıyoruz
+    container.innerHTML = polyesterImages.map((src, index) => `
+        <div class="carousel-item ${index === 0 ? 'active' : ''}" style="height: 550px;">
+            <img src="${src}" 
+                 class="polyester-main-img" 
+                 alt="Polyester Uygulama" 
+                 style="display: block; width: 100%; height: 550px; object-fit: cover;">
+        </div>
+    `).join(''); // join('') aradaki boşlukları siler
 
-            if (newPane && readPane) {
-                newPane.innerHTML = unreadMessages.length > 0 
-                    ? unreadMessages.map(m => renderMessageCard(m)).join('') 
-                    : '<p class="text-muted small text-center mt-4">Yeni mesaj yok.</p>';
-
-                readPane.innerHTML = readMessages.length > 0 
-                    ? readMessages.map(m => renderMessageCard(m)).join('') 
-                    : '<p class="text-muted small text-center mt-4">Okunmuş mesaj yok.</p>';
-            }
-        }
-
+    // Bootstrap'i yeniden tetikle (Gerekirse)
+    if (window.bootstrap && window.bootstrap.Carousel) {
+        new bootstrap.Carousel(document.getElementById('polyesterCarousel'));
+    }
+}
         function renderMessageCard(m) {
             return `
                 <div class="message-card ${!m.is_read ? 'message-unread' : ''}" onclick="viewMessageDetails(${m.id})">

@@ -368,6 +368,42 @@ max-width: 100% !important;
     align-items: center;
     padding: 60px !important; /* İçerik için güvenli alan */
 }
+/* --- POLYESTER BÖLÜMÜ FINAL CSS --- */
+
+/* 1. Yükseklik Kilidi */
+#polyester-roof,
+#polyesterCarousel,
+.polyester-right-panel,
+.carousel-item {
+    height: 550px !important;
+    min-height: 550px !important;
+}
+
+/* 2. Resmin Kapsayıcısı (Boşlukları Sıfırlayan Kısım) */
+.carousel-item {
+    line-height: 0 !important; 
+    font-size: 0 !important;   
+    vertical-align: bottom;
+    overflow: hidden;
+}
+
+/* 3. Resmin Kendisi */
+.polyester-main-img {
+    width: 100% !important;
+    height: 550px !important; 
+    object-fit: cover !important;
+    display: block !important; 
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* 4. Carousel İç Yapısı */
+#polyesterCarouselInner {
+    display: flex; 
+    align-items: stretch;
+    height: 100% !important;
+}
 .form-control {
     min-height: 46px;
     border-radius: 8px;
