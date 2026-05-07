@@ -143,9 +143,9 @@ a {
 }
 
 .hero-section {
-    min-height: 88vh;
+   width: 100% !important;
     position: relative;
-    overflow: hidden;
+    overflow: hidden !important;;
 }
 
 .hero-bg,
@@ -188,8 +188,11 @@ a {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px;
-    max-width: 620px;
-    margin-top: 46px;
+   /* max-width: 620px;*/
+     margin-top: 46px;
+max-width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
 }
 
 .hero-metrics div {
@@ -244,6 +247,10 @@ a {
 #about .carousel-item img {
     height: 460px;
     object-fit: cover;
+}
+.row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
 }
 
 .experience-badge {
