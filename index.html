@@ -647,22 +647,11 @@
             const container = document.getElementById('polyesterCarouselInner');
             if (!container) return;
 
-            const slides = [];
-            for (let i = 0; i < polyesterImages.length; i += 3) {
-                slides.push(polyesterImages.slice(i, i + 3));
-            }
-
-            container.innerHTML = slides.map((slide, index) => `
+            container.innerHTML = polyesterImages.map((src, index) => `
                 <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                    <div class="row g-4">
-                        ${slide.map((src, imgIndex) => `
-                            <div class="col-lg-4 col-md-6">
-                                <button type="button" class="polyester-gallery-item border-0 p-0 w-100" onclick='viewImage(${JSON.stringify(src)})' aria-label="Polyester çatı uygulaması ${index * 3 + imgIndex + 1}">
-                                    <img src="${src}" alt="Polyester çatı uygulaması ${index * 3 + imgIndex + 1}" loading="lazy">
-                                </button>
-                            </div>
-                        `).join('')}
-                    </div>
+                    <button type="button" class="polyester-gallery-item border-0 p-0 w-100" onclick='viewImage(${JSON.stringify(src)})' aria-label="Polyester çatı uygulaması ${index + 1}">
+                        <img src="${src}" alt="Polyester çatı uygulaması ${index + 1}" loading="lazy">
+                    </button>
                 </div>
             `).join('');
         }
