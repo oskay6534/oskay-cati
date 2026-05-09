@@ -1153,3 +1153,222 @@ body {
     }
 
 }
+
+/* Editorial section composition pass */
+.section-pad > .container,
+#polyester-roof > .container,
+#winter-garden > .container,
+#steel-structure > .container,
+#steel-doors > .container,
+.site-footer > .container {
+    max-width: 1180px;
+}
+
+.section-heading {
+    margin-inline: 0;
+    text-align: left !important;
+}
+
+.section-heading.text-center {
+    text-align: left !important;
+}
+
+.section-heading p {
+    margin-left: 0;
+}
+
+#services .section-heading,
+#projects .section-heading {
+    max-width: 680px;
+}
+
+#services .row {
+    --bs-gutter-x: 1.25rem;
+}
+
+.service-card {
+    padding: 30px !important;
+}
+
+.service-card h4 {
+    margin-bottom: 14px;
+}
+
+.about-section {
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.about-section .row,
+#polyester-roof .row,
+#winter-garden .row,
+#steel-structure .row,
+#steel-doors .row {
+    min-height: 520px;
+    column-gap: clamp(18px, 4vw, 64px);
+}
+
+.about-section .col-lg-6.ps-lg-5,
+.polyester-right-panel,
+#steel-structure .col-lg-5,
+#steel-doors .polyester-right-panel {
+    max-width: 520px;
+}
+
+.about-section .col-lg-6.ps-lg-5 {
+    padding: 34px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(10px);
+}
+
+.about-section .d-flex.align-items-center {
+    padding: 14px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-carousel,
+.polyester-card-wrapper {
+    min-height: 430px;
+}
+
+#about .carousel-item img,
+.polyester-main-img {
+    object-position: center;
+}
+
+#polyester-roof,
+#winter-garden,
+#steel-structure,
+#steel-doors {
+    padding: 72px 0 !important;
+}
+
+#polyester-roof .polyester-card-wrapper,
+#steel-structure .polyester-card-wrapper {
+    transform-origin: left center;
+}
+
+#winter-garden .polyester-card-wrapper,
+#steel-doors .polyester-card-wrapper {
+    transform-origin: right center;
+}
+
+.polyester-right-panel p,
+#steel-structure p,
+#steel-doors p,
+#about p {
+    line-height: 1.72;
+}
+
+#projects {
+    padding-top: 86px;
+}
+
+#projectsContainer {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 22px;
+}
+
+#projectsContainer > [class*="col-"] {
+    width: auto;
+    grid-column: span 4;
+    padding: 0;
+}
+
+#projectsContainer > [class*="col-"]:nth-child(7n + 1),
+#projectsContainer > [class*="col-"]:nth-child(7n + 5) {
+    grid-column: span 6;
+}
+
+#projectsContainer .project-card,
+#projectsContainer .project-card img {
+    height: 340px !important;
+    min-height: 340px;
+}
+
+#projectsContainer > [class*="col-"]:nth-child(7n + 1) .project-card,
+#projectsContainer > [class*="col-"]:nth-child(7n + 1) .project-card img,
+#projectsContainer > [class*="col-"]:nth-child(7n + 5) .project-card,
+#projectsContainer > [class*="col-"]:nth-child(7n + 5) .project-card img {
+    height: 420px !important;
+    min-height: 420px;
+}
+
+.project-overlay .text-white {
+    padding: 28px !important;
+}
+
+.site-footer {
+    margin-top: 0;
+}
+
+@media (max-width: 991px) {
+    .section-heading,
+    .section-heading.text-center {
+        text-align: center !important;
+        margin-inline: auto;
+    }
+
+    .section-heading p {
+        margin-left: auto;
+    }
+
+    .about-section .row,
+    #polyester-roof .row,
+    #winter-garden .row,
+    #steel-structure .row,
+    #steel-doors .row {
+        min-height: auto;
+        column-gap: 0;
+    }
+
+    .about-section .col-lg-6.ps-lg-5,
+    .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel {
+        max-width: none;
+    }
+
+    #projectsContainer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #projectsContainer > [class*="col-"],
+    #projectsContainer > [class*="col-"]:nth-child(7n + 1),
+    #projectsContainer > [class*="col-"]:nth-child(7n + 5) {
+        grid-column: span 1;
+    }
+
+    #projectsContainer .project-card,
+    #projectsContainer .project-card img,
+    #projectsContainer > [class*="col-"]:nth-child(7n + 1) .project-card,
+    #projectsContainer > [class*="col-"]:nth-child(7n + 1) .project-card img,
+    #projectsContainer > [class*="col-"]:nth-child(7n + 5) .project-card,
+    #projectsContainer > [class*="col-"]:nth-child(7n + 5) .project-card img {
+        height: 300px !important;
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .about-section .col-lg-6.ps-lg-5,
+    .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel {
+        padding: 22px !important;
+    }
+
+    #projectsContainer {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    #projectsContainer .project-card,
+    #projectsContainer .project-card img {
+        height: 260px !important;
+        min-height: 260px;
+    }
+}
