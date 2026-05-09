@@ -1142,6 +1142,139 @@ body.admin-logged-in li.admin-only {
     }
 }
 
+/* Typography rhythm refinement */
+.hero-content h1,
+.section-heading h2,
+.about-section h2,
+.polyester-right-panel h2,
+#steel-structure h2,
+#steel-doors h2,
+.site-footer h2 {
+    letter-spacing: -0.01em;
+}
+
+.hero-content h1 {
+    margin-bottom: 24px !important;
+}
+
+.hero-content .lead {
+    margin-bottom: 38px !important;
+}
+
+.section-heading {
+    margin-bottom: 44px !important;
+}
+
+.section-heading .section-kicker,
+.about-section .section-kicker,
+.polyester-right-panel .text-warning,
+#steel-structure .text-warning,
+#steel-doors .text-warning {
+    margin-bottom: 16px;
+}
+
+.section-heading h2 {
+    margin-bottom: 18px;
+}
+
+.section-heading p {
+    line-height: 1.76;
+}
+
+.about-section h2,
+.polyester-right-panel h2,
+#steel-structure h2,
+#steel-doors h2 {
+    margin-bottom: 26px !important;
+}
+
+.about-section p,
+.polyester-right-panel p,
+#steel-structure p,
+#steel-doors p {
+    margin-bottom: 30px !important;
+    max-width: 46ch;
+    font-size: 1.02rem;
+}
+
+.about-section .row.g-4,
+.polyester-right-panel ul,
+#steel-structure ul,
+#steel-doors ul {
+    margin-top: 8px;
+    margin-bottom: 34px !important;
+}
+
+.about-section .d-flex.align-items-center {
+    gap: 4px;
+}
+
+.about-section .d-flex.align-items-center span,
+.polyester-right-panel li,
+#steel-structure li,
+#steel-doors li {
+    font-weight: 700;
+}
+
+.polyester-right-panel li,
+#steel-structure li,
+#steel-doors li {
+    line-height: 1.45;
+}
+
+.polyester-right-panel .btn,
+#steel-structure .btn,
+#steel-doors .btn,
+.about-section .btn {
+    margin-top: 4px;
+}
+
+.service-card h4 {
+    margin-top: 2px;
+    margin-bottom: 16px;
+}
+
+.service-card p {
+    line-height: 1.72;
+}
+
+.project-overlay small {
+    margin-bottom: 10px;
+}
+
+.project-overlay h5 {
+    margin-bottom: 14px;
+    line-height: 1.18;
+}
+
+.contact-info p {
+    margin-bottom: 18px;
+}
+
+.contact-card .mb-3 {
+    margin-bottom: 18px !important;
+}
+
+@media (max-width: 576px) {
+    .section-heading {
+        margin-bottom: 32px !important;
+    }
+
+    .about-section h2,
+    .polyester-right-panel h2,
+    #steel-structure h2,
+    #steel-doors h2 {
+        margin-bottom: 18px !important;
+    }
+
+    .about-section p,
+    .polyester-right-panel p,
+    #steel-structure p,
+    #steel-doors p {
+        margin-bottom: 24px !important;
+    }
+}
+
 /* About as integrated scene */
 .about-section {
     padding: 44px 0 !important;
