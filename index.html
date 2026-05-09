@@ -230,6 +230,7 @@
         </div>
     </div>
 </section>
+<!-- Kış Bahçesi Bölümü -->
 <section id="winter-garden">
     <div class="container">
         <div class="row align-items-center justify-content-between">
@@ -269,6 +270,44 @@
             </div>
 
             
+
+        </div>
+    </div>
+</section>
+<!-- Ağır Çelik Yapı Bölümü -->
+<section id="steel-structure" class="py-5" style="background-color: #1a1a1a;">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <div class="col-lg-5 text-white mb-4 mb-lg-0">
+                <h2 class="fw-bold mb-4">
+                    Ağır Çelik Yapı & <br> <span class="text-warning">Endüstriyel Çözümler</span>
+                </h2>
+                <p class="opacity-75 mb-4">
+                    Geniş açıklıklı fabrika binaları, depo inşaatları ve yüksek mukavemetli çelik konstrüksiyon sistemleri ile ağır sanayi standartlarında mühendislik çözümleri sunuyoruz.
+                </p>
+                <ul class="list-unstyled mb-5">
+                    <li><i class="fas fa-industry text-warning me-3"></i> Fabrika ve Depo Çelik Karkas Sistemleri</li>
+                    <li><i class="fas fa-shield-alt text-warning me-3"></i> Depreme Dayanıklı Taşıyıcı Yapılar</li>
+                    <li><i class="fas fa-tools text-warning me-3"></i> İleri Teknoloji Kaynak ve Montaj İşçiliği</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline-warning btn-lg px-5 py-3 rounded-3">Teklif Alın</a>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="polyester-card-wrapper shadow-lg">
+                    <div id="steelCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="steelCarouselInner">
+                            </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#steelCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#steelCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -596,6 +635,28 @@ async function loadGalleries() {
             console.error("Kış bahçesi hatası:", err); 
         }
     }
+    // 3. AĞIR ÇELİK YAPI GALERİSİ
+const steelContainer = document.getElementById('steelCarouselInner');
+if (steelContainer) {
+    try {
+        const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/celik_konstruksiyon`);
+        const files = await res.json();
+
+        if (Array.isArray(files)) {
+            const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
+            if (images.length > 0) {
+                steelContainer.innerHTML = images.map((file, index) => `
+                    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                        <img src="${file.download_url}" class="polyester-main-img" alt="Ağır Çelik Yapı">
+                    </div>`).join('');
+                
+                if (window.bootstrap && window.bootstrap.Carousel) {
+                    new bootstrap.Carousel(document.getElementById('steelCarousel'), { interval: 3500, ride: 'carousel' });
+                }
+            }
+        }
+    } catch (err) { console.error("Çelik yapılar hatası:", err); }
+}
 }
 
     // --- SEO FONKSİYONLARI ---
