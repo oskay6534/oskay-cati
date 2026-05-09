@@ -187,49 +187,76 @@
         </div>
     </div>
 </section>
- <!-- Polyester Çatı Bölümü -->
-<section id="polyester-roof" class="p-0 bg-white" style="overflow: hidden;">
-    <div class="container-fluid p-0">
-        <div class="row g-0 align-items-stretch">
+ <section id="polyester-roof" class="py-5" style="background-color: #1a1c1e;">
+    <div class="container">
+        <div class="row align-items-center justify-content-between">
             
-            <div class="col-lg-6 p-0">
-                <div id="polyesterCarousel" class="carousel slide h-100" data-bs-ride="false">
-                    <div class="carousel-inner" id="polyesterCarouselInner">
-                        </div>
-                    <button class="carousel-control-prev polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next polyester-control" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="polyester-card-wrapper">
+                    <div id="polyesterCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="polyesterCarouselInner">
+                            </div>
+                        
+                        <button class="carousel-control-prev" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-6 d-flex align-items-center bg-dark text-white p-5 polyester-right-panel">
-                <div class="polyester-static-card w-100">
-                    <div class="d-flex align-items-center mb-3">
-                        <div style="width: 40px; height: 3px; background: #ffc107; margin-right: 15px;"></div>
-                        <span class="text-warning fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.9rem;">PROJELERİMİZ</span>
-                    </div>
-                    
-                    <h2 class="fw-bold mb-4" style="font-size: 3rem; line-height: 1.1;">Polyester Çatı İmalatlarımız</h2>
-                    
-                    <p class="lead opacity-75 mb-4" style="font-size: 1.2rem; line-height: 1.6;">
-                        Oskay Çatı güvencesiyle, fabrikalar ve modern yapılar için yüksek dayanımlı polyester kaplama uygulamaları sunuyoruz.
-                    </p>
-                    
-                    <ul class="list-unstyled mb-5">
-                        <li class="mb-3 d-flex align-items-center"><i class="fas fa-check text-warning me-3"></i> %100 Su Yalıtımı</li>
-                        <li class="mb-3 d-flex align-items-center"><i class="fas fa-check text-warning me-3"></i> UV Işınlarına Dayanıklı</li>
-                        <li class="mb-3 d-flex align-items-center"><i class="fas fa-check text-warning me-3"></i> Uzun Ömürlü İşçilik</li>
-                    </ul>
-                    
-                    <a href="#contact" class="btn btn-warning btn-lg fw-bold px-5 py-3 shadow-sm">Teklif Al</a>
-                </div>
+            <div class="col-lg-5 text-white">
+                <h2 class="fw-bold mb-4" style="font-size: 2.8rem; line-height: 1.2;">
+                    Polyester Çatı <br> <span class="text-warning">İmalatlarımız</span>
+                </h2>
+                
+                <p class="opacity-75 mb-4" style="font-size: 1.1rem; line-height: 1.7;">
+                    Oskay Çatı güvencesiyle, fabrikalar ve modern yapılar için yüksek dayanımlı polyester kaplama uygulamaları sunuyoruz.
+                </p>
+                
+                <ul class="list-unstyled mb-5">
+                    <li class="mb-3 d-flex align-items-center"><i class="fas fa-check text-warning me-3"></i> %100 Su Yalıtımı</li>
+                    <li class="mb-3 d-flex align-items-center"><i class="fas fa-check text-warning me-3"></i> UV Işınlarına Dayanıklı</li>
+                    <li class="mb-3 d-flex align-items-center"><i class="fas fa-check text-warning me-3"></i> Uzun Ömürlü İşçilik</li>
+                </ul>
+                
+                <a href="#contact" class="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-3 shadow">Teklif Al</a>
             </div>
 
         </div>
     </div>
+
+    <style>
+        .polyester-card-wrapper {
+            background: #ffffff; /* Beyaz çerçeve rengi */
+            padding: 12px;       /* Çerçevenin kalınlığı */
+            border-radius: 20px; /* Köşelerin yuvarlaklığı */
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3); /* Derinlik veren gölge */
+        }
+
+        #polyesterCarouselInner {
+            border-radius: 12px; /* İçteki resmin köşeleri */
+            overflow: hidden;
+        }
+
+        /* JS'den gelen resimlerin boyutu */
+        .polyester-main-img {
+            width: 100%;
+            height: 450px !important;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Slider oklarını fotoğraftaki gibi sarı yapmak istersen */
+        .carousel-control-prev-icon, .carousel-control-next-icon {
+            background-color: #c2bfb8;
+            border-radius: 50%;
+            padding: 10px;
+            background-size: 30%;
+        }
+    </style>
 </section>
 
     <!-- Projelerimiz (Oskay Klasörü) -->
