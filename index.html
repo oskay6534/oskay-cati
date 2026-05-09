@@ -187,14 +187,14 @@
         </div>
     </div>
 </section>
- <section id="polyester-roof" style="background-color: #1a1c1e; padding: 50px 0;">
+ <section id="polyester-roof" style="background-color: #1a1c1e; padding: 60px 0;">
     <div class="container">
-        <div class="row align-items-start justify-content-between">
+        <div class="row align-items-stretch justify-content-between">
             
             <div class="col-lg-6 mb-4 mb-lg-0">
-                <div class="polyester-card-wrapper" style="background: #ffffff; padding: 0; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); line-height: 0;">
-                    <div id="polyesterCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner" id="polyesterCarouselInner">
+                <div class="polyester-card-wrapper h-100" style="background: transparent; padding: 0; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex;">
+                    <div id="polyesterCarousel" class="carousel slide w-100" data-bs-ride="carousel" style="height: 100%;">
+                        <div class="carousel-inner h-100" id="polyesterCarouselInner" style="line-height: 0;">
                             </div>
                         
                         <button class="carousel-control-prev" type="button" data-bs-target="#polyesterCarousel" data-bs-slide="prev">
@@ -207,9 +207,9 @@
                 </div>
             </div>
 
-            <div class="col-lg-5 text-white">
-                <div class="pt-0">
-                    <h2 class="fw-bold mb-4" style="font-size: 2.8rem; line-height: 1.1; margin-top: -5px;">
+            <div class="col-lg-5 text-white d-flex flex-column justify-content-center">
+                <div class="polyester-content">
+                    <h2 class="fw-bold mb-4" style="font-size: 2.8rem; line-height: 1.1;">
                         Polyester Çatı <br> <span class="text-warning">İmalatlarımız</span>
                     </h2>
                     
@@ -217,13 +217,15 @@
                         Oskay Çatı güvencesiyle, fabrikalar ve modern yapılar için yüksek dayanımlı polyester kaplama uygulamaları sunuyoruz.
                     </p>
                     
-                    <ul class="list-unstyled mb-4">
+                    <ul class="list-unstyled mb-5">
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check text-warning me-3"></i> %100 Su Yalıtımı</li>
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check text-warning me-3"></i> UV Işınlarına Dayanıklı</li>
                         <li class="mb-3 d-flex align-items-center"><i class="fas fa-check text-warning me-3"></i> Uzun Ömürlü İşçilik</li>
                     </ul>
                     
-                    <a href="#contact" class="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-3 shadow">Teklif Al</a>
+                    <div class="mt-auto">
+                        <a href="#contact" class="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-3 shadow">Teklif Al</a>
+                    </div>
                 </div>
             </div>
 
@@ -231,26 +233,29 @@
     </div>
 
     <style>
-        /* Resmin altındaki o inatçı beyazlığı öldüren büyü: line-height: 0 */
-        .polyester-card-wrapper {
-            line-height: 0 !important;
-            display: block;
-        }
-
+        /* Resmin kutuyu jilet gibi kaplaması için ayarlar */
         .polyester-main-img {
             width: 100%;
-            /* Yüksekliği yazı alanıyla eşitlemek için 400px yaptık (alt kırmızı çizginin yeri) */
-            height: 400px !important; 
+            height: 100% !important; /* Yüksekliği tamamen sağdaki içeriğe göre esnetir */
+            min-height: 450px; /* Çok küçülmemesi için emniyet payı */
             object-fit: cover;
-            display: block;
+            display: block; /* Alt boşluğu öldürür */
+            margin: 0;
+            padding: 0;
             border: none;
         }
 
-        /* Okların yerleşimi */
+        /* Carousel item'ın boyunu resme zorla */
+        .carousel-item {
+            height: 100% !important;
+        }
+
+        /* Okların rengi ve tasarımı */
         .carousel-control-prev-icon, .carousel-control-next-icon {
-            background-color: rgba(255, 193, 7, 0.9);
+            background-color: rgba(21, 67, 184, 0.9); /* İstediğin o mavi buton rengi */
             border-radius: 50%;
-            padding: 18px;
+            padding: 20px;
+            background-size: 50%;
         }
     </style>
 </section>
