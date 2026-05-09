@@ -491,44 +491,52 @@
 
     let allMessages = [];
 
-    // --- DİNAMİK POLYESTER GALERİSİ (GITHUB API) ---
-    async function loadPolyesterGallery() {
-        const container = document.getElementById('polyesterCarouselInner');
-        if (!container) return;
-
+    // --- DİNAMİK GALERİLERİ YÜKLE (GITHUB API) ---
+    async function loadGalleries() {
         const username = 'oskay6534';
         const repo = 'oskay-cati';
-        const folder = 'polyster_resimler'; 
 
-        try {
-            const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${folder}`);
-            if (!res.ok) throw new Error("Klasör okunamadı");
-            
-            const files = await res.json();
-            const images = files.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
+        // 1. POLYESTER GALERİSİ
+        const polyContainer = document.getElementById('polyesterCarouselInner');
+        if (polyContainer) {
+            try {
+                const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/polyster_resimler`);
+                const files = await res.json();
+                const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
 
-            if (images.length === 0) {
-                container.innerHTML = '<div class="p-5 text-center text-muted">Resim bulunamadı.</div>';
-                return;
-            }
+                polyContainer.innerHTML = images.map((file, index) => `
+                    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                        <img src="${file.download_url}" class="polyester-main-img" alt="Polyester Uygulama">
+                    </div>`).join('');
+                
+                // Bootstrap Carousel'i manuel tetikleyelim (Opsiyonel)
+                if (window.bootstrap && window.bootstrap.Carousel) {
+                    new bootstrap.Carousel(document.getElementById('polyesterCarousel'), { interval: 3000, ride: 'carousel' });
+                }
+            } catch (err) { console.error("Polyester hatası:", err); }
+        }
 
-            container.innerHTML = images.map((file, index) => `
-    <div class="carousel-item ${index === 0 ? 'active' : ''}">
-        <img src="${file.download_url}" 
-             class="polyester-main-img" 
-             alt="Oskay Çatı Polyester Uygulama">
-    </div>
-`).join('');
+        // 2. KIŞ BAHÇESİ & MERDİVEN GALERİSİ
+        const winterContainer = document.getElementById('winterGardenCarouselInner');
+        if (winterContainer) {
+            try {
+                // Not: GitHub'da klasör adı 'kısbahceleri_merdiven' ise bunu kullan. 
+                // Eğer hata alırsan klasör adını GitHub'da 'kisbahceleri_merdiven' yapıp burayı da düzelt.
+                const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/kısbahceleri_merdiven`);
+                const files = await res.json();
+                const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
 
-            if (window.bootstrap && window.bootstrap.Carousel) {
-                new bootstrap.Carousel(document.getElementById('polyesterCarousel'), {
-                    interval: 3000,
-                    ride: 'carousel'
-                });
-            }
-        } catch (err) {
-            console.error("Dinamik galeri hatası:", err);
-            container.innerHTML = '<div class="p-5 text-center text-danger">Görseller yüklenemedi.</div>';
+                if (images.length > 0) {
+                    winterContainer.innerHTML = images.map((file, index) => `
+                        <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                            <img src="${file.download_url}" class="polyester-main-img" alt="Kış Bahçesi">
+                        </div>`).join('');
+
+                    if (window.bootstrap && window.bootstrap.Carousel) {
+                        new bootstrap.Carousel(document.getElementById('winterGardenCarousel'), { interval: 3000, ride: 'carousel' });
+                    }
+                }
+            } catch (err) { console.error("Kış bahçesi hatası:", err); }
         }
     }
 
@@ -564,109 +572,78 @@
     }
 
     async function loadSeoSettings(isAdmin = false) {
-        const res = await fetch('api.php?action=seo-settings');
-        if (!res.ok) return;
-        const settings = await res.json();
-        applySeoToHead(settings);
+        try {
+            const res = await fetch('api.php?action=seo-settings');
+            if (!res.ok) return;
+            const settings = await res.json();
+            applySeoToHead(settings);
 
-        if (isAdmin) {
-            Object.entries(seoFields).forEach(([key, id]) => {
-                const input = document.getElementById(id);
-                if (input) input.value = settings[key] || '';
-            });
-        }
-    }
-
-    async function saveSeoSettings() {
-        const state = document.getElementById('seoSaveState');
-        const payload = {};
-        Object.entries(seoFields).forEach(([key, id]) => {
-            payload[key] = document.getElementById(id).value.trim();
-        });
-
-        state.innerText = 'Kaydediliyor...';
-        const res = await fetch('api.php?action=seo-settings', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-            applySeoToHead(payload);
-            state.innerText = 'Kaydedildi';
-            setTimeout(() => state.innerText = '', 2500);
-        }
+            if (isAdmin) {
+                Object.entries(seoFields).forEach(([key, id]) => {
+                    const input = document.getElementById(id);
+                    if (input) input.value = settings[key] || '';
+                });
+            }
+        } catch(e) { console.log("SEO ayarları yüklenemedi."); }
     }
 
     // --- HAKKIMIZDA GÖRSELLERİ ---
     async function loadAboutImages() {
-        const res = await fetch('api.php?action=about-images');
-        const images = await res.json();
-        const adminRes = await fetch('api.php?action=admin-status');
-        const { isAdmin } = await adminRes.json();
+        try {
+            const res = await fetch('api.php?action=about-images');
+            const images = await res.json();
+            const adminRes = await fetch('api.php?action=admin-status');
+            const { isAdmin } = await adminRes.json();
 
-        if (isAdmin) {
-            document.body.classList.add('admin-logged-in');
-            const loginBtn = document.getElementById('loginNavBtn');
-            loginBtn.innerText = "Çıkış Yap";
-            loginBtn.removeAttribute('data-bs-toggle');
-            loginBtn.onclick = logout;
-            loadMessages();
-            loadSeoSettings(true);
-        }
+            if (isAdmin) {
+                document.body.classList.add('admin-logged-in');
+                const loginBtn = document.getElementById('loginNavBtn');
+                if(loginBtn) {
+                    loginBtn.innerText = "Çıkış Yap";
+                    loginBtn.removeAttribute('data-bs-toggle');
+                    loginBtn.onclick = logout;
+                }
+                loadSeoSettings(true);
+            }
 
-        const carouselInner = document.getElementById('aboutCarouselInner');
-        if(carouselInner) {
-            carouselInner.innerHTML = images.map((img, index) => `
-                <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                    <img src="${img.img}" class="d-block w-100" alt="Oskay Çatı">
-                </div>
-            `).join('');
-        }
-
-        if (isAdmin) {
-            const adminList = document.getElementById('aboutImagesAdminList');
-            if(adminList) {
-                adminList.innerHTML = images.map(img => `
-                    <div class="col-md-3 col-sm-6">
-                        <div class="admin-thumb position-relative">
-                            <img src="${img.img}" class="img-fluid" alt="Slider görseli">
-                            <small>Sıra: ${img.sort_order}</small>
-                            <button class="btn btn-danger btn-sm" onclick="deleteAboutImage(${img.id})">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
+            const carouselInner = document.getElementById('aboutCarouselInner');
+            if(carouselInner) {
+                carouselInner.innerHTML = images.map((img, index) => `
+                    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                        <img src="${img.img}" class="d-block w-100" alt="Oskay Çatı">
                     </div>
                 `).join('');
             }
-        }
+        } catch(e) { console.log("Hakkımızda görselleri yüklenemedi."); }
     }
 
     // --- PROJELER ---
     async function loadProjects() {
-        const res = await fetch('api.php?action=projects');
-        const projects = await res.json();
-        const adminRes = await fetch('api.php?action=admin-status');
-        const { isAdmin } = await adminRes.json();
+        try {
+            const res = await fetch('api.php?action=projects');
+            const projects = await res.json();
+            const adminRes = await fetch('api.php?action=admin-status');
+            const { isAdmin } = await adminRes.json();
 
-        const container = document.getElementById('projectsContainer');
-        if(!container) return;
-        
-        container.innerHTML = projects.map(proj => `
-            <div class="col-lg-4 col-md-6">
-                <div class="project-card position-relative overflow-hidden" onclick="viewImage('${proj.img}')">
-                    ${isAdmin ? `<button class="btn btn-danger delete-btn" onclick="event.stopPropagation(); deleteProject(${proj.id})"><i class="fas fa-trash"></i></button>` : ''}
-                    <img src="${proj.img}" class="img-fluid w-100" style="height:300px; object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="text-white p-4">
-                            <small>Oskay Çatı Projesi</small>
-                            <h5 class="fw-bold">${proj.title}</h5>
-                            <span class="project-tag">${proj.type}</span>
+            const container = document.getElementById('projectsContainer');
+            if(!container) return;
+            
+            container.innerHTML = projects.map(proj => `
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card position-relative overflow-hidden" onclick="viewImage('${proj.img}')">
+                        ${isAdmin ? `<button class="btn btn-danger delete-btn" onclick="event.stopPropagation(); deleteProject(${proj.id})"><i class="fas fa-trash"></i></button>` : ''}
+                        <img src="${proj.img}" class="img-fluid w-100" style="height:300px; object-fit:cover;">
+                        <div class="project-overlay">
+                            <div class="text-white p-4">
+                                <small>Oskay Çatı Projesi</small>
+                                <h5 class="fw-bold">${proj.title}</h5>
+                                <span class="project-tag">${proj.type}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        `).join('');
+            `).join('');
+        } catch(e) { console.log("Projeler yüklenemedi."); }
     }
 
     function viewImage(src) {
@@ -678,16 +655,6 @@
     }
 
     // --- ADMIN İŞLEMLERİ ---
-    async function login() {
-        const password = document.getElementById('adminPassword').value;
-        const res = await fetch('api.php?action=login', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ password })
-        });
-        if(res.ok) location.reload(); else alert('Hatalı şifre!');
-    }
-
     async function logout() {
         await fetch('api.php?action=logout', { method: 'POST' });
         location.reload();
@@ -695,7 +662,7 @@
 
     // --- SAYFA YÜKLENDİĞİNDE BAŞLAT ---
     document.addEventListener('DOMContentLoaded', () => {
-        loadPolyesterGallery();
+        loadGalleries(); // Polyester ve Kış Bahçesi beraber yüklenir
         loadAboutImages();
         loadProjects();
         loadSeoSettings();
