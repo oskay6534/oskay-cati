@@ -959,46 +959,6 @@ body {
     opacity: 0.72;
 }
 
-.process-strip {
-    padding: 18px 0 74px;
-    background: linear-gradient(180deg, rgba(9, 19, 32, 0.78), rgba(16, 31, 50, 0.52));
-}
-
-.process-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-}
-
-.process-item {
-    padding: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(12px);
-}
-
-.process-item span {
-    display: inline-flex;
-    margin-bottom: 18px;
-    color: var(--gold);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.86rem;
-}
-
-.process-item strong {
-    display: block;
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.15rem;
-    margin-bottom: 8px;
-}
-
-.process-item p {
-    margin: 0;
-    font-size: 0.92rem;
-}
-
 #polyester-roof .row,
 #winter-garden .row,
 #steel-structure .row,
@@ -1132,11 +1092,48 @@ body {
     color: rgba(238, 245, 255, 0.88) !important;
 }
 
-@media (max-width: 991px) {
-    .process-grid {
-        grid-template-columns: 1fr;
-    }
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(34px);
+    filter: blur(8px);
+    transition:
+        opacity 0.82s ease,
+        transform 0.82s cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 0.82s ease;
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform, filter;
+}
 
+.reveal-on-scroll.reveal-left {
+    transform: translateX(-38px);
+}
+
+.reveal-on-scroll.reveal-right {
+    transform: translateX(38px);
+}
+
+.reveal-on-scroll.reveal-scale {
+    transform: translateY(24px) scale(0.96);
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+    filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll,
+    .polyester-main-img,
+    .carousel-fade .carousel-item {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+    }
+}
+
+@media (max-width: 991px) {
     .polyester-right-panel,
     #steel-structure .col-lg-5,
     #steel-doors .polyester-right-panel {
@@ -1155,7 +1152,4 @@ body {
         padding: 64px 0;
     }
 
-    .process-strip {
-        padding-bottom: 54px;
-    }
 }

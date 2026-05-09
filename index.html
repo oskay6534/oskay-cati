@@ -53,7 +53,7 @@
     <!-- Font Awesome (İkonlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Özel CSS -->
-    <link rel="stylesheet" href="style.css?v=20260510-5">
+    <link rel="stylesheet" href="style.css?v=20260510-6">
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
 
@@ -138,27 +138,6 @@
                         <h4>Yeni Çatı Yapımı</h4>
                         <p class="text-muted">Modern mimariye uygun, estetik ve uzun ömürlü çatılar inşa ediyoruz.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="process-strip" aria-label="Çalışma süreci">
-        <div class="container">
-            <div class="process-grid">
-                <div class="process-item">
-                    <span>01</span>
-                    <strong>Keşif</strong>
-                    <p>İhtiyacı yerinde görüp doğru çözüm ve malzeme planını çıkarıyoruz.</p>
-                </div>
-                <div class="process-item">
-                    <span>02</span>
-                    <strong>Uygulama</strong>
-                    <p>Çatı, izolasyon ve çelik işlerini düzenli ekip takibiyle tamamlıyoruz.</p>
-                </div>
-                <div class="process-item">
-                    <span>03</span>
-                    <strong>Teslim</strong>
-                    <p>İşi temiz, kontrollü ve uzun ömürlü kullanım hedefiyle teslim ediyoruz.</p>
                 </div>
             </div>
         </div>
@@ -867,7 +846,57 @@ if (doorContainer) {
         loadAboutImages();
         loadProjects();
         loadSeoSettings();
+        initScrollAnimations();
     });
+
+    function initScrollAnimations() {
+        const selectors = [
+            '.section-heading',
+            '.service-card',
+            '.about-carousel-container',
+            '#about .col-lg-6.ps-lg-5',
+            '.polyester-card-wrapper',
+            '.polyester-right-panel',
+            '#steel-structure .col-lg-5',
+            '#projectsContainer',
+            '.contact-info',
+            '.contact-card'
+        ];
+
+        const elements = document.querySelectorAll(selectors.join(','));
+        elements.forEach((el, index) => {
+            el.classList.add('reveal-on-scroll');
+            el.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 90}ms`);
+
+            if (el.matches('.polyester-card-wrapper, .about-carousel-container')) {
+                el.classList.add('reveal-left');
+            }
+
+            if (el.matches('.polyester-right-panel, #about .col-lg-6.ps-lg-5, #steel-structure .col-lg-5, .contact-card')) {
+                el.classList.add('reveal-right');
+            }
+
+            if (el.matches('.service-card, #projectsContainer')) {
+                el.classList.add('reveal-scale');
+            }
+        });
+
+        if (!('IntersectionObserver' in window)) {
+            elements.forEach(el => el.classList.add('is-visible'));
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+
+        elements.forEach(el => observer.observe(el));
+    }
 
     // Şifre göster/gizle
     const togglePass = document.getElementById('togglePassword');
