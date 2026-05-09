@@ -879,3 +879,283 @@ body.admin-logged-in li.admin-only {
         margin-left: 0;
     }
 }
+
+/* Premium visual pass */
+body {
+    background:
+        linear-gradient(180deg, rgba(9, 19, 32, 0.96) 0%, rgba(16, 31, 50, 0.96) 28%, rgba(36, 56, 82, 0.94) 62%, rgba(82, 112, 145, 0.9) 100%);
+}
+
+.section-pad {
+    padding: 92px 0;
+}
+
+#mainNav {
+    background: rgba(9, 19, 32, 0.82) !important;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.18);
+}
+
+.hero-section {
+    min-height: 92vh;
+    padding: 96px 0 72px;
+}
+
+.hero-bg {
+    background:
+        linear-gradient(90deg, rgba(7, 14, 24, 0.92) 0%, rgba(12, 23, 38, 0.7) 42%, rgba(12, 23, 38, 0.28) 100%),
+        url('img/9.jpg') center/cover no-repeat;
+    filter: saturate(0.9) contrast(1.08);
+}
+
+.hero-overlay {
+    background:
+        radial-gradient(circle at 18% 32%, rgba(216, 163, 26, 0.18), transparent 28rem),
+        linear-gradient(0deg, rgba(9, 19, 32, 0.95) 0%, rgba(9, 19, 32, 0.18) 46%, rgba(9, 19, 32, 0.1) 100%);
+}
+
+.hero-content {
+    max-width: 860px;
+}
+
+.hero-content h1 {
+    max-width: 840px;
+}
+
+.hero-content .lead {
+    font-size: 1.12rem;
+    line-height: 1.75;
+}
+
+.hero-metrics {
+    max-width: 760px !important;
+}
+
+.hero-metrics div,
+.service-card,
+.contact-card,
+.admin-panel {
+    border-color: rgba(255, 255, 255, 0.16);
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.045)),
+        rgba(9, 19, 32, 0.38);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+}
+
+.service-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 250px;
+}
+
+.service-card::after {
+    content: "";
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 0;
+    height: 3px;
+    border-radius: 999px 999px 0 0;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.72;
+}
+
+.process-strip {
+    padding: 18px 0 74px;
+    background: linear-gradient(180deg, rgba(9, 19, 32, 0.78), rgba(16, 31, 50, 0.52));
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.process-item {
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(12px);
+}
+
+.process-item span {
+    display: inline-flex;
+    margin-bottom: 18px;
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.86rem;
+}
+
+.process-item strong {
+    display: block;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+}
+
+.process-item p {
+    margin: 0;
+    font-size: 0.92rem;
+}
+
+#polyester-roof .row,
+#winter-garden .row,
+#steel-structure .row,
+#steel-doors .row {
+    row-gap: 32px;
+}
+
+.about-section,
+#polyester-roof,
+#winter-garden,
+#steel-structure,
+#steel-doors,
+#projects,
+.site-footer {
+    position: relative;
+}
+
+.about-section::before,
+#polyester-roof::before,
+#winter-garden::before,
+#steel-structure::before,
+#steel-doors::before,
+#projects::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 120px);
+}
+
+.about-section .container,
+#polyester-roof .container,
+#winter-garden .container,
+#steel-structure .container,
+#steel-doors .container,
+#projects .container {
+    position: relative;
+    z-index: 1;
+}
+
+.about-section {
+    background: linear-gradient(180deg, rgba(16, 31, 50, 0.78), rgba(36, 56, 82, 0.58));
+}
+
+.about-carousel,
+.polyester-card-wrapper {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.24);
+}
+
+.polyester-card-wrapper,
+.carousel,
+.carousel-inner,
+.carousel-item {
+    border-radius: 8px;
+}
+
+.carousel-fade .carousel-item {
+    transition: opacity 0.9s ease-in-out;
+}
+
+.polyester-main-img {
+    transform: scale(1.015);
+    transition: transform 4.8s ease, filter 0.4s ease;
+    filter: saturate(0.96) contrast(1.04);
+}
+
+.carousel-item.active .polyester-main-img {
+    transform: scale(1.045);
+}
+
+.polyester-right-panel,
+#steel-structure .col-lg-5,
+#steel-doors .polyester-right-panel {
+    padding: 34px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(10px);
+}
+
+#winter-garden .polyester-right-panel,
+#steel-doors .polyester-right-panel {
+    margin-right: 18px;
+}
+
+#polyester-roof .polyester-right-panel,
+#steel-structure .col-lg-5 {
+    margin-left: 18px;
+}
+
+.polyester-right-panel h2,
+#steel-structure h2,
+#steel-doors h2 {
+    font-size: clamp(2rem, 3vw, 3.2rem);
+    line-height: 1.06;
+}
+
+.polyester-right-panel li i,
+#steel-structure li i,
+#steel-doors li i {
+    width: 24px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(216, 163, 26, 0.92) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.project-card {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    box-shadow: 0 22px 65px rgba(0, 0, 0, 0.2);
+}
+
+.project-overlay {
+    background:
+        linear-gradient(180deg, rgba(8, 12, 20, 0.02) 20%, rgba(8, 12, 20, 0.9) 100%),
+        linear-gradient(90deg, rgba(8, 12, 20, 0.38), transparent 60%);
+}
+
+.site-footer {
+    padding-top: 86px !important;
+}
+
+.contact-info p,
+.contact-info span,
+.contact-info a {
+    color: rgba(238, 245, 255, 0.88) !important;
+}
+
+@media (max-width: 991px) {
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel {
+        padding: 24px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 104px 0 58px;
+    }
+
+    .section-pad {
+        padding: 64px 0;
+    }
+
+    .process-strip {
+        padding-bottom: 54px;
+    }
+}

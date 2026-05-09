@@ -53,7 +53,7 @@
     <!-- Font Awesome (İkonlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Özel CSS -->
-    <link rel="stylesheet" href="style.css?v=20260510-4">
+    <link rel="stylesheet" href="style.css?v=20260510-5">
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
 
@@ -142,6 +142,27 @@
             </div>
         </div>
     </section>
+    <section class="process-strip" aria-label="Çalışma süreci">
+        <div class="container">
+            <div class="process-grid">
+                <div class="process-item">
+                    <span>01</span>
+                    <strong>Keşif</strong>
+                    <p>İhtiyacı yerinde görüp doğru çözüm ve malzeme planını çıkarıyoruz.</p>
+                </div>
+                <div class="process-item">
+                    <span>02</span>
+                    <strong>Uygulama</strong>
+                    <p>Çatı, izolasyon ve çelik işlerini düzenli ekip takibiyle tamamlıyoruz.</p>
+                </div>
+                <div class="process-item">
+                    <span>03</span>
+                    <strong>Teslim</strong>
+                    <p>İşi temiz, kontrollü ve uzun ömürlü kullanım hedefiyle teslim ediyoruz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 <!-- Hakkımızda Bölümü -->
   <section id="about" class="section-pad about-section">
     <div class="container py-5">
@@ -193,7 +214,7 @@
             
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="polyester-card-wrapper">
-                    <div id="polyesterCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="polyesterCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner" id="polyesterCarouselInner">
                             </div>
                         
@@ -255,7 +276,7 @@
             </div>
             
             <div class="col-lg-6 mb-4 mb-lg-0">
-                <div class="polyester-card-wrapper"> <div id="winterGardenCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="polyester-card-wrapper"> <div id="winterGardenCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner" id="winterGardenCarouselInner">
                             </div>
                         
@@ -280,7 +301,7 @@
         <div class="row align-items-center">
               <div class="col-lg-6">
                 <div class="polyester-card-wrapper shadow-lg">
-                    <div id="steelCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="steelCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner" id="steelCarouselInner">
                             </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#steelCarousel" data-bs-slide="prev">
@@ -336,7 +357,7 @@
 
             <div class="col-lg-6">
                 <div class="polyester-card-wrapper shadow-lg">
-                    <div id="doorCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="doorCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner" id="doorCarouselInner">
                             </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#doorCarousel" data-bs-slide="prev">
@@ -635,7 +656,7 @@ async function loadGalleries() {
                     </div>`).join('');
                 
                 if (window.bootstrap && window.bootstrap.Carousel) {
-                    new bootstrap.Carousel(document.getElementById('polyesterCarousel'), { interval: 3000, ride: 'carousel' });
+                    new bootstrap.Carousel(document.getElementById('polyesterCarousel'), { interval: 4200, ride: 'carousel', pause: false });
                 }
             }
         } catch (err) { console.error("Polyester hatası:", err); }
@@ -665,7 +686,7 @@ async function loadGalleries() {
                         </div>`).join('');
 
                     if (window.bootstrap && window.bootstrap.Carousel) {
-                        new bootstrap.Carousel(document.getElementById('winterGardenCarousel'), { interval: 3000, ride: 'carousel' });
+                        new bootstrap.Carousel(document.getElementById('winterGardenCarousel'), { interval: 4600, ride: 'carousel', pause: false });
                     }
                 } else {
                     winterContainer.innerHTML = '<div class="p-4 text-center text-white">Klasörde resim bulunamadı.</div>';
@@ -691,7 +712,7 @@ if (steelContainer) {
                     </div>`).join('');
                 
                 if (window.bootstrap && window.bootstrap.Carousel) {
-                    new bootstrap.Carousel(document.getElementById('steelCarousel'), { interval: 3500, ride: 'carousel' });
+                    new bootstrap.Carousel(document.getElementById('steelCarousel'), { interval: 5000, ride: 'carousel', pause: false });
                 }
             }
         }
@@ -712,7 +733,7 @@ if (doorContainer) {
                     </div>`).join('');
                 
                 if (window.bootstrap && window.bootstrap.Carousel) {
-                    new bootstrap.Carousel(document.getElementById('doorCarousel'), { interval: 4000, ride: 'carousel' });
+                    new bootstrap.Carousel(document.getElementById('doorCarousel'), { interval: 4800, ride: 'carousel', pause: false });
                 }
             }
         }
