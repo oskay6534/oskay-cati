@@ -350,7 +350,9 @@ max-width: 100% !important;
     background-color: transparent !important;
     line-height: 0 !important;
 }
-
+#winter-garden {
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Çok ince, şık bir ayırıcı çizgi atar */
+}
 /* --- 3. RESİM AYARLARI --- */
 .polyester-main-img {
     width: 100% !important;

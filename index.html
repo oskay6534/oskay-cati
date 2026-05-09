@@ -564,7 +564,7 @@
             try {
                 // Not: GitHub'da klasör adı 'kısbahceleri_merdiven' ise bunu kullan. 
                 // Eğer hata alırsan klasör adını GitHub'da 'kisbahceleri_merdiven' yapıp burayı da düzelt.
-                const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/kısbahceleri_merdiven`);
+                const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/kisbahceleri_merdiven`);
                 const files = await res.json();
                 const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
 
