@@ -880,6 +880,190 @@ body.admin-logged-in li.admin-only {
     }
 }
 
+/* Final compact layout tuning */
+.section-pad > .container,
+#polyester-roof > .container,
+#winter-garden > .container,
+#steel-structure > .container,
+#steel-doors > .container,
+.about-section > .container,
+#projects > .container {
+    max-width: 1240px;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.about-section,
+#polyester-roof,
+#winter-garden,
+#steel-structure,
+#steel-doors {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+}
+
+.about-section .row,
+#polyester-roof .row,
+#winter-garden .row,
+#steel-structure .row,
+#steel-doors .row {
+    min-height: 440px !important;
+}
+
+.about-carousel-container,
+.about-carousel,
+#aboutCarousel,
+#aboutCarousel .carousel-inner,
+#aboutCarousel .carousel-item,
+#polyester-roof .polyester-card-wrapper,
+#winter-garden .polyester-card-wrapper,
+#steel-structure .polyester-card-wrapper,
+#steel-doors .polyester-card-wrapper,
+#polyester-roof .carousel,
+#winter-garden .carousel,
+#steel-structure .carousel,
+#steel-doors .carousel,
+#polyester-roof .carousel-inner,
+#winter-garden .carousel-inner,
+#steel-structure .carousel-inner,
+#steel-doors .carousel-inner,
+#polyester-roof .carousel-item,
+#winter-garden .carousel-item,
+#steel-structure .carousel-item,
+#steel-doors .carousel-item {
+    height: 440px !important;
+    min-height: 440px !important;
+}
+
+.about-section .col-lg-6.ps-lg-5,
+#polyester-roof .polyester-right-panel,
+#winter-garden .polyester-right-panel,
+#steel-structure .col-lg-5,
+#steel-doors .polyester-right-panel {
+    min-height: 440px !important;
+    padding: 34px 34px !important;
+}
+
+.about-section .row.g-4 {
+    row-gap: 10px !important;
+    margin-top: 0 !important;
+    margin-bottom: 24px !important;
+}
+
+.about-section .d-flex.align-items-center {
+    padding: 8px 0;
+    gap: 0;
+}
+
+.about-section .d-flex.align-items-center i {
+    font-size: 1.55rem !important;
+}
+
+#projects > .container {
+    max-width: 1240px;
+}
+
+#projectsContainer {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 22px !important;
+}
+
+#projectsContainer > [class*="col-"],
+#projectsContainer > [class*="col-"]:nth-child(7n + 1),
+#projectsContainer > [class*="col-"]:nth-child(7n + 5) {
+    width: auto !important;
+    max-width: none !important;
+    grid-column: auto !important;
+    padding: 0 !important;
+}
+
+#projectsContainer .project-card,
+#projectsContainer .project-card img,
+#projectsContainer > [class*="col-"]:nth-child(7n + 1) .project-card,
+#projectsContainer > [class*="col-"]:nth-child(7n + 1) .project-card img,
+#projectsContainer > [class*="col-"]:nth-child(7n + 5) .project-card,
+#projectsContainer > [class*="col-"]:nth-child(7n + 5) .project-card img {
+    width: 100% !important;
+    height: 300px !important;
+    min-height: 300px !important;
+}
+
+#projectsContainer .project-card img {
+    object-fit: cover;
+}
+
+@media (max-width: 991px) {
+    .about-section .row,
+    #polyester-roof .row,
+    #winter-garden .row,
+    #steel-structure .row,
+    #steel-doors .row {
+        min-height: auto !important;
+    }
+
+    .about-carousel-container,
+    .about-carousel,
+    #aboutCarousel,
+    #aboutCarousel .carousel-inner,
+    #aboutCarousel .carousel-item,
+    #polyester-roof .polyester-card-wrapper,
+    #winter-garden .polyester-card-wrapper,
+    #steel-structure .polyester-card-wrapper,
+    #steel-doors .polyester-card-wrapper,
+    #polyester-roof .carousel,
+    #winter-garden .carousel,
+    #steel-structure .carousel,
+    #steel-doors .carousel,
+    #polyester-roof .carousel-inner,
+    #winter-garden .carousel-inner,
+    #steel-structure .carousel-inner,
+    #steel-doors .carousel-inner,
+    #polyester-roof .carousel-item,
+    #winter-garden .carousel-item,
+    #steel-structure .carousel-item,
+    #steel-doors .carousel-item {
+        height: 320px !important;
+        min-height: 320px !important;
+    }
+
+    .about-section .col-lg-6.ps-lg-5,
+    #polyester-roof .polyester-right-panel,
+    #winter-garden .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel {
+        min-height: auto !important;
+        padding: 24px !important;
+    }
+
+    #projectsContainer {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-pad > .container,
+    #polyester-roof > .container,
+    #winter-garden > .container,
+    #steel-structure > .container,
+    #steel-doors > .container,
+    .about-section > .container,
+    #projects > .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    #projectsContainer {
+        grid-template-columns: 1fr !important;
+    }
+
+    #projectsContainer .project-card,
+    #projectsContainer .project-card img {
+        height: 250px !important;
+        min-height: 250px !important;
+    }
+}
+
 /* Integrated showcase scenes */
 #polyester-roof,
 #winter-garden,
