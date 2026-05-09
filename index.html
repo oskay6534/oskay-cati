@@ -479,120 +479,165 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const seoFields = {
-            meta_title: 'seoMetaTitle',
-            meta_description: 'seoMetaDescription',
-            meta_keywords: 'seoMetaKeywords',
-            og_title: 'seoOgTitle',
-            og_description: 'seoOgDescription',
-            og_image: 'seoOgImage',
-            canonical_url: 'seoCanonicalUrl'
-        };
+<script>
+    // --- GENEL AYARLAR VE DEĞİŞKENLER ---
+    const seoFields = {
+        meta_title: 'seoMetaTitle',
+        meta_description: 'seoMetaDescription',
+        meta_keywords: 'seoMetaKeywords',
+        og_title: 'seoOgTitle',
+        og_description: 'seoOgDescription',
+        og_image: 'seoOgImage',
+        canonical_url: 'seoCanonicalUrl'
+    };
 
-        function upsertMeta(selector, attr, value) {
-            let tag = document.head.querySelector(selector);
-            if (!tag) {
-                tag = document.createElement('meta');
-                const match = selector.match(/\[(name|property)="([^"]+)"\]/);
-                if (match) tag.setAttribute(match[1], match[2]);
-                document.head.appendChild(tag);
-            }
-            tag.setAttribute(attr, value || '');
-        }
+    let allMessages = [];
 
-        function applySeoToHead(settings) {
-            if (!settings) return;
-            document.title = settings.meta_title || document.title;
-            upsertMeta('meta[name="description"]', 'content', settings.meta_description);
-            upsertMeta('meta[name="keywords"]', 'content', settings.meta_keywords);
-            upsertMeta('meta[property="og:title"]', 'content', settings.og_title || settings.meta_title);
-            upsertMeta('meta[property="og:description"]', 'content', settings.og_description || settings.meta_description);
-            upsertMeta('meta[property="og:image"]', 'content', settings.og_image);
-            upsertMeta('meta[property="og:url"]', 'content', settings.canonical_url);
+    // --- DİNAMİK POLYESTER GALERİSİ (GITHUB API) ---
+    async function loadPolyesterGallery() {
+        const container = document.getElementById('polyesterCarouselInner');
+        if (!container) return;
 
-            let canonical = document.head.querySelector('link[rel="canonical"]');
-            if (!canonical) {
-                canonical = document.createElement('link');
-                canonical.setAttribute('rel', 'canonical');
-                document.head.appendChild(canonical);
-            }
-            canonical.setAttribute('href', settings.canonical_url || 'https://www.oskaycati.com/');
-        }
+        const username = 'oskay6534';
+        const repo = 'oskay-cati';
+        const folder = 'polyster_resimler'; 
 
-        async function loadSeoSettings(isAdmin = false) {
-            const res = await fetch('api.php?action=seo-settings');
-            if (!res.ok) return;
-            const settings = await res.json();
-            applySeoToHead(settings);
+        try {
+            const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${folder}`);
+            if (!res.ok) throw new Error("Klasör okunamadı");
+            
+            const files = await res.json();
+            const images = files.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
 
-            if (isAdmin) {
-                Object.entries(seoFields).forEach(([key, id]) => {
-                    const input = document.getElementById(id);
-                    if (input) input.value = settings[key] || '';
-                });
-            }
-        }
-
-        async function saveSeoSettings() {
-            const state = document.getElementById('seoSaveState');
-            const payload = {};
-            Object.entries(seoFields).forEach(([key, id]) => {
-                payload[key] = document.getElementById(id).value.trim();
-            });
-
-            state.innerText = 'Kaydediliyor...';
-            const res = await fetch('api.php?action=seo-settings', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-
-            const data = await res.json();
-            if (!res.ok) {
-                state.innerText = '';
-                alert(data.error || 'SEO ayarları kaydedilemedi.');
+            if (images.length === 0) {
+                container.innerHTML = '<div class="p-5 text-center text-muted">Resim bulunamadı.</div>';
                 return;
             }
 
+            container.innerHTML = images.map((file, index) => `
+                <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                    <div class="polyester-wrapper">
+                        <img src="${file.download_url}" 
+                             class="d-block w-100 polyester-main-img" 
+                             alt="Oskay Çatı Polyester Uygulama" 
+                             style="display: block; width: 100%; height: 550px; object-fit: cover;">
+                    </div>
+                </div>
+            `).join('');
+
+            if (window.bootstrap && window.bootstrap.Carousel) {
+                new bootstrap.Carousel(document.getElementById('polyesterCarousel'), {
+                    interval: 3000,
+                    ride: 'carousel'
+                });
+            }
+        } catch (err) {
+            console.error("Dinamik galeri hatası:", err);
+            container.innerHTML = '<div class="p-5 text-center text-danger">Görseller yüklenemedi.</div>';
+        }
+    }
+
+    // --- SEO FONKSİYONLARI ---
+    function upsertMeta(selector, attr, value) {
+        let tag = document.head.querySelector(selector);
+        if (!tag) {
+            tag = document.createElement('meta');
+            const match = selector.match(/\[(name|property)="([^"]+)"\]/);
+            if (match) tag.setAttribute(match[1], match[2]);
+            document.head.appendChild(tag);
+        }
+        tag.setAttribute(attr, value || '');
+    }
+
+    function applySeoToHead(settings) {
+        if (!settings) return;
+        document.title = settings.meta_title || document.title;
+        upsertMeta('meta[name="description"]', 'content', settings.meta_description);
+        upsertMeta('meta[name="keywords"]', 'content', settings.meta_keywords);
+        upsertMeta('meta[property="og:title"]', 'content', settings.og_title || settings.meta_title);
+        upsertMeta('meta[property="og:description"]', 'content', settings.og_description || settings.meta_description);
+        upsertMeta('meta[property="og:image"]', 'content', settings.og_image);
+        upsertMeta('meta[property="og:url"]', 'content', settings.canonical_url);
+
+        let canonical = document.head.querySelector('link[rel="canonical"]');
+        if (!canonical) {
+            canonical = document.createElement('link');
+            canonical.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonical);
+        }
+        canonical.setAttribute('href', settings.canonical_url || 'https://www.oskaycati.com/');
+    }
+
+    async function loadSeoSettings(isAdmin = false) {
+        const res = await fetch('api.php?action=seo-settings');
+        if (!res.ok) return;
+        const settings = await res.json();
+        applySeoToHead(settings);
+
+        if (isAdmin) {
+            Object.entries(seoFields).forEach(([key, id]) => {
+                const input = document.getElementById(id);
+                if (input) input.value = settings[key] || '';
+            });
+        }
+    }
+
+    async function saveSeoSettings() {
+        const state = document.getElementById('seoSaveState');
+        const payload = {};
+        Object.entries(seoFields).forEach(([key, id]) => {
+            payload[key] = document.getElementById(id).value.trim();
+        });
+
+        state.innerText = 'Kaydediliyor...';
+        const res = await fetch('api.php?action=seo-settings', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
             applySeoToHead(payload);
             state.innerText = 'Kaydedildi';
             setTimeout(() => state.innerText = '', 2500);
         }
+    }
 
-        async function loadAboutImages() {
-            const res = await fetch('api.php?action=about-images');
-            const images = await res.json();
-            const adminRes = await fetch('api.php?action=admin-status');
-            const { isAdmin } = await adminRes.json();
+    // --- HAKKIMIZDA GÖRSELLERİ ---
+    async function loadAboutImages() {
+        const res = await fetch('api.php?action=about-images');
+        const images = await res.json();
+        const adminRes = await fetch('api.php?action=admin-status');
+        const { isAdmin } = await adminRes.json();
 
+        if (isAdmin) {
+            document.body.classList.add('admin-logged-in');
             const loginBtn = document.getElementById('loginNavBtn');
-            if (isAdmin) {
-                document.body.classList.add('admin-logged-in');
-                loginBtn.innerText = "Çıkış Yap";
-                loginBtn.removeAttribute('data-bs-toggle');
-                loginBtn.onclick = logout;
-                loadMessages(); // Admin ise mesajları yükle
-                loadSeoSettings(true);
-            }
+            loginBtn.innerText = "Çıkış Yap";
+            loginBtn.removeAttribute('data-bs-toggle');
+            loginBtn.onclick = logout;
+            loadMessages();
+            loadSeoSettings(true);
+        }
 
-            // Slider'ı doldur
-            const carouselInner = document.getElementById('aboutCarouselInner');
+        const carouselInner = document.getElementById('aboutCarouselInner');
+        if(carouselInner) {
             carouselInner.innerHTML = images.map((img, index) => `
                 <div class="carousel-item ${index === 0 ? 'active' : ''}">
                     <img src="${img.img}" class="d-block w-100" alt="Oskay Çatı">
                 </div>
             `).join('');
+        }
 
-            // Admin listesini doldur
-            if (isAdmin) {
-                const adminList = document.getElementById('aboutImagesAdminList');
+        if (isAdmin) {
+            const adminList = document.getElementById('aboutImagesAdminList');
+            if(adminList) {
                 adminList.innerHTML = images.map(img => `
                     <div class="col-md-3 col-sm-6">
                         <div class="admin-thumb position-relative">
                             <img src="${img.img}" class="img-fluid" alt="Slider görseli">
                             <small>Sıra: ${img.sort_order}</small>
-                            <button class="btn btn-danger btn-sm" onclick="deleteAboutImage(${img.id})" title="Sil">
+                            <button class="btn btn-danger btn-sm" onclick="deleteAboutImage(${img.id})">
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
@@ -600,319 +645,82 @@
                 `).join('');
             }
         }
+    }
 
-        async function loadProjects() {
-            const res = await fetch('api.php?action=projects');
-            const projects = await res.json();
-            const adminRes = await fetch('api.php?action=admin-status'); // Zaten doğru
-            const { isAdmin } = await adminRes.json();
+    // --- PROJELER ---
+    async function loadProjects() {
+        const res = await fetch('api.php?action=projects');
+        const projects = await res.json();
+        const adminRes = await fetch('api.php?action=admin-status');
+        const { isAdmin } = await adminRes.json();
 
-            const container = document.getElementById('projectsContainer');
-            container.innerHTML = projects.map(proj => `
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card position-relative overflow-hidden" onclick="viewImage('${proj.img}')">
-                        ${isAdmin ? `<button class="btn btn-danger delete-btn admin-only" onclick="event.stopPropagation(); deleteProject(${proj.id})"><i class="fas fa-trash"></i></button>` : ''}
-                        <img src="${proj.img}" class="img-fluid w-100" alt="${proj.title}" style="height:300px; object-fit:cover;"> <!-- BURASI: Resmin ekranda gösterildiği etiket -->
-                        <div class="project-overlay">
-                            <div class="text-white p-4">
-                                <small>Oskay Çatı Projesi</small>
-                                <h5 class="fw-bold">${proj.title}</h5>
-                                <span class="project-tag">${proj.type}</span>
-                            </div>
+        const container = document.getElementById('projectsContainer');
+        if(!container) return;
+        
+        container.innerHTML = projects.map(proj => `
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card position-relative overflow-hidden" onclick="viewImage('${proj.img}')">
+                    ${isAdmin ? `<button class="btn btn-danger delete-btn" onclick="event.stopPropagation(); deleteProject(${proj.id})"><i class="fas fa-trash"></i></button>` : ''}
+                    <img src="${proj.img}" class="img-fluid w-100" style="height:300px; object-fit:cover;">
+                    <div class="project-overlay">
+                        <div class="text-white p-4">
+                            <small>Oskay Çatı Projesi</small>
+                            <h5 class="fw-bold">${proj.title}</h5>
+                            <span class="project-tag">${proj.type}</span>
                         </div>
                     </div>
                 </div>
-            `).join('');
-        }
+            </div>
+        `).join('');
+    }
 
-        function viewImage(src) {
-            const modalImg = document.getElementById('modalImage');
+    function viewImage(src) {
+        const modalImg = document.getElementById('modalImage');
+        if(modalImg) {
             modalImg.src = src;
             new bootstrap.Modal(document.getElementById('imageModal')).show();
         }
-
-        const polyesterImages = [
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08 (1).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08 (2).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08 (3).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08 (4).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.08.jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (1).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (2).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (3).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (4).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (5).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09 (6).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.09.jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (1).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (2).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (3).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (4).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10 (5).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.10.jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (1).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (2).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (3).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (4).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (5).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11 (6).jpeg',
-            'yeni_resimler/WhatsApp Image 2026-05-07 at 19.59.11.jpeg'
-        ];
-
-     
-function loadPolyesterGallery() {
-    const container = document.getElementById('polyesterCarouselInner');
-    if (!container) {
-        console.error("Hata: polyesterCarouselInner bulunamadı!");
-        return;
     }
 
-    container.innerHTML = polyesterImages.map((src, index) => `
-        <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <div class="polyester-wrapper">
-                <img src="${src}" class="d-block w-100 polyester-main-img" alt="Polyester Uygulama">
-            </div>
-        </div>
-    `).join('');
-}
-
-        async function uploadImage(file, targetInputId, zone) {
-            if (!file) return;
-            if (!file.type.startsWith('image/')) {
-                alert('Lütfen sadece görsel dosyası seçin.');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('image', file);
-            zone.classList.add('uploading');
-
-            try {
-                const res = await fetch('api.php?action=upload-image', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    alert(data.error || 'Görsel yüklenemedi.');
-                    return;
-                }
-                const imagePath = zone.dataset.absoluteUrl === 'true'
-                    ? new URL(data.path, window.location.origin).href
-                    : data.path;
-                document.getElementById(targetInputId).value = imagePath;
-                zone.classList.add('uploaded');
-                zone.querySelector('span').innerText = imagePath;
-            } catch (err) {
-                alert('Görsel yükleme sırasında hata oluştu.');
-            } finally {
-                zone.classList.remove('uploading');
-            }
-        }
-
-        document.querySelectorAll('.upload-zone').forEach(zone => {
-            const input = zone.querySelector('.image-upload-input');
-            const targetInputId = zone.dataset.target;
-            zone.addEventListener('click', event => {
-                if (event.target.tagName !== 'INPUT') input.click();
-            });
-            input.addEventListener('change', () => uploadImage(input.files[0], targetInputId, zone));
-            zone.addEventListener('dragover', event => {
-                event.preventDefault();
-                zone.classList.add('drag-over');
-            });
-            zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
-            zone.addEventListener('drop', event => {
-                event.preventDefault();
-                zone.classList.remove('drag-over');
-                uploadImage(event.dataTransfer.files[0], targetInputId, zone);
-            });
+    // --- ADMIN İŞLEMLERİ ---
+    async function login() {
+        const password = document.getElementById('adminPassword').value;
+        const res = await fetch('api.php?action=login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ password })
         });
-
-        async function login() {
-            const password = document.getElementById('adminPassword').value;
-            const res = await fetch('api.php?action=login', { // Zaten doğru
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ password })
-            });
-            if(res.ok) location.reload(); else alert('Hatalı şifre!');
-        }
-
-        async function logout() {
-            const res = await fetch('api.php?action=logout', { method: 'POST' }); // Zaten doğru
-            if(res.ok) location.reload();
-        }
-
-        async function addProject() {
-            const title = document.getElementById('newProjTitle').value;
-            const type = document.getElementById('newProjType').value;
-            const img = document.getElementById('newProjImg').value;
-            await fetch('api.php?action=projects', { // Zaten doğru
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ title, type, img })
-            });
-            
-            // Kutuları temizle
-            document.getElementById('newProjTitle').value = '';
-            document.getElementById('newProjType').value = '';
-            document.getElementById('newProjImg').value = '';
-            loadProjects();
-        }
-
-        async function deleteProject(id) {
-            if(confirm('Bu projeyi silmek istediğinize emin misiniz?')) {
-                await fetch(`api.php?action=projects&id=${id}`, { method: 'DELETE' }); // Zaten doğru
-                loadProjects();
-            }
-        }
-
-        async function addAboutImage() {
-            const img = document.getElementById('newAboutImg').value;
-            const sort_order = document.getElementById('newAboutOrder').value;
-            
-            if (!img) {
-                alert("Lütfen bir resim yolu girin (Örn: img/8.jpg)");
-                return;
-            }
-
-            const res = await fetch('api.php?action=about-images', { // Zaten doğru
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ img, sort_order })
-            });
-            
-            if (!res.ok) {
-                const data = await res.json();
-                alert("Hata: " + data.error);
-                return;
-            }
-            
-            // Kutuları temizle
-            document.getElementById('newAboutImg').value = '';
-            document.getElementById('newAboutOrder').value = '';
-            loadAboutImages();
-        }
-
-        async function deleteAboutImage(id) {
-            if(confirm('Bu slider görselini silmek istediğinize emin misiniz?')) {
-                await fetch(`api.php?action=about-images&id=${id}`, { method: 'DELETE' }); // Zaten doğru
-                loadAboutImages();
-            }
-        }
-
-        // Şifre göster/gizle özelliği
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('adminPassword');
-            const icon = this.querySelector('i');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.replace('fa-eye', 'fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.replace('fa-eye-slash', 'fa-eye');
-            }
-        });
-
-        async function sendMessage(e) {
-            e.preventDefault();
-            const data = {
-                name: document.getElementById('msgName').value,
-                email: document.getElementById('msgEmail').value,
-                phone: document.getElementById('msgPhone').value,
-                message: document.getElementById('msgText').value
-            };
-
-            const res = await fetch('api.php?action=messages', { // Zaten doğru
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-
-            if(res.ok) {
-                alert('Mesajınız başarıyla iletildi!');
-                document.getElementById('contactForm').reset();
-            }
-        }
-
-        let allMessages = [];
-        function loadPolyesterGallery() {
-    const container = document.getElementById('polyesterCarouselInner');
-    if (!container) return;
-
-    // Resimleri basarken aradaki boşlukları (new line) yok etmek için .join('') kullanıyoruz
-    container.innerHTML = polyesterImages.map((src, index) => `
-        <div class="carousel-item ${index === 0 ? 'active' : ''}" style="height: 550px;">
-            <img src="${src}" 
-                 class="polyester-main-img" 
-                 alt="Polyester Uygulama" 
-                 style="display: block; width: 100%; height: 550px; object-fit: cover;">
-        </div>
-    `).join(''); // join('') aradaki boşlukları siler
-
-    // Bootstrap'i yeniden tetikle (Gerekirse)
-    if (window.bootstrap && window.bootstrap.Carousel) {
-        new bootstrap.Carousel(document.getElementById('polyesterCarousel'));
+        if(res.ok) location.reload(); else alert('Hatalı şifre!');
     }
-}
-        function renderMessageCard(m) {
-            return `
-                <div class="message-card ${!m.is_read ? 'message-unread' : ''}" onclick="viewMessageDetails(${m.id})">
-                    <div class="card-body position-relative">
-                        <div class="position-absolute top-0 end-0 p-2 d-flex gap-1">
-                            ${!m.is_read ? `<button class="btn btn-link text-success p-0 me-2" onclick="event.stopPropagation(); markAsRead(${m.id})" title="Okundu İşaretle"><i class="fas fa-check-circle fa-lg"></i></button>` : ''}
-                            <button class="btn btn-link text-danger p-0" onclick="event.stopPropagation(); deleteMessage(${m.id})" title="Sil"><i class="fas fa-trash-alt"></i></button>
-                        </div>
-                        <h6 class="fw-bold mb-1 pe-5">${m.name}</h6>
-                        <p class="small text-muted mb-2"><i class="fas fa-clock me-1"></i>${m.date}</p>
-                        <p class="mb-2 text-truncate" style="font-size: 0.9rem;">${m.message}</p>
-                        <div class="d-flex gap-2">
-                            <a href="tel:${m.phone}" class="btn btn-sm btn-outline-primary" onclick="event.stopPropagation();" title="Ara"><i class="fas fa-phone"></i></a>
-                            <a href="mailto:${m.email}" class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation();" title="E-posta"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
 
-        function viewMessageDetails(id) {
-            const msg = allMessages.find(m => m.id == id);
-            if (!msg) return;
+    async function logout() {
+        await fetch('api.php?action=logout', { method: 'POST' });
+        location.reload();
+    }
 
-            const body = document.getElementById('messageDetailBody');
-            body.innerHTML = `
-                <div class="mb-3"><strong>Gönderen:</strong> <br> ${msg.name}</div>
-                <div class="mb-3"><strong>Tarih:</strong> <br> ${msg.date}</div>
-                <div class="mb-3"><strong>Telefon:</strong> <br> <a href="tel:${msg.phone}">${msg.phone}</a></div>
-                <div class="mb-3"><strong>E-posta:</strong> <br> <a href="mailto:${msg.email}">${msg.email}</a></div>
-                <div class="mb-0"><strong>Mesaj:</strong> <br> <p class="mt-2 p-3 bg-light rounded border" style="white-space: pre-wrap;">${msg.message}</p></div>
-            `;
-            
-            new bootstrap.Modal(document.getElementById('messageDetailModal')).show();
-        }
-
-        async function deleteMessage(id) {
-            if(confirm('Bu mesajı silmek istediğinize emin misiniz?')) {
-                await fetch(`api.php?action=messages&id=${id}`, { method: 'DELETE' }); // Zaten doğru
-                loadMessages();
-            }
-        }
-
-        async function markAsRead(id) {
-            await fetch(`api.php?action=mark-read&id=${id}`, { method: 'POST' }); // Zaten doğru
-            loadMessages();
-        }
-
-        async function markMessagesAsRead() {
-            await fetch('api.php?action=mark-read-all', { method: 'POST' }); // Zaten doğru
-            setTimeout(loadMessages, 500); // Rozeti güncelle
-        }
-
+    // --- SAYFA YÜKLENDİĞİNDE BAŞLAT ---
+    document.addEventListener('DOMContentLoaded', () => {
         loadPolyesterGallery();
         loadAboutImages();
         loadProjects();
         loadSeoSettings();
-    </script>
+    });
+
+    // Şifre göster/gizle
+    const togglePass = document.getElementById('togglePassword');
+    if(togglePass) {
+        togglePass.addEventListener('click', function() {
+            const passInput = document.getElementById('adminPassword');
+            const icon = this.querySelector('i');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passInput.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+    }
+</script>
 </body>
 </html>
