@@ -534,38 +534,48 @@
     let allMessages = [];
 
     // --- DİNAMİK GALERİLERİ YÜKLE (GITHUB API) ---
-    async function loadGalleries() {
-        const username = 'oskay6534';
-        const repo = 'oskay-cati';
+   // --- DİNAMİK GALERİLERİ YÜKLE (GITHUB API) ---
+async function loadGalleries() {
+    const username = 'oskay6534';
+    const repo = 'oskay-cati';
 
-        // 1. POLYESTER GALERİSİ
-        const polyContainer = document.getElementById('polyesterCarouselInner');
-        if (polyContainer) {
-            try {
-                const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/polyster_resimler`);
-                const files = await res.json();
+    // 1. POLYESTER GALERİSİ
+    const polyContainer = document.getElementById('polyesterCarouselInner');
+    if (polyContainer) {
+        try {
+            const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/polyster_resimler`);
+            const files = await res.json();
+            
+            // Yanıtın dizi olup olmadığını kontrol et
+            if (Array.isArray(files)) {
                 const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
-
                 polyContainer.innerHTML = images.map((file, index) => `
                     <div class="carousel-item ${index === 0 ? 'active' : ''}">
                         <img src="${file.download_url}" class="polyester-main-img" alt="Polyester Uygulama">
                     </div>`).join('');
                 
-                // Bootstrap Carousel'i manuel tetikleyelim (Opsiyonel)
                 if (window.bootstrap && window.bootstrap.Carousel) {
                     new bootstrap.Carousel(document.getElementById('polyesterCarousel'), { interval: 3000, ride: 'carousel' });
                 }
-            } catch (err) { console.error("Polyester hatası:", err); }
-        }
+            }
+        } catch (err) { console.error("Polyester hatası:", err); }
+    }
 
-        // 2. KIŞ BAHÇESİ & MERDİVEN GALERİSİ
-        const winterContainer = document.getElementById('winterGardenCarouselInner');
-        if (winterContainer) {
-            try {
-                // Not: GitHub'da klasör adı 'kısbahceleri_merdiven' ise bunu kullan. 
-                // Eğer hata alırsan klasör adını GitHub'da 'kisbahceleri_merdiven' yapıp burayı da düzelt.
-                const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/kisbahceleri_merdiven`);
-                const files = await res.json();
+    // 2. KIŞ BAHÇESİ & MERDİVEN GALERİSİ
+    const winterContainer = document.getElementById('winterGardenCarouselInner');
+    if (winterContainer) {
+        try {
+            // Klasör adın: kisbahceleri_merdiven (Küçük harf ve noktasız i)
+            const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/kisbahceleri_merdiven`);
+            
+            if (!res.ok) {
+                console.error("Kış bahçesi klasörü GitHub'da bulunamadı!");
+                return;
+            }
+
+            const files = await res.json();
+
+            if (Array.isArray(files)) {
                 const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
 
                 if (images.length > 0) {
@@ -577,10 +587,15 @@
                     if (window.bootstrap && window.bootstrap.Carousel) {
                         new bootstrap.Carousel(document.getElementById('winterGardenCarousel'), { interval: 3000, ride: 'carousel' });
                     }
+                } else {
+                    winterContainer.innerHTML = '<div class="p-4 text-center text-white">Klasörde resim bulunamadı.</div>';
                 }
-            } catch (err) { console.error("Kış bahçesi hatası:", err); }
+            }
+        } catch (err) { 
+            console.error("Kış bahçesi hatası:", err); 
         }
     }
+}
 
     // --- SEO FONKSİYONLARI ---
     function upsertMeta(selector, attr, value) {
