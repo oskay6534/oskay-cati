@@ -41,6 +41,20 @@ h4,
     font-family: 'Montserrat', sans-serif;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #f8fbff;
+}
+
+p,
+li {
+    color: rgba(238, 245, 255, 0.78);
+}
+
 a {
     transition: var(--transition);
 }
@@ -58,10 +72,11 @@ a {
     align-items: center;
     gap: 8px;
     margin-bottom: 12px;
-    color: var(--gold);
+    color: #f3c54d;
     font-size: 0.78rem;
     font-weight: 800;
     text-transform: uppercase;
+    text-shadow: 0 1px 16px rgba(216, 163, 26, 0.28);
 }
 
 .section-kicker::before {
@@ -85,6 +100,7 @@ a {
 .section-heading h2,
 #about h2 {
     color: #fff;
+    text-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
 }
 
 #about.bg-light {
@@ -97,7 +113,7 @@ a {
 
 #mainNav {
     padding: 14px 0;
-    background: rgba(17, 24, 39, 0.92) !important;
+    background: rgba(13, 27, 42, 0.86) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(16px);
 }
@@ -194,6 +210,7 @@ a {
 
 .hero-content h1 {
     line-height: 1.02;
+    text-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
 }
 
 .hero-content .lead {
@@ -236,8 +253,15 @@ max-width: 100% !important;
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 8px;
     color: #eef5ff;
-    background: var(--site-bg);
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04)),
+        rgba(13, 27, 42, 0.32);
+    backdrop-filter: blur(14px);
     box-shadow: 0 8px 30px rgba(8, 12, 20, 0.16);
+}
+
+.service-card h4 {
+    color: #fff;
 }
 
 .service-card .text-muted {
@@ -257,8 +281,9 @@ max-width: 100% !important;
     justify-content: center;
     border-radius: 8px;
     color: var(--charcoal);
-    background: var(--gold-soft);
+    background: linear-gradient(135deg, #ffe08a, var(--gold));
     font-size: 1.35rem;
+    box-shadow: 0 14px 34px rgba(216, 163, 26, 0.22);
 }
 
 .about-carousel {
@@ -285,12 +310,47 @@ max-width: 100% !important;
     box-shadow: var(--shadow);
 }
 
+.polyester-right-panel h2,
+#steel-structure h2,
+#steel-doors h2,
+.site-footer h2 {
+    color: #fff;
+    text-shadow: 0 14px 36px rgba(0, 0, 0, 0.24);
+}
+
+.polyester-right-panel p,
+.polyester-right-panel li,
+#steel-structure p,
+#steel-structure li,
+#steel-doors p,
+#steel-doors li {
+    color: rgba(238, 245, 255, 0.78);
+}
+
+.polyester-right-panel ul,
+#steel-structure ul,
+#steel-doors ul {
+    padding-left: 0;
+}
+
+.polyester-right-panel li,
+#steel-structure li,
+#steel-doors li {
+    margin-bottom: 12px;
+    list-style: none;
+}
+
 .project-card {
     min-height: 300px;
     cursor: zoom-in;
     border-radius: 8px;
     background: #111;
     box-shadow: 0 8px 28px rgba(17, 24, 39, 0.1);
+}
+
+.project-overlay h5 {
+    color: #fff;
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.34);
 }
 
 .project-card img {
@@ -444,10 +504,18 @@ max-width: 100% !important;
 .form-control {
     min-height: 46px;
     border-radius: 8px;
-    border-color: var(--line);
+    color: #f8fbff;
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(13, 27, 42, 0.36);
+}
+
+.form-control::placeholder {
+    color: rgba(238, 245, 255, 0.46);
 }
 
 .form-control:focus {
+    color: #fff;
+    background: rgba(13, 27, 42, 0.52);
     border-color: var(--gold);
     box-shadow: 0 0 0 0.22rem rgba(216, 163, 26, 0.18);
 }
@@ -469,8 +537,10 @@ body.admin-logged-in li.admin-only {
     border: 1px solid rgba(216, 163, 26, 0.34);
     border-left: 5px solid var(--gold);
     border-radius: 8px;
-    background: #fffdf6;
-    box-shadow: 0 10px 35px rgba(17, 24, 39, 0.06);
+    color: #eef5ff;
+    background: rgba(13, 27, 42, 0.72);
+    box-shadow: 0 10px 35px rgba(8, 12, 20, 0.2);
+    backdrop-filter: blur(14px);
 }
 
 .admin-panel-title {
@@ -513,12 +583,12 @@ body.admin-logged-in li.admin-only {
 
 .seo-panel {
     background:
-        linear-gradient(135deg, rgba(255, 253, 246, 0.96), rgba(255, 255, 255, 0.98)),
+        linear-gradient(135deg, rgba(13, 27, 42, 0.78), rgba(27, 38, 59, 0.72)),
         radial-gradient(circle at top right, rgba(216, 163, 26, 0.16), transparent 18rem);
 }
 
 .seo-panel .form-label {
-    color: var(--charcoal);
+    color: #f8fbff;
     font-size: 0.88rem;
 }
 
@@ -537,7 +607,8 @@ body.admin-logged-in li.admin-only {
     padding: 16px;
     border: 1.5px dashed rgba(17, 24, 39, 0.24);
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.72);
+    color: #eef5ff;
+    background: rgba(255, 255, 255, 0.08);
     cursor: pointer;
     transition: var(--transition);
 }
@@ -561,7 +632,7 @@ body.admin-logged-in li.admin-only {
 }
 
 .upload-zone span {
-    color: var(--muted);
+    color: rgba(238, 245, 255, 0.68);
     font-size: 0.86rem;
 }
 
@@ -573,7 +644,7 @@ body.admin-logged-in li.admin-only {
 .upload-zone:hover,
 .upload-zone.drag-over {
     border-color: var(--gold);
-    background: #fffaf0;
+    background: rgba(216, 163, 26, 0.12);
     box-shadow: 0 12px 30px rgba(216, 163, 26, 0.12);
 }
 
@@ -657,8 +728,17 @@ body.admin-logged-in li.admin-only {
 .contact-card {
     padding: 28px;
     border-radius: 8px;
-    background: #fff;
-    box-shadow: var(--shadow);
+    color: #eef5ff !important;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05)),
+        rgba(13, 27, 42, 0.42);
+    box-shadow: 0 18px 55px rgba(8, 12, 20, 0.24);
+    backdrop-filter: blur(14px);
+}
+
+.contact-card .form-label {
+    color: #f8fbff;
 }
 
 .contact-info .dropdown-toggle::after {
@@ -671,6 +751,31 @@ body.admin-logged-in li.admin-only {
     overflow: hidden;
     border: 1px solid var(--gold);
     border-radius: 8px;
+}
+
+.text-muted {
+    color: rgba(238, 245, 255, 0.72) !important;
+}
+
+.text-dark {
+    color: #eef5ff !important;
+}
+
+.btn-dark {
+    color: #fff;
+    background: rgba(13, 27, 42, 0.84);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.btn-dark:hover {
+    color: var(--charcoal);
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+.btn-outline-light,
+.btn-outline-warning {
+    backdrop-filter: blur(8px);
 }
 
 .nav-link .badge {
