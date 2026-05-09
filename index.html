@@ -546,7 +546,7 @@ async function loadGalleries() {
             const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/polyster_resimler`);
             const files = await res.json();
             
-            // Yanıtın dizi olup olmadığını kontrol et
+            // Yanıtın dizi olup olmadığını kontrol ets
             if (Array.isArray(files)) {
                 const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
                 polyContainer.innerHTML = images.map((file, index) => `
