@@ -329,7 +329,7 @@ max-width: 100% !important;
 
 /* Section Genel Ayarları */
 #polyester-roof {
-    background-color: #1a1c1e;
+    background-color: #1a1c1e !important;
     padding: 80px 0 !important;
     overflow: hidden;
     display: block;
