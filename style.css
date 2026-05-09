@@ -325,59 +325,106 @@ max-width: 100% !important;
    POLYESTER - SOL RESMİ 450PX BOYUNA ZORLAMA VE SABİTLEME
    ========================================================================== */
 /* 1. Yükseklik ve Kutu Kilidi */
-#polyester-roof, 
-#polyesterCarousel, 
-.polyester-right-panel, 
-#polyesterCarouselInner,
-#polyesterCarousel .carousel-item {
-    height: 500px !important;
-    min-height: 500px !important;
+
+
+/* Section Genel Ayarları */
+#polyester-roof {
+    background-color: #1a1c1e;
+    padding: 80px 0 !important;
     overflow: hidden;
+    display: block;
 }
 
-/* 2. Resim Boşluğunu Öldüren Ayar */
+/* Kutu ve Carousel Kilidi (O mor çizgiyi yok eden kısım) */
+.polyester-card-wrapper,
+#polyesterCarousel,
+#polyesterCarouselInner,
+#polyesterCarousel .carousel-item {
+    height: 450px !important;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: transparent !important;
+    line-height: 0 !important; /* Alt boşluğu öldürür */
+}
+
+/* Resim Ayarları */
 .polyester-main-img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
     display: block !important;
-    margin: 0 !important;
 }
 
-/* 3. Sağ Taraf Yazı Panelini Dikeyde Ortala */
+/* Sağ Panel (Yazıların Hizalanması) */
 .polyester-right-panel {
-    background-color: #1a1a1a !important; /* Koyu Gri/Siyah */
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important; /* Yazıları yukarıdan aşağıya TAM ORTALAR */
-    padding-left: 10% !important; /* Yazılara soldan nefes aldırır */
-    padding-right: 10% !important;
+    justify-content: center !important;
+    height: 450px !important; /* Resimle aynı boyda tutar */
 }
 
-/* 4. Butonlar (Görseldeki gibi yuvarlak ve ortada) */
-.polyester-control {
-    background: rgba(255, 193, 7, 0.9) !important;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 1 !important;
-    margin: 0 20px;
-    border: none;
-}
-
+/* Oklar (Sarı Butonlar) */
 .carousel-control-prev-icon, 
 .carousel-control-next-icon {
-    filter: invert(1); /* İkonları siyah yapar */
-    width: 20px;
+    background-color: #ffc107 !important;
+    border-radius: 50%;
+    padding: 20px;
+    background-size: 40%;
+}
+
+/* MOBİL AYARLAR (Media Query) */
+@media (max-width: 991px) {
+    #polyester-roof { padding: 40px 0 !important; }
+    
+    .polyester-card-wrapper,
+    #polyesterCarousel,
+    #polyesterCarouselInner,
+    #polyesterCarousel .carousel-item {
+        height: 320px !important; /* Mobilde daha kibar */
+        margin-bottom: 25px;
+    }
+    
+    .polyester-right-panel {
+        height: auto !important;
+        text-align: center;
+    }
+    
+    .polyester-right-panel ul li { justify-content: center; }
 }
 
 /* Mobil için esneklik */
-@media (max-width: 991px) {
-    #polyester-roof, .polyester-right-panel, .polyester-main-img {
+@media (max-width: 991.98px) {
+    /* 1. Bölümün dikey yüksekliğini serbest bırak */
+    #polyester-roof {
+        padding: 50px 0 !important;
         height: auto !important;
-        min-height: 450px !important;
+        min-height: auto !important;
+    }
+
+    /* 2. Resim Alanı (Mobilde biraz daha küçük ve kibar olsun) */
+    .polyester-card-wrapper,
+    #polyesterCarousel,
+    #polyesterCarouselInner,
+    #polyesterCarousel .carousel-item {
+        height: 300px !important; /* Mobilde 450 çok fazla, 300 idealdir */
+        min-height: 300px !important;
+        margin-bottom: 30px; /* Alttaki yazılardan uzaklaştırır */
+    }
+
+    /* 3. Sağ Taraf (Yazı Paneli) */
+    .polyester-right-panel {
+        height: auto !important;
+        min-height: auto !important;
+        padding: 0 15px !important; /* Kenarlardan boşluk bırakır */
+        text-align: center; /* Mobilde yazıları ortalamak daha şık durur */
+    }
+
+    .polyester-right-panel h2 {
+        font-size: 2rem !important; /* Başlığı biraz küçültelim taşmasın */
+    }
+
+    .polyester-right-panel ul li {
+        justify-content: center; /* Liste ikonlarını merkeze al */
     }
 }
 .form-control {
