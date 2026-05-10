@@ -184,6 +184,8 @@ a {
     position: relative;
     overflow: hidden !important;;
     background: var(--site-bg);
+    min-height: 690px;
+    padding: 46px 0 40px;
 }
 
 .hero-bg,
@@ -193,7 +195,9 @@ a {
 }
 
 .hero-bg {
-    background: var(--site-bg);
+    background:
+        linear-gradient(90deg, rgba(8, 12, 20, 0.72) 0%, rgba(8, 12, 20, 0.48) 46%, rgba(8, 12, 20, 0.18) 100%),
+        url("img/9.jpg") center 42% / cover no-repeat;
     transform: scale(1.04);
     animation: cinematicSweep 24s ease-in-out infinite alternate;
 }
@@ -228,7 +232,8 @@ a {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px;
    /* max-width: 620px;*/
-     margin-top: 46px;
+     margin-top: 36px;
+    margin-bottom: 0;
 max-width: 100% !important;
     margin-right: 0 !important;
     margin-left: 0 !important;
@@ -826,7 +831,7 @@ body.admin-logged-in li.admin-only {
 
     .hero-section {
         min-height: auto;
-        padding: 120px 0 70px;
+        padding: 120px 0 78px;
     }
 
     .hero-metrics {
