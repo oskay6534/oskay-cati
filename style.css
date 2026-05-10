@@ -913,6 +913,268 @@ body.admin-logged-in li.admin-only {
     }
 }
 
+/* Recovery pass: clean, readable split sections */
+.about-section,
+#polyester-roof,
+#winter-garden,
+#steel-structure,
+#steel-doors {
+    padding-top: 44px !important;
+    padding-bottom: 44px !important;
+}
+
+.about-section > .container,
+#polyester-roof > .container,
+#winter-garden > .container,
+#steel-structure > .container,
+#steel-doors > .container {
+    max-width: 1220px !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+}
+
+.about-section .row,
+#polyester-roof .row,
+#winter-garden .row,
+#steel-structure .row,
+#steel-doors .row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    min-height: 420px !important;
+    height: auto !important;
+    overflow: visible !important;
+    column-gap: 18px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.about-section .row::after,
+#polyester-roof .row::after,
+#winter-garden .row::after,
+#steel-structure .row::after,
+#steel-doors .row::after {
+    display: none !important;
+}
+
+.about-section .col-lg-6:first-child,
+#polyester-roof .col-lg-6,
+#winter-garden .col-lg-6,
+#steel-structure .col-lg-6,
+#steel-doors .col-lg-6 {
+    position: relative !important;
+    flex: 1 1 58% !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 420px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.about-section .col-lg-6.ps-lg-5,
+#polyester-roof .polyester-right-panel,
+#winter-garden .polyester-right-panel,
+#steel-structure .col-lg-5,
+#steel-doors .polyester-right-panel {
+    position: relative !important;
+    flex: 0 0 40% !important;
+    width: 40% !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 420px !important;
+    margin: 0 !important;
+    padding: 30px 34px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035)),
+        rgba(13, 27, 42, 0.34) !important;
+    backdrop-filter: blur(10px);
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    overflow: visible !important;
+    text-align: left !important;
+}
+
+.about-carousel-container,
+.about-carousel,
+#aboutCarousel,
+#aboutCarousel .carousel-inner,
+#aboutCarousel .carousel-item,
+#polyester-roof .polyester-card-wrapper,
+#winter-garden .polyester-card-wrapper,
+#steel-structure .polyester-card-wrapper,
+#steel-doors .polyester-card-wrapper,
+#polyester-roof .carousel,
+#winter-garden .carousel,
+#steel-structure .carousel,
+#steel-doors .carousel,
+#polyester-roof .carousel-inner,
+#winter-garden .carousel-inner,
+#steel-structure .carousel-inner,
+#steel-doors .carousel-inner,
+#polyester-roof .carousel-item,
+#winter-garden .carousel-item,
+#steel-structure .carousel-item,
+#steel-doors .carousel-item {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: 420px !important;
+    min-height: 420px !important;
+    max-height: 420px !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.2) !important;
+}
+
+#about .carousel-item img,
+#polyester-roof .polyester-main-img,
+#winter-garden .polyester-main-img,
+#steel-structure .polyester-main-img,
+#steel-doors .polyester-main-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.about-section h2,
+.polyester-right-panel h2,
+#steel-structure h2,
+#steel-doors h2 {
+    font-size: clamp(1.85rem, 2.6vw, 3rem) !important;
+    line-height: 1.08 !important;
+    margin: 0 0 16px !important;
+}
+
+.about-section p,
+.polyester-right-panel p,
+#steel-structure p,
+#steel-doors p {
+    max-width: 44ch !important;
+    margin-bottom: 18px !important;
+    font-size: 0.98rem !important;
+    line-height: 1.58 !important;
+}
+
+.polyester-right-panel ul,
+#steel-structure ul,
+#steel-doors ul {
+    margin-top: 0 !important;
+    margin-bottom: 18px !important;
+}
+
+.polyester-right-panel li,
+#steel-structure li,
+#steel-doors li {
+    padding: 6px 0 !important;
+    line-height: 1.36 !important;
+}
+
+.about-section .row.g-4.mb-4 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    margin: 0 0 16px !important;
+}
+
+.about-section .row.g-4.mb-4 > [class*="col-"] {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+.about-section .row.g-4.mb-4 .d-flex.align-items-center {
+    min-height: 40px !important;
+    padding: 6px 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-section .row.g-4.mb-4 .d-flex.align-items-center i {
+    width: 30px;
+    margin-right: 10px !important;
+    font-size: 1.45rem !important;
+}
+
+.about-section .experience-badge {
+    left: 18px !important;
+    right: auto !important;
+    bottom: 18px !important;
+    transform: none !important;
+    width: auto !important;
+}
+
+.about-section .carousel-control-prev,
+#polyester-roof .carousel-control-prev,
+#winter-garden .carousel-control-prev,
+#steel-structure .carousel-control-prev,
+#steel-doors .carousel-control-prev {
+    left: 14px !important;
+}
+
+.about-section .carousel-control-next,
+#polyester-roof .carousel-control-next,
+#winter-garden .carousel-control-next,
+#steel-structure .carousel-control-next,
+#steel-doors .carousel-control-next {
+    right: 14px !important;
+}
+
+@media (max-width: 991px) {
+    .about-section .row,
+    #polyester-roof .row,
+    #winter-garden .row,
+    #steel-structure .row,
+    #steel-doors .row {
+        flex-wrap: wrap !important;
+        min-height: 0 !important;
+        row-gap: 18px !important;
+    }
+
+    .about-section .col-lg-6:first-child,
+    #polyester-roof .col-lg-6,
+    #winter-garden .col-lg-6,
+    #steel-structure .col-lg-6,
+    #steel-doors .col-lg-6,
+    .about-section .col-lg-6.ps-lg-5,
+    #polyester-roof .polyester-right-panel,
+    #winter-garden .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        min-height: 0 !important;
+    }
+
+    .about-carousel-container,
+    .about-carousel,
+    #aboutCarousel,
+    #aboutCarousel .carousel-inner,
+    #aboutCarousel .carousel-item,
+    #polyester-roof .polyester-card-wrapper,
+    #winter-garden .polyester-card-wrapper,
+    #steel-structure .polyester-card-wrapper,
+    #steel-doors .polyester-card-wrapper,
+    #polyester-roof .carousel,
+    #winter-garden .carousel,
+    #steel-structure .carousel,
+    #steel-doors .carousel,
+    #polyester-roof .carousel-inner,
+    #winter-garden .carousel-inner,
+    #steel-structure .carousel-inner,
+    #steel-doors .carousel-inner,
+    #polyester-roof .carousel-item,
+    #winter-garden .carousel-item,
+    #steel-structure .carousel-item,
+    #steel-doors .carousel-item {
+        height: 320px !important;
+        min-height: 320px !important;
+        max-height: 320px !important;
+    }
+}
+
 /* About feature icon spacing */
 .about-section .row.g-4.mb-4 {
     display: flex;
