@@ -1073,13 +1073,34 @@ body.admin-logged-in li.admin-only {
 }
 
 .about-section .experience-badge {
-    left: 18px !important;
+    position: relative !important;
+    left: auto !important;
     right: auto !important;
-    bottom: 18px !important;
-    width: auto !important;
-    min-width: 128px !important;
-    padding: 16px 18px !important;
+    bottom: auto !important;
     transform: none !important;
+    width: min(100%, 260px) !important;
+    min-width: 0 !important;
+    margin: -4px 0 16px auto !important;
+    padding: 14px 18px !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 193, 7, 0.3) !important;
+    background:
+        linear-gradient(135deg, rgba(255, 193, 7, 0.95), rgba(220, 158, 9, 0.9)) !important;
+    color: #fff !important;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.2) !important;
+}
+
+.about-section .experience-badge h2 {
+    font-size: 2.15rem !important;
+    line-height: 1 !important;
+    margin: 0 0 4px !important;
+}
+
+.about-section .experience-badge p {
+    color: rgba(255, 255, 255, 0.92) !important;
+    font-size: 0.92rem !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
 }
 
 .about-section .carousel-control-prev,
