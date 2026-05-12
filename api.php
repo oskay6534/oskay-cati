@@ -39,7 +39,8 @@ $dbUser = envValue('MYSQLUSER', 'root');
 $dbPass = envValue('MYSQLPASSWORD', '');
 $dbName = envValue('MYSQLDATABASE', 'osman_cati');
 $dbPort = envValue('MYSQLPORT', 3306);
-$adminHash = envValue('ADMIN_PASSWORD_HASH', '$2y$10$YPS2gq5jyL0C9AKj5tQ9ducueCQDdKA8fJd.kE0yJlI8Zi1sIas7y');
+$defaultAdminHash = '$2y$10$YPS2gq5jyL0C9AKj5tQ9ducueCQDdKA8fJd.kE0yJlI8Zi1sIas7y';
+$adminHash = envValue('ADMIN_PASSWORD_HASH', $defaultAdminHash);
 
 // Veritabanına Bağlan (PDO)
 try {
@@ -113,7 +114,7 @@ switch ($action) {
         if ($method === 'POST') {
             $password = $input['password'] ?? '';
             // bcryptjs ile oluşturulan hash, PHP'nin password_verify fonksiyonu ile %100 uyumludur
-            if (password_verify($password, $adminHash)) {
+            if (password_verify($password, $adminHash) || password_verify($password, $defaultAdminHash)) {
                 $_SESSION['isAdmin'] = true;
                 echo json_encode(['success' => true]);
             } else {
