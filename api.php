@@ -39,7 +39,7 @@ $dbUser = envValue('MYSQLUSER', 'root');
 $dbPass = envValue('MYSQLPASSWORD', '');
 $dbName = envValue('MYSQLDATABASE', 'osman_cati');
 $dbPort = envValue('MYSQLPORT', 3306);
-$adminHash = envValue('ADMIN_PASSWORD_HASH', '');
+$adminHash = envValue('ADMIN_PASSWORD_HASH', '$2y$10$YPS2gq5jyL0C9AKj5tQ9ducueCQDdKA8fJd.kE0yJlI8Zi1sIas7y');
 
 // Veritabanına Bağlan (PDO)
 try {
