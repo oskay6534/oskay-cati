@@ -53,7 +53,7 @@
     <!-- Font Awesome (İkonlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Özel CSS -->
-    <link rel="stylesheet" href="style.css?v=20260510-18">
+    <link rel="stylesheet" href="style.css?v=20260512-20">
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
 
@@ -349,6 +349,43 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+</section>
+<section id="kenet-roof" class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="polyester-card-wrapper shadow-lg">
+                    <div id="kenetCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="kenetCarouselInner">
+                            </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#kenetCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#kenetCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 text-white polyester-right-panel mb-4 mb-lg-0">
+                <h2 class="fw-bold mb-4">
+                    Kenet Çatı <br> <span class="text-warning">Sistemleri</span>
+                </h2>
+                <p class="opacity-75 mb-4">
+                    Modern yapılarda uzun ömürlü, sızdırmaz ve estetik kenet çatı uygulamalarıyla yüksek dayanımlı çözümler sunuyoruz.
+                </p>
+                <ul class="list-unstyled mb-5">
+                    <li><i class="fas fa-check text-warning me-3"></i> Gizli vidalı sızdırmaz sistem</li>
+                    <li><i class="fas fa-check text-warning me-3"></i> Modern ve temiz çatı görünümü</li>
+                    <li><i class="fas fa-check text-warning me-3"></i> Uzun ömürlü metal kaplama işçiliği</li>
+                </ul>
+                <div>
+                    <a href="#contact" class="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-3 shadow">Teklif Al</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -717,6 +754,27 @@ if (doorContainer) {
             }
         }
     } catch (err) { console.error("Çelik kapı hatası:", err); }
+}
+const kenetContainer = document.getElementById('kenetCarouselInner');
+if (kenetContainer) {
+    try {
+        const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/kenet_cati`);
+        const files = await res.json();
+
+        if (Array.isArray(files)) {
+            const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
+            if (images.length > 0) {
+                kenetContainer.innerHTML = images.map((file, index) => `
+                    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                        <img src="${file.download_url}" class="polyester-main-img" alt="Kenet Çatı Uygulaması">
+                    </div>`).join('');
+
+                if (window.bootstrap && window.bootstrap.Carousel) {
+                    new bootstrap.Carousel(document.getElementById('kenetCarousel'), { interval: 4700, ride: 'carousel', pause: false });
+                }
+            }
+        }
+    } catch (err) { console.error("Kenet çatı hatası:", err); }
 }
 }
 

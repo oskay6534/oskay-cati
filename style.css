@@ -891,6 +891,7 @@ body.admin-logged-in li.admin-only {
 #winter-garden > .container,
 #steel-structure > .container,
 #steel-doors > .container,
+#kenet-roof > .container,
 #projects > .container,
 .site-footer > .container {
     max-width: 1240px;
@@ -902,7 +903,8 @@ body.admin-logged-in li.admin-only {
 #polyester-roof,
 #winter-garden,
 #steel-structure,
-#steel-doors {
+#steel-doors,
+#kenet-roof {
     padding: 44px 0 !important;
     background: var(--site-bg) !important;
 }
@@ -911,7 +913,8 @@ body.admin-logged-in li.admin-only {
 #polyester-roof .row,
 #winter-garden .row,
 #steel-structure .row,
-#steel-doors .row {
+#steel-doors .row,
+#kenet-roof .row {
     display: flex !important;
     flex-wrap: nowrap !important;
     align-items: center !important;
@@ -929,7 +932,8 @@ body.admin-logged-in li.admin-only {
 #polyester-roof .row::after,
 #winter-garden .row::after,
 #steel-structure .row::after,
-#steel-doors .row::after {
+#steel-doors .row::after,
+#kenet-roof .row::after {
     display: none !important;
 }
 
@@ -937,7 +941,8 @@ body.admin-logged-in li.admin-only {
 #polyester-roof .col-lg-6,
 #winter-garden .col-lg-6,
 #steel-structure .col-lg-6,
-#steel-doors .col-lg-6 {
+#steel-doors .col-lg-6,
+#kenet-roof .col-lg-6 {
     flex: 1 1 58% !important;
     width: auto !important;
     max-width: none !important;
@@ -950,7 +955,8 @@ body.admin-logged-in li.admin-only {
 #polyester-roof .polyester-right-panel,
 #winter-garden .polyester-right-panel,
 #steel-structure .col-lg-5,
-#steel-doors .polyester-right-panel {
+#steel-doors .polyester-right-panel,
+#kenet-roof .polyester-right-panel {
     flex: 0 0 40% !important;
     width: 40% !important;
     max-width: none !important;
@@ -982,14 +988,17 @@ body.admin-logged-in li.admin-only {
 #winter-garden .carousel,
 #steel-structure .carousel,
 #steel-doors .carousel,
+#kenet-roof .carousel,
 #polyester-roof .carousel-inner,
 #winter-garden .carousel-inner,
 #steel-structure .carousel-inner,
 #steel-doors .carousel-inner,
+#kenet-roof .carousel-inner,
 #polyester-roof .carousel-item,
 #winter-garden .carousel-item,
 #steel-structure .carousel-item,
-#steel-doors .carousel-item {
+#steel-doors .carousel-item,
+#kenet-roof .carousel-item {
     position: relative !important;
     inset: auto !important;
     width: 100% !important;
@@ -1015,7 +1024,8 @@ body.admin-logged-in li.admin-only {
 .about-section h2,
 .polyester-right-panel h2,
 #steel-structure h2,
-#steel-doors h2 {
+#steel-doors h2,
+#kenet-roof h2 {
     font-size: clamp(1.85rem, 2.55vw, 3rem) !important;
     line-height: 1.08 !important;
     margin: 0 0 16px !important;
@@ -1024,7 +1034,8 @@ body.admin-logged-in li.admin-only {
 .about-section p,
 .polyester-right-panel p,
 #steel-structure p,
-#steel-doors p {
+#steel-doors p,
+#kenet-roof p {
     max-width: 44ch !important;
     margin-bottom: 18px !important;
     font-size: 0.98rem !important;
@@ -1033,7 +1044,8 @@ body.admin-logged-in li.admin-only {
 
 .polyester-right-panel ul,
 #steel-structure ul,
-#steel-doors ul {
+#steel-doors ul,
+#kenet-roof ul {
     margin-top: 0 !important;
     margin-bottom: 18px !important;
     padding-left: 0 !important;
@@ -1041,7 +1053,8 @@ body.admin-logged-in li.admin-only {
 
 .polyester-right-panel li,
 #steel-structure li,
-#steel-doors li {
+#steel-doors li,
+#kenet-roof li {
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
@@ -1112,7 +1125,8 @@ body.admin-logged-in li.admin-only {
 #polyester-roof .carousel-control-prev,
 #winter-garden .carousel-control-prev,
 #steel-structure .carousel-control-prev,
-#steel-doors .carousel-control-prev {
+#steel-doors .carousel-control-prev,
+#kenet-roof .carousel-control-prev {
     left: 14px !important;
 }
 
@@ -1120,7 +1134,8 @@ body.admin-logged-in li.admin-only {
 #polyester-roof .carousel-control-next,
 #winter-garden .carousel-control-next,
 #steel-structure .carousel-control-next,
-#steel-doors .carousel-control-next {
+#steel-doors .carousel-control-next,
+#kenet-roof .carousel-control-next {
     right: 14px !important;
 }
 
@@ -1170,7 +1185,8 @@ body.admin-logged-in li.admin-only {
     #polyester-roof .row,
     #winter-garden .row,
     #steel-structure .row,
-    #steel-doors .row {
+    #steel-doors .row,
+    #kenet-roof .row {
         flex-wrap: wrap !important;
         gap: 18px !important;
     }
@@ -1180,11 +1196,13 @@ body.admin-logged-in li.admin-only {
     #winter-garden .col-lg-6,
     #steel-structure .col-lg-6,
     #steel-doors .col-lg-6,
+    #kenet-roof .col-lg-6,
     .about-section .col-lg-6.ps-lg-5,
     #polyester-roof .polyester-right-panel,
     #winter-garden .polyester-right-panel,
     #steel-structure .col-lg-5,
-    #steel-doors .polyester-right-panel {
+    #steel-doors .polyester-right-panel,
+    #kenet-roof .polyester-right-panel {
         flex: 0 0 100% !important;
         width: 100% !important;
         order: initial !important;
@@ -1200,14 +1218,17 @@ body.admin-logged-in li.admin-only {
     #winter-garden .carousel,
     #steel-structure .carousel,
     #steel-doors .carousel,
+    #kenet-roof .carousel,
     #polyester-roof .carousel-inner,
     #winter-garden .carousel-inner,
     #steel-structure .carousel-inner,
     #steel-doors .carousel-inner,
+    #kenet-roof .carousel-inner,
     #polyester-roof .carousel-item,
     #winter-garden .carousel-item,
     #steel-structure .carousel-item,
-    #steel-doors .carousel-item {
+    #steel-doors .carousel-item,
+    #kenet-roof .carousel-item {
         height: 320px !important;
         min-height: 320px !important;
         max-height: 320px !important;
@@ -1225,6 +1246,7 @@ body.admin-logged-in li.admin-only {
     #winter-garden > .container,
     #steel-structure > .container,
     #steel-doors > .container,
+    #kenet-roof > .container,
     #projects > .container {
         padding-left: 12px;
         padding-right: 12px;
