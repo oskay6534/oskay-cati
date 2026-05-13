@@ -893,6 +893,37 @@ if (kenetContainer) {
     }
 
     // --- ADMIN İŞLEMLERİ ---
+    async function login() {
+        const passInput = document.getElementById('adminPassword');
+        const password = passInput ? passInput.value.trim() : '';
+
+        if (!password) {
+            alert('Şifre girin.');
+            return;
+        }
+
+        try {
+            const res = await fetch('api.php?action=login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+            const data = await res.json().catch(() => ({}));
+
+            if (res.ok && data.success) {
+                const modalEl = document.getElementById('loginModal');
+                const modal = modalEl ? bootstrap.Modal.getInstance(modalEl) : null;
+                if (modal) modal.hide();
+                location.reload();
+                return;
+            }
+
+            alert(data.message || 'Giriş yapılamadı.');
+        } catch (e) {
+            alert('Giriş isteği gönderilemedi. Lütfen tekrar deneyin.');
+        }
+    }
+
     async function logout() {
         await fetch('api.php?action=logout', { method: 'POST' });
         location.reload();

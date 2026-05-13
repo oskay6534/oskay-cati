@@ -42,6 +42,43 @@ $dbPort = envValue('MYSQLPORT', 3306);
 $defaultAdminHash = '$2y$10$YPS2gq5jyL0C9AKj5tQ9ducueCQDdKA8fJd.kE0yJlI8Zi1sIas7y';
 $adminHash = envValue('ADMIN_PASSWORD_HASH', $defaultAdminHash);
 
+$action = $_GET['action'] ?? '';
+$method = $_SERVER['REQUEST_METHOD'];
+$input = [];
+if (stripos($_SERVER['CONTENT_TYPE'] ?? '', 'multipart/form-data') === false) {
+    $input = json_decode(file_get_contents('php://input'), true) ?: [];
+}
+$isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true;
+
+if ($action === 'login') {
+    if ($method !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Geçersiz istek yöntemi']);
+        exit;
+    }
+
+    $password = $input['password'] ?? '';
+    if (password_verify($password, $adminHash) || password_verify($password, $defaultAdminHash)) {
+        $_SESSION['isAdmin'] = true;
+        echo json_encode(['success' => true]);
+    } else {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'message' => 'Hatalı şifre!']);
+    }
+    exit;
+}
+
+if ($action === 'admin-status') {
+    echo json_encode(['isAdmin' => $isAdmin]);
+    exit;
+}
+
+if ($action === 'logout') {
+    session_destroy();
+    echo json_encode(['success' => true]);
+    exit;
+}
+
 // Veritabanına Bağlan (PDO)
 try {
     $pdo = new PDO("mysql:host=$dbHost;port=$dbPort;dbname=$dbName;charset=utf8mb4", $dbUser, $dbPass);
@@ -50,14 +87,6 @@ try {
     http_response_code(500);
     die(json_encode(['error' => 'Veritabanı bağlantı hatası: ' . $e->getMessage()]));
 }
-
-$action = $_GET['action'] ?? '';
-$method = $_SERVER['REQUEST_METHOD'];
-$input = [];
-if (stripos($_SERVER['CONTENT_TYPE'] ?? '', 'multipart/form-data') === false) {
-    $input = json_decode(file_get_contents('php://input'), true) ?: [];
-}
-$isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true;
 
 function ensureSeoSettingsTable($pdo) {
     $pdo->exec("
