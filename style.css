@@ -1291,16 +1291,6 @@ body.admin-logged-in li.admin-only {
         overflow: hidden !important;
     }
 
-    #winter-garden .col-lg-6,
-    #steel-doors .col-lg-6 {
-        order: 1 !important;
-    }
-
-    #winter-garden .polyester-right-panel,
-    #steel-doors .polyester-right-panel {
-        order: 2 !important;
-    }
-
     .about-carousel-container,
     .about-carousel,
     #aboutCarousel,
@@ -1448,13 +1438,14 @@ body.admin-logged-in li.admin-only {
     #steel-structure .col-lg-5,
     #steel-doors .polyester-right-panel,
     #kenet-roof .polyester-right-panel {
-        flex: 0 0 40% !important;
-        width: 40% !important;
+        flex: 0 0 46% !important;
+        width: 46% !important;
         height: 240px !important;
         min-height: 240px !important;
         max-height: 240px !important;
-        padding: 8px 10px !important;
-        justify-content: center !important;
+        padding: 10px 12px !important;
+        justify-content: flex-start !important;
+        overflow: hidden !important;
     }
 
     .about-section h2,
@@ -1462,8 +1453,9 @@ body.admin-logged-in li.admin-only {
     #steel-structure h2,
     #steel-doors h2,
     #kenet-roof h2 {
-        font-size: clamp(0.96rem, 5vw, 1.22rem) !important;
-        margin-bottom: 6px !important;
+        font-size: clamp(0.98rem, 4.25vw, 1.18rem) !important;
+        line-height: 1.02 !important;
+        margin-bottom: 8px !important;
     }
 
     .about-section p,
@@ -1471,9 +1463,9 @@ body.admin-logged-in li.admin-only {
     #steel-structure p,
     #steel-doors p,
     #kenet-roof p {
-        font-size: 0.64rem !important;
-        line-height: 1.32 !important;
-        margin-bottom: 6px !important;
+        font-size: 0.66rem !important;
+        line-height: 1.28 !important;
+        margin-bottom: 8px !important;
     }
 
     .polyester-right-panel ul,
@@ -1488,8 +1480,8 @@ body.admin-logged-in li.admin-only {
     #steel-doors li,
     #kenet-roof li {
         padding: 3px 0 !important;
-        font-size: 0.6rem !important;
-        line-height: 1.2 !important;
+        font-size: 0.58rem !important;
+        line-height: 1.12 !important;
     }
 
     .polyester-right-panel li i,
@@ -1516,7 +1508,7 @@ body.admin-logged-in li.admin-only {
     }
 
     .about-section .row.g-4.mb-4 .d-flex.align-items-center span {
-        font-size: 0.62rem !important;
+        font-size: 0.58rem !important;
     }
 
     .about-section .experience-badge {
@@ -1569,5 +1561,15 @@ body.admin-logged-in li.admin-only {
         height: 240px !important;
         min-height: 240px !important;
         max-height: 240px !important;
+    }
+
+    .about-section .col-lg-6:first-child,
+    #polyester-roof .col-lg-6,
+    #winter-garden .col-lg-6,
+    #steel-structure .col-lg-6,
+    #steel-doors .col-lg-6,
+    #kenet-roof .col-lg-6 {
+        flex: 1 1 51% !important;
+        order: 2 !important;
     }
 }
