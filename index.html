@@ -53,7 +53,7 @@
     <!-- Font Awesome (İkonlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Özel CSS -->
-    <link rel="stylesheet" href="style.css?v=20260512-20">
+    <link rel="stylesheet" href="style.css?v=20260514-21">
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
 
@@ -1155,8 +1155,87 @@ if (kenetContainer) {
         loadAboutImages();
         loadProjects();
         loadSeoSettings();
+        initImageUploads();
         initScrollAnimations();
     });
+
+    function initImageUploads() {
+        document.querySelectorAll('.upload-zone').forEach(zone => {
+            const input = zone.querySelector('.image-upload-input');
+            const button = zone.querySelector('button');
+            const targetId = zone.dataset.target;
+            const useAbsoluteUrl = zone.dataset.absoluteUrl === 'true';
+
+            if (!input || !targetId) return;
+
+            const openPicker = () => input.click();
+            zone.addEventListener('click', (event) => {
+                if (event.target.closest('button') || event.target === zone || zone.contains(event.target)) {
+                    openPicker();
+                }
+            });
+            if (button) button.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                openPicker();
+            });
+
+            zone.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                zone.classList.add('drag-over');
+            });
+
+            zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+
+            zone.addEventListener('drop', (event) => {
+                event.preventDefault();
+                zone.classList.remove('drag-over');
+                if (event.dataTransfer.files?.length) {
+                    uploadSelectedImage(event.dataTransfer.files[0], zone, targetId, useAbsoluteUrl);
+                }
+            });
+
+            input.addEventListener('change', () => {
+                if (input.files?.length) {
+                    uploadSelectedImage(input.files[0], zone, targetId, useAbsoluteUrl);
+                    input.value = '';
+                }
+            });
+        });
+    }
+
+    async function uploadSelectedImage(file, zone, targetId, useAbsoluteUrl) {
+        if (!file || !file.type.startsWith('image/')) {
+            alert('Lütfen bir görsel seçin.');
+            return;
+        }
+
+        const target = document.getElementById(targetId);
+        const formData = new FormData();
+        formData.append('image', file);
+        zone.classList.add('uploading');
+
+        try {
+            const res = await fetch('api.php?action=upload-image', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok || data.error) {
+                throw new Error(data.error || 'Görsel yüklenemedi.');
+            }
+
+            const path = useAbsoluteUrl ? `${location.origin}/${data.path}` : data.path;
+            if (target) target.value = path;
+            zone.classList.add('uploaded');
+            setTimeout(() => zone.classList.remove('uploaded'), 1200);
+        } catch (err) {
+            alert(err.message);
+        } finally {
+            zone.classList.remove('uploading');
+        }
+    }
 
     function initScrollAnimations() {
         const selectors = [

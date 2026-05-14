@@ -1237,14 +1237,18 @@ body.admin-logged-in li.admin-only {
 .reveal-on-scroll.is-visible { opacity: 1; transform: translate(0, 0) scale(1); filter: blur(0); }
 
 @media (max-width: 991px) {
+    #services {
+        display: none !important;
+    }
+
     .about-section .row,
     #polyester-roof .row,
     #winter-garden .row,
     #steel-structure .row,
     #steel-doors .row,
     #kenet-roof .row {
-        flex-wrap: wrap !important;
-        gap: 18px !important;
+        flex-wrap: nowrap !important;
+        gap: 12px !important;
     }
 
     .about-section .col-lg-6:first-child,
@@ -1259,9 +1263,40 @@ body.admin-logged-in li.admin-only {
     #steel-structure .col-lg-5,
     #steel-doors .polyester-right-panel,
     #kenet-roof .polyester-right-panel {
-        flex: 0 0 100% !important;
-        width: 100% !important;
-        order: initial !important;
+        min-height: 0 !important;
+        padding: 16px !important;
+    }
+
+    .about-section .col-lg-6:first-child,
+    #polyester-roof .col-lg-6,
+    #winter-garden .col-lg-6,
+    #steel-structure .col-lg-6,
+    #steel-doors .col-lg-6,
+    #kenet-roof .col-lg-6 {
+        flex: 1 1 52% !important;
+        width: auto !important;
+        order: 2 !important;
+    }
+
+    .about-section .col-lg-6.ps-lg-5,
+    #polyester-roof .polyester-right-panel,
+    #winter-garden .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel,
+    #kenet-roof .polyester-right-panel {
+        flex: 0 0 45% !important;
+        width: 45% !important;
+        order: 1 !important;
+    }
+
+    #winter-garden .col-lg-6,
+    #steel-doors .col-lg-6 {
+        order: 1 !important;
+    }
+
+    #winter-garden .polyester-right-panel,
+    #steel-doors .polyester-right-panel {
+        order: 2 !important;
     }
 
     .about-carousel-container,
@@ -1285,14 +1320,49 @@ body.admin-logged-in li.admin-only {
     #steel-structure .carousel-item,
     #steel-doors .carousel-item,
     #kenet-roof .carousel-item {
-        height: 320px !important;
-        min-height: 320px !important;
-        max-height: 320px !important;
+        height: 260px !important;
+        min-height: 260px !important;
+        max-height: 260px !important;
     }
 
-    #projectsContainer { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .about-section h2,
+    .polyester-right-panel h2,
+    #steel-structure h2,
+    #steel-doors h2,
+    #kenet-roof h2 {
+        font-size: clamp(1.12rem, 4vw, 1.65rem) !important;
+        line-height: 1.08 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .about-section p,
+    .polyester-right-panel p,
+    #steel-structure p,
+    #steel-doors p,
+    #kenet-roof p {
+        font-size: 0.78rem !important;
+        line-height: 1.42 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .polyester-right-panel li,
+    #steel-structure li,
+    #steel-doors li,
+    #kenet-roof li {
+        gap: 6px !important;
+        padding: 5px 0 !important;
+        font-size: 0.72rem !important;
+    }
+
+    .about-section .experience-badge {
+        width: 100% !important;
+        margin: 0 0 10px !important;
+        padding: 10px 12px !important;
+    }
+
+    #projectsContainer { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 10px !important; }
     #projectsContainer .project-card,
-    #projectsContainer .project-card img { height: 300px !important; min-height: 300px !important; max-height: 300px !important; }
+    #projectsContainer .project-card img { height: 180px !important; min-height: 180px !important; max-height: 180px !important; }
 }
 
 @media (max-width: 576px) {
@@ -1304,11 +1374,86 @@ body.admin-logged-in li.admin-only {
     #steel-doors > .container,
     #kenet-roof > .container,
     #projects > .container {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
-    #projectsContainer { grid-template-columns: 1fr !important; }
+    #projectsContainer { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 7px !important; }
     #projectsContainer .project-card,
-    #projectsContainer .project-card img { height: 250px !important; min-height: 250px !important; max-height: 250px !important; }
+    #projectsContainer .project-card img { height: 118px !important; min-height: 118px !important; max-height: 118px !important; }
+
+    .project-overlay .text-white {
+        padding: 10px !important;
+    }
+
+    .project-overlay small,
+    .project-overlay h5,
+    .project-tag {
+        font-size: 0.58rem !important;
+        line-height: 1.15 !important;
+    }
+
+    .about-section,
+    #polyester-roof,
+    #winter-garden,
+    #steel-structure,
+    #steel-doors,
+    #kenet-roof {
+        padding: 28px 0 !important;
+    }
+
+    .about-section .row,
+    #polyester-roof .row,
+    #winter-garden .row,
+    #steel-structure .row,
+    #steel-doors .row,
+    #kenet-roof .row {
+        gap: 8px !important;
+    }
+
+    .about-section .col-lg-6:first-child,
+    #polyester-roof .col-lg-6,
+    #winter-garden .col-lg-6,
+    #steel-structure .col-lg-6,
+    #steel-doors .col-lg-6,
+    #kenet-roof .col-lg-6 {
+        flex: 1 1 50% !important;
+    }
+
+    .about-section .col-lg-6.ps-lg-5,
+    #polyester-roof .polyester-right-panel,
+    #winter-garden .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel,
+    #kenet-roof .polyester-right-panel {
+        flex: 0 0 48% !important;
+        width: 48% !important;
+        padding: 10px !important;
+    }
+
+    .about-carousel-container,
+    .about-carousel,
+    #aboutCarousel,
+    #aboutCarousel .carousel-inner,
+    #aboutCarousel .carousel-item,
+    .polyester-card-wrapper,
+    #polyester-roof .carousel,
+    #winter-garden .carousel,
+    #steel-structure .carousel,
+    #steel-doors .carousel,
+    #kenet-roof .carousel,
+    #polyester-roof .carousel-inner,
+    #winter-garden .carousel-inner,
+    #steel-structure .carousel-inner,
+    #steel-doors .carousel-inner,
+    #kenet-roof .carousel-inner,
+    #polyester-roof .carousel-item,
+    #winter-garden .carousel-item,
+    #steel-structure .carousel-item,
+    #steel-doors .carousel-item,
+    #kenet-roof .carousel-item {
+        height: 210px !important;
+        min-height: 210px !important;
+        max-height: 210px !important;
+    }
 }
