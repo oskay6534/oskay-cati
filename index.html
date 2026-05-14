@@ -649,27 +649,23 @@
                 </div>
                 <div class="col-lg-6">
                     <form id="contactForm" class="contact-card text-dark" onsubmit="sendMessage(event)">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Adınız Soyadınız</label>
-                                <input type="text" id="msgName" class="form-control" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">E-posta</label>
-                                <input type="email" id="msgEmail" class="form-control" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Telefon Numaranız</label>
-                                <input type="tel" id="msgPhone" class="form-control" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Mesajınız</label>
-                                <textarea id="msgText" class="form-control" rows="3" placeholder="Nasıl yardımcı olabiliriz?" required></textarea>
-                            </div>
-                            <div class="col-12 text-center pt-2">
-                                <button type="submit" class="btn btn-warning contact-submit fw-bold px-5 py-3">Mesajı Gönder</button>
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Adınız Soyadınız</label>
+                            <input type="text" id="msgName" class="form-control" required>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">E-posta</label>
+                            <input type="email" id="msgEmail" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Telefon Numaranız</label>
+                            <input type="tel" id="msgPhone" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Mesajınız</label>
+                            <textarea id="msgText" class="form-control" rows="4" placeholder="Nasıl yardımcı olabiliriz?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 fw-bold py-3">Mesajı Gönder</button>
                     </form>
                 </div>
             </div>
