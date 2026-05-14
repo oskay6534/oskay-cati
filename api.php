@@ -305,6 +305,13 @@ switch ($action) {
             $stmt = $pdo->prepare("DELETE FROM projects WHERE id = ?");
             $stmt->execute([$_GET['id'] ?? 0]);
             echo json_encode(['success' => true]);
+        } elseif ($method === 'PUT') {
+            requireAdmin();
+            $title = htmlspecialchars(trim($input['title'] ?? ''), ENT_QUOTES, 'UTF-8');
+            $type = htmlspecialchars(trim($input['type'] ?? ''), ENT_QUOTES, 'UTF-8');
+            $stmt = $pdo->prepare("UPDATE projects SET title = ?, type = ? WHERE id = ?");
+            $stmt->execute([$title, $type, $_GET['id'] ?? 0]);
+            echo json_encode(['success' => true]);
         }
         break;
 

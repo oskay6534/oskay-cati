@@ -880,6 +880,16 @@ if (kenetContainer) {
     }
 
     // --- PROJELER ---
+    function escapeHTML(value = '') {
+        return String(value).replace(/[&<>"']/g, char => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        }[char]));
+    }
+
     async function loadProjects() {
         try {
             const res = await fetch('api.php?action=projects');
@@ -890,22 +900,37 @@ if (kenetContainer) {
             const container = document.getElementById('projectsContainer');
             if(!container) return;
             
-            container.innerHTML = projects.map(proj => `
-                <div class="col-lg-4 col-md-6 ${isAdmin ? 'admin-sort-item' : ''}" ${isAdmin ? 'draggable="true"' : ''} data-id="${proj.id}">
+            container.innerHTML = projects.map(proj => {
+                const title = escapeHTML(proj.title || '');
+                const type = escapeHTML(proj.type || '');
+                const img = escapeHTML(proj.img || '');
+
+                return `
+                <div class="col-lg-4 col-md-6 ${isAdmin ? 'admin-sort-item' : ''}" data-id="${proj.id}">
                     <div class="project-card position-relative overflow-hidden" onclick="viewImage('${proj.img}')">
                         ${isAdmin ? `<span class="drag-handle project-drag-handle" onclick="event.stopPropagation();"><i class="fas fa-grip-vertical"></i></span>` : ''}
                         ${isAdmin ? `<button class="btn btn-danger delete-btn" onclick="event.stopPropagation(); deleteProject(${proj.id})"><i class="fas fa-trash"></i></button>` : ''}
-                        <img src="${proj.img}" class="img-fluid w-100" style="height:300px; object-fit:cover;">
+                        <img src="${img}" class="img-fluid w-100" style="height:300px; object-fit:cover;">
                         <div class="project-overlay">
                             <div class="text-white p-4">
                                 <small>Oskay Çatı Projesi</small>
-                                <h5 class="fw-bold">${proj.title}</h5>
-                                <span class="project-tag">${proj.type}</span>
+                                ${title ? `<h5 class="fw-bold">${title}</h5>` : ''}
+                                ${type ? `<span class="project-tag">${type}</span>` : ''}
                             </div>
                         </div>
                     </div>
+                    ${isAdmin ? `
+                        <div class="project-admin-editor" onclick="event.stopPropagation();">
+                            <input type="text" class="form-control form-control-sm" id="projTitle${proj.id}" value="${title}" placeholder="Başlık">
+                            <input type="text" class="form-control form-control-sm" id="projType${proj.id}" value="${type}" placeholder="Tür">
+                            <button type="button" class="btn btn-warning btn-sm fw-bold" onclick="saveProjectDetails(${proj.id})">
+                                <i class="fas fa-floppy-disk"></i>
+                            </button>
+                        </div>
+                    ` : ''}
                 </div>
-            `).join('');
+            `;
+            }).join('');
 
             if (isAdmin) {
                 enableDragSort(container, '.admin-sort-item', 'projects-reorder', loadProjects);
@@ -936,8 +961,8 @@ if (kenetContainer) {
         const type = document.getElementById('newProjType')?.value.trim();
         const img = document.getElementById('newProjImg')?.value.trim();
 
-        if (!title || !type || !img) {
-            alert('Başlık, tür ve görsel yolu zorunlu.');
+        if (!img) {
+            alert('Görsel yolu zorunlu.');
             return;
         }
 
@@ -950,6 +975,22 @@ if (kenetContainer) {
             ['newProjTitle', 'newProjType', 'newProjImg'].forEach(id => {
                 const input = document.getElementById(id);
                 if (input) input.value = '';
+            });
+            await loadProjects();
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    async function saveProjectDetails(id) {
+        const title = document.getElementById(`projTitle${id}`)?.value.trim() || '';
+        const type = document.getElementById(`projType${id}`)?.value.trim() || '';
+
+        try {
+            await apiRequest(`api.php?action=projects&id=${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, type })
             });
             await loadProjects();
         } catch (err) {
@@ -1007,16 +1048,28 @@ if (kenetContainer) {
 
     function enableDragSort(container, itemSelector, reorderAction, afterSave) {
         let dragged = null;
+        let moved = false;
 
         container.querySelectorAll(itemSelector).forEach(item => {
-            item.addEventListener('dragstart', () => {
+            item.setAttribute('draggable', 'false');
+            const handle = item.querySelector('.drag-handle') || item;
+            handle.setAttribute('draggable', 'true');
+
+            handle.addEventListener('dragstart', (event) => {
                 dragged = item;
+                moved = false;
                 item.classList.add('is-dragging');
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', item.dataset.id || '');
             });
 
-            item.addEventListener('dragend', async () => {
+            handle.addEventListener('dragend', async () => {
                 item.classList.remove('is-dragging');
+                const shouldSave = moved;
                 dragged = null;
+                moved = false;
+                if (!shouldSave) return;
+
                 const ids = Array.from(container.querySelectorAll(itemSelector)).map(el => Number(el.dataset.id));
 
                 try {
@@ -1035,12 +1088,28 @@ if (kenetContainer) {
         container.addEventListener('dragover', (event) => {
             event.preventDefault();
             if (!dragged) return;
-            const target = event.target.closest(itemSelector);
-            if (!target || target === dragged || !container.contains(target)) return;
 
-            const rect = target.getBoundingClientRect();
-            const insertAfter = event.clientY > rect.top + rect.height / 2;
-            container.insertBefore(dragged, insertAfter ? target.nextSibling : target);
+            const siblings = Array.from(container.querySelectorAll(itemSelector)).filter(item => item !== dragged);
+            const nextItem = siblings.find(item => {
+                const rect = item.getBoundingClientRect();
+                const sameRow = event.clientY >= rect.top && event.clientY <= rect.bottom;
+
+                if (sameRow) {
+                    return event.clientX < rect.left + rect.width / 2;
+                }
+
+                return event.clientY < rect.top + rect.height / 2;
+            });
+
+            if (nextItem) {
+                if (nextItem.previousSibling !== dragged) {
+                    container.insertBefore(dragged, nextItem);
+                    moved = true;
+                }
+            } else if (container.lastElementChild !== dragged) {
+                container.appendChild(dragged);
+                moved = true;
+            }
         });
     }
 

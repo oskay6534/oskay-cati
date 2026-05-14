@@ -626,6 +626,28 @@ body.admin-logged-in li.admin-only {
     background: rgba(18, 24, 32, 0.78);
 }
 
+.project-admin-editor {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(13, 27, 42, 0.55);
+}
+
+.project-admin-editor .form-control {
+    min-width: 0;
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.project-admin-editor .btn {
+    width: 38px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .seo-panel {
     background:
         linear-gradient(135deg, rgba(13, 27, 42, 0.78), rgba(27, 38, 59, 0.72)),
