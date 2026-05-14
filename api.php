@@ -119,7 +119,34 @@ function ensureSeoSettingsTable($pdo) {
     ]);
 }
 
+function ensureContentTables($pdo) {
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS projects (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            type VARCHAR(255) NOT NULL,
+            img VARCHAR(255) NOT NULL,
+            sort_order INT DEFAULT 0
+        )
+    ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS about_images (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            img VARCHAR(255) NOT NULL,
+            sort_order INT DEFAULT 0
+        )
+    ");
+
+    $stmt = $pdo->query("SHOW COLUMNS FROM projects LIKE 'sort_order'");
+    if (!$stmt->fetch(PDO::FETCH_ASSOC)) {
+        $pdo->exec("ALTER TABLE projects ADD COLUMN sort_order INT DEFAULT 0");
+        $pdo->exec("UPDATE projects SET sort_order = id WHERE sort_order = 0");
+    }
+}
+
 ensureSeoSettingsTable($pdo);
+ensureContentTables($pdo);
 
 // Yetki Kontrol Fonksiyonu
 function requireAdmin() {
@@ -262,16 +289,17 @@ switch ($action) {
 
     case 'projects':
         if ($method === 'GET') {
-            $stmt = $pdo->query("SELECT * FROM projects ORDER BY id DESC");
+            $stmt = $pdo->query("SELECT * FROM projects ORDER BY sort_order ASC, id ASC");
             echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         } elseif ($method === 'POST') {
             requireAdmin();
             $title = htmlspecialchars(trim($input['title'] ?? ''), ENT_QUOTES, 'UTF-8');
             $type = htmlspecialchars(trim($input['type'] ?? ''), ENT_QUOTES, 'UTF-8');
             $img = htmlspecialchars(trim($input['img'] ?? ''), ENT_QUOTES, 'UTF-8');
-            $stmt = $pdo->prepare("INSERT INTO projects (title, type, img) VALUES (?, ?, ?)");
-            $stmt->execute([$title, $type, $img]);
-            echo json_encode(['id' => $pdo->lastInsertId(), 'title' => $title, 'type' => $type, 'img' => $img]);
+            $sortOrder = (int)$pdo->query("SELECT COALESCE(MAX(sort_order), 0) + 1 FROM projects")->fetchColumn();
+            $stmt = $pdo->prepare("INSERT INTO projects (title, type, img, sort_order) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$title, $type, $img, $sortOrder]);
+            echo json_encode(['id' => $pdo->lastInsertId(), 'title' => $title, 'type' => $type, 'img' => $img, 'sort_order' => $sortOrder]);
         } elseif ($method === 'DELETE') {
             requireAdmin();
             $stmt = $pdo->prepare("DELETE FROM projects WHERE id = ?");
@@ -280,6 +308,17 @@ switch ($action) {
         }
         break;
 
+    case 'projects-reorder':
+        requireAdmin();
+        $ids = array_values(array_filter($input['ids'] ?? [], 'is_numeric'));
+        $pdo->beginTransaction();
+        $stmt = $pdo->prepare("UPDATE projects SET sort_order = ? WHERE id = ?");
+        foreach ($ids as $index => $id) {
+            $stmt->execute([$index + 1, (int)$id]);
+        }
+        $pdo->commit();
+        echo json_encode(['success' => true]);
+        break;
     case 'about-images':
         if ($method === 'GET') {
             $stmt = $pdo->query("SELECT * FROM about_images ORDER BY sort_order ASC");
@@ -297,6 +336,18 @@ switch ($action) {
             $stmt->execute([$_GET['id'] ?? 0]);
             echo json_encode(['success' => true]);
         }
+        break;
+
+    case 'about-images-reorder':
+        requireAdmin();
+        $ids = array_values(array_filter($input['ids'] ?? [], 'is_numeric'));
+        $pdo->beginTransaction();
+        $stmt = $pdo->prepare("UPDATE about_images SET sort_order = ? WHERE id = ?");
+        foreach ($ids as $index => $id) {
+            $stmt->execute([$index + 1, (int)$id]);
+        }
+        $pdo->commit();
+        echo json_encode(['success' => true]);
         break;
 
     case 'messages':

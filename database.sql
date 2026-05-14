@@ -31,13 +31,14 @@ CREATE TABLE IF NOT EXISTS projects (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     type VARCHAR(255) NOT NULL,
-    img VARCHAR(255) NOT NULL
+    img VARCHAR(255) NOT NULL,
+    sort_order INT DEFAULT 0
 );
 
 
-INSERT INTO projects (title, type, img) VALUES 
-('Villa Çatı Uygulaması', 'Kiremit Kaplama', 'img/1.jpg'),
-('Endüstriyel İzolasyon', 'Sandviç Panel', 'img/2.jpg');
+INSERT INTO projects (title, type, img, sort_order) VALUES
+('Villa Çatı Uygulaması', 'Kiremit Kaplama', 'img/1.jpg', 1),
+('Endüstriyel İzolasyon', 'Sandviç Panel', 'img/2.jpg', 2);
 
 CREATE TABLE IF NOT EXISTS about_images (
     id INT AUTO_INCREMENT PRIMARY KEY,

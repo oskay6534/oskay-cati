@@ -852,7 +852,31 @@ if (kenetContainer) {
                     </div>
                 `).join('');
             }
+
+            if (isAdmin) {
+                renderAboutAdminList(images);
+            }
         } catch(e) { console.log("Hakkımızda görselleri yüklenemedi."); }
+    }
+
+    function renderAboutAdminList(images) {
+        const list = document.getElementById('aboutImagesAdminList');
+        if (!list) return;
+
+        list.innerHTML = images.map((img) => `
+            <div class="col-md-4 admin-sort-item" draggable="true" data-id="${img.id}">
+                <div class="admin-thumb sortable-thumb">
+                    <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
+                    <img src="${img.img}" alt="Hakkımızda görseli">
+                    <small>${img.img}</small>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteAboutImage(${img.id})">
+                        <i class="fas fa-trash"></i> Sil
+                    </button>
+                </div>
+            </div>
+        `).join('');
+
+        enableDragSort(list, '.admin-sort-item', 'about-images-reorder', loadAboutImages);
     }
 
     // --- PROJELER ---
@@ -867,8 +891,9 @@ if (kenetContainer) {
             if(!container) return;
             
             container.innerHTML = projects.map(proj => `
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 ${isAdmin ? 'admin-sort-item' : ''}" ${isAdmin ? 'draggable="true"' : ''} data-id="${proj.id}">
                     <div class="project-card position-relative overflow-hidden" onclick="viewImage('${proj.img}')">
+                        ${isAdmin ? `<span class="drag-handle project-drag-handle" onclick="event.stopPropagation();"><i class="fas fa-grip-vertical"></i></span>` : ''}
                         ${isAdmin ? `<button class="btn btn-danger delete-btn" onclick="event.stopPropagation(); deleteProject(${proj.id})"><i class="fas fa-trash"></i></button>` : ''}
                         <img src="${proj.img}" class="img-fluid w-100" style="height:300px; object-fit:cover;">
                         <div class="project-overlay">
@@ -881,6 +906,10 @@ if (kenetContainer) {
                     </div>
                 </div>
             `).join('');
+
+            if (isAdmin) {
+                enableDragSort(container, '.admin-sort-item', 'projects-reorder', loadProjects);
+            }
         } catch(e) { console.log("Projeler yüklenemedi."); }
     }
 
@@ -893,6 +922,128 @@ if (kenetContainer) {
     }
 
     // --- ADMIN İŞLEMLERİ ---
+    async function apiRequest(url, options = {}) {
+        const res = await fetch(url, options);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.error) {
+            throw new Error(data.error || data.message || 'İşlem tamamlanamadı.');
+        }
+        return data;
+    }
+
+    async function addProject() {
+        const title = document.getElementById('newProjTitle')?.value.trim();
+        const type = document.getElementById('newProjType')?.value.trim();
+        const img = document.getElementById('newProjImg')?.value.trim();
+
+        if (!title || !type || !img) {
+            alert('Başlık, tür ve görsel yolu zorunlu.');
+            return;
+        }
+
+        try {
+            await apiRequest('api.php?action=projects', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, type, img })
+            });
+            ['newProjTitle', 'newProjType', 'newProjImg'].forEach(id => {
+                const input = document.getElementById(id);
+                if (input) input.value = '';
+            });
+            await loadProjects();
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    async function deleteProject(id) {
+        if (!confirm('Bu projeyi silmek istiyor musunuz?')) return;
+
+        try {
+            await apiRequest(`api.php?action=projects&id=${id}`, { method: 'DELETE' });
+            await loadProjects();
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    async function addAboutImage() {
+        const img = document.getElementById('newAboutImg')?.value.trim();
+        const sortInput = document.getElementById('newAboutOrder')?.value.trim();
+        const sort_order = sortInput ? Number(sortInput) : 0;
+
+        if (!img) {
+            alert('Görsel yolu zorunlu.');
+            return;
+        }
+
+        try {
+            await apiRequest('api.php?action=about-images', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ img, sort_order })
+            });
+            const imgInput = document.getElementById('newAboutImg');
+            const orderInput = document.getElementById('newAboutOrder');
+            if (imgInput) imgInput.value = '';
+            if (orderInput) orderInput.value = '';
+            await loadAboutImages();
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    async function deleteAboutImage(id) {
+        if (!confirm('Bu slider görselini silmek istiyor musunuz?')) return;
+
+        try {
+            await apiRequest(`api.php?action=about-images&id=${id}`, { method: 'DELETE' });
+            await loadAboutImages();
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    function enableDragSort(container, itemSelector, reorderAction, afterSave) {
+        let dragged = null;
+
+        container.querySelectorAll(itemSelector).forEach(item => {
+            item.addEventListener('dragstart', () => {
+                dragged = item;
+                item.classList.add('is-dragging');
+            });
+
+            item.addEventListener('dragend', async () => {
+                item.classList.remove('is-dragging');
+                dragged = null;
+                const ids = Array.from(container.querySelectorAll(itemSelector)).map(el => Number(el.dataset.id));
+
+                try {
+                    await apiRequest(`api.php?action=${reorderAction}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ ids })
+                    });
+                    if (afterSave) await afterSave();
+                } catch (err) {
+                    alert(err.message);
+                }
+            });
+        });
+
+        container.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            if (!dragged) return;
+            const target = event.target.closest(itemSelector);
+            if (!target || target === dragged || !container.contains(target)) return;
+
+            const rect = target.getBoundingClientRect();
+            const insertAfter = event.clientY > rect.top + rect.height / 2;
+            container.insertBefore(dragged, insertAfter ? target.nextSibling : target);
+        });
+    }
+
     async function login() {
         const passInput = document.getElementById('adminPassword');
         const password = passInput ? passInput.value.trim() : '';
