@@ -79,6 +79,113 @@ a {
     text-shadow: 0 1px 16px rgba(216, 163, 26, 0.28);
 }
 
+/* Final heading and mobile hero polish */
+.section-kicker,
+.section-heading .section-kicker,
+.site-footer .section-kicker {
+    gap: 0 !important;
+    font-size: clamp(0.92rem, 1.1vw, 1.08rem) !important;
+    line-height: 1.1 !important;
+}
+
+.section-kicker::before,
+.section-heading .section-kicker::before,
+.site-footer .section-kicker::before {
+    content: none !important;
+    display: none !important;
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        min-height: auto !important;
+        padding: 16px 0 30px !important;
+    }
+
+    .hero-content .section-kicker {
+        font-size: 0.74rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 6px !important;
+    }
+
+    .hero-content h1 {
+        font-size: 1.58rem !important;
+        line-height: 1.05 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .hero-content .lead {
+        font-size: 0.82rem !important;
+        line-height: 1.38 !important;
+        margin-bottom: 18px !important;
+    }
+
+    .hero-actions {
+        gap: 8px !important;
+    }
+
+    .hero-actions .btn {
+        padding: 10px 14px !important;
+        font-size: 0.88rem !important;
+    }
+
+    .hero-metrics {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        margin-top: 14px !important;
+    }
+
+    .hero-metrics div {
+        padding: 9px 7px !important;
+        min-height: 58px !important;
+    }
+
+    .hero-metrics strong {
+        font-size: 0.92rem !important;
+    }
+
+    .hero-metrics span {
+        font-size: 0.55rem !important;
+        line-height: 1.12 !important;
+    }
+
+    .section-heading {
+        margin-bottom: 22px !important;
+    }
+
+    .section-heading .section-kicker,
+    .site-footer .section-kicker {
+        font-size: 0.88rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .section-heading h2,
+    .site-footer h2 {
+        font-size: 1.35rem !important;
+        line-height: 1.12 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .section-heading p,
+    .site-footer .contact-info,
+    .site-footer p {
+        font-size: 0.76rem !important;
+        line-height: 1.45 !important;
+    }
+
+    .about-section,
+    #projects,
+    .site-footer {
+        padding-top: 30px !important;
+        padding-bottom: 30px !important;
+    }
+
+    #projects .container,
+    .site-footer .container {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+}
+
 .section-kicker::before {
     content: none;
 }
@@ -1921,5 +2028,304 @@ body.admin-logged-in li.admin-only {
         padding: 6px 10px !important;
         font-size: 0.64rem !important;
         line-height: 1.1 !important;
+    }
+}
+
+/* Final override lives last so older AI-generated mobile rules cannot win. */
+.section-kicker::before,
+.section-heading .section-kicker::before,
+#projects .section-kicker::before,
+.site-footer .section-kicker::before {
+    content: none !important;
+    display: none !important;
+    width: 0 !important;
+    margin: 0 !important;
+}
+
+#projects .section-kicker,
+.site-footer .section-kicker {
+    font-size: clamp(1rem, 1.15vw, 1.16rem) !important;
+    letter-spacing: 0 !important;
+}
+
+.contact-card textarea {
+    min-height: 46px;
+    resize: vertical;
+}
+
+.contact-submit {
+    min-width: min(260px, 100%);
+    border-radius: 8px;
+}
+
+#projectsContainer {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+@media (min-width: 992px) {
+    .about-section,
+    #polyester-roof,
+    #winter-garden,
+    #steel-structure,
+    #steel-doors,
+    #kenet-roof {
+        padding-top: 52px !important;
+        padding-bottom: 52px !important;
+    }
+
+    .about-section > .container,
+    #polyester-roof > .container,
+    #winter-garden > .container,
+    #steel-structure > .container,
+    #steel-doors > .container,
+    #kenet-roof > .container {
+        max-width: 1240px;
+        padding-left: 22px !important;
+        padding-right: 22px !important;
+    }
+
+    .about-section .row,
+    #polyester-roof .row,
+    #winter-garden .row,
+    #steel-structure .row,
+    #steel-doors .row,
+    #kenet-roof .row {
+        align-items: center !important;
+        --bs-gutter-x: 2rem;
+    }
+
+    .about-section .col-lg-6.ps-lg-5,
+    #polyester-roof .polyester-right-panel,
+    #winter-garden .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel,
+    #kenet-roof .polyester-right-panel {
+        min-height: 360px !important;
+        padding: 28px 30px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+
+    .about-section h2,
+    .polyester-right-panel h2,
+    #steel-structure h2,
+    #steel-doors h2,
+    #kenet-roof h2 {
+        max-width: 520px;
+        font-size: clamp(2.15rem, 3.1vw, 3.35rem) !important;
+        line-height: 0.98 !important;
+        margin-bottom: 18px !important;
+    }
+
+    .about-section p,
+    .polyester-right-panel p,
+    #steel-structure p,
+    #steel-doors p,
+    #kenet-roof p {
+        max-width: 530px;
+        font-size: 1rem !important;
+        line-height: 1.62 !important;
+        margin-bottom: 18px !important;
+    }
+
+    .polyester-right-panel ul,
+    #steel-structure ul,
+    #steel-doors ul,
+    #kenet-roof ul {
+        max-width: 560px;
+        margin-bottom: 20px !important;
+    }
+
+    .polyester-right-panel li,
+    #steel-structure li,
+    #steel-doors li,
+    #kenet-roof li {
+        display: grid !important;
+        grid-template-columns: 28px minmax(0, 1fr);
+        align-items: center !important;
+        gap: 10px !important;
+        padding: 11px 0 !important;
+        font-size: 0.96rem !important;
+        line-height: 1.32 !important;
+    }
+
+    .polyester-right-panel li i,
+    #steel-structure li i,
+    #steel-doors li i,
+    #kenet-roof li i {
+        width: 28px !important;
+        margin: 0 !important;
+        text-align: center !important;
+    }
+
+    .about-carousel-container,
+    .about-carousel,
+    #aboutCarousel,
+    #aboutCarousel .carousel-inner,
+    #aboutCarousel .carousel-item,
+    .polyester-card-wrapper,
+    #polyester-roof .carousel,
+    #winter-garden .carousel,
+    #steel-structure .carousel,
+    #steel-doors .carousel,
+    #kenet-roof .carousel,
+    #polyester-roof .carousel-inner,
+    #winter-garden .carousel-inner,
+    #steel-structure .carousel-inner,
+    #steel-doors .carousel-inner,
+    #kenet-roof .carousel-inner,
+    #polyester-roof .carousel-item,
+    #winter-garden .carousel-item,
+    #steel-structure .carousel-item,
+    #steel-doors .carousel-item,
+    #kenet-roof .carousel-item {
+        min-height: 360px !important;
+        height: 360px !important;
+        max-height: 360px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        min-height: auto !important;
+        padding: 10px 0 24px !important;
+    }
+
+    .hero-content .section-kicker {
+        font-size: 0.82rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 7px !important;
+    }
+
+    .hero-content h1 {
+        font-size: 1.42rem !important;
+        line-height: 1.08 !important;
+        margin-bottom: 9px !important;
+    }
+
+    .hero-content .lead {
+        font-size: 0.76rem !important;
+        line-height: 1.38 !important;
+        margin-bottom: 14px !important;
+    }
+
+    .hero-actions {
+        gap: 7px !important;
+        margin-bottom: 0 !important;
+    }
+
+    .hero-actions .btn {
+        padding: 9px 10px !important;
+        font-size: 0.78rem !important;
+        min-height: 0 !important;
+    }
+
+    .hero-metrics {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        margin-top: 12px !important;
+    }
+
+    .hero-metrics div {
+        padding: 8px 5px !important;
+        min-height: 54px !important;
+    }
+
+    .hero-metrics strong {
+        font-size: 0.86rem !important;
+        line-height: 1 !important;
+    }
+
+    .hero-metrics span {
+        font-size: 0.5rem !important;
+        line-height: 1.1 !important;
+    }
+
+    .about-section,
+    #projects,
+    .site-footer {
+        padding-top: 22px !important;
+        padding-bottom: 24px !important;
+    }
+
+    .about-section > .container,
+    #projects > .container,
+    .site-footer > .container {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    #projects .section-heading {
+        margin-bottom: 16px !important;
+    }
+
+    #projects .section-kicker,
+    .site-footer .section-kicker {
+        font-size: 0.95rem !important;
+        margin-bottom: 7px !important;
+    }
+
+    #projects .section-heading h2,
+    .site-footer h2 {
+        font-size: 1.36rem !important;
+        line-height: 1.12 !important;
+        margin-bottom: 9px !important;
+    }
+
+    #projects .section-heading p,
+    .site-footer p,
+    .site-footer .contact-info {
+        font-size: 0.74rem !important;
+        line-height: 1.42 !important;
+    }
+
+    .about-section .about-cta {
+        display: none !important;
+    }
+
+    .about-section .row.g-4.mb-4 {
+        margin-bottom: 8px !important;
+    }
+
+    .site-footer .row.g-5 {
+        --bs-gutter-y: 1.15rem !important;
+    }
+
+    .site-footer hr {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.1rem !important;
+    }
+
+    .contact-card {
+        padding: 14px !important;
+    }
+
+    .contact-card .row {
+        --bs-gutter-x: 0.65rem;
+        --bs-gutter-y: 0.65rem;
+    }
+
+    .contact-card .form-label {
+        font-size: 0.68rem !important;
+        margin-bottom: 4px !important;
+    }
+
+    .contact-card .form-control {
+        min-height: 34px;
+        padding: 6px 9px;
+        font-size: 0.74rem;
+    }
+
+    .contact-card textarea.form-control {
+        min-height: 64px;
+    }
+
+    .contact-submit {
+        width: auto !important;
+        min-width: 170px;
+        padding: 9px 18px !important;
+        font-size: 0.78rem !important;
     }
 }

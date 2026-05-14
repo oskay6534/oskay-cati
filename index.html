@@ -53,7 +53,7 @@
     <!-- Font Awesome (İkonlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Özel CSS -->
-    <link rel="stylesheet" href="style.css?v=20260514-29">
+    <link rel="stylesheet" href="style.css?v=20260514-30">
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
 
@@ -182,7 +182,7 @@
                     <h2 class="fw-bold mb-0">10+</h2>
                     <p class="mb-0 fw-bold">Yıllık Tecrübe</p>
                 </div>
-                <a href="#contact" class="btn btn-dark btn-lg px-4 py-2 fw-bold">Keşif Talep Et</a>
+                <a href="#contact" class="btn btn-dark btn-lg px-4 py-2 fw-bold about-cta">Keşif Talep Et</a>
             </div>
         </div>
     </div>
@@ -639,6 +639,9 @@
                             </ul>
                         </div>
                         <p>
+                            <a href="tel:+905434037140" class="text-white text-decoration-none"><i class="fas fa-phone text-warning me-3"></i> 0 (543) 403 71 40</a>
+                        </p>
+                        <p>
                             <a href="mailto:Osmanoskay564@gmail.com" class="text-white text-decoration-none"><i class="fas fa-envelope text-warning me-3"></i> Osmanoskay564@gmail.com</a>
                         </p>
                          <p><i class="fas fa-map-marker-alt text-warning me-3"></i> İstanbul, Türkiye</p>
@@ -646,23 +649,27 @@
                 </div>
                 <div class="col-lg-6">
                     <form id="contactForm" class="contact-card text-dark" onsubmit="sendMessage(event)">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Adınız Soyadınız</label>
-                            <input type="text" id="msgName" class="form-control" required>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Adınız Soyadınız</label>
+                                <input type="text" id="msgName" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">E-posta</label>
+                                <input type="email" id="msgEmail" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Telefon Numaranız</label>
+                                <input type="tel" id="msgPhone" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Mesajınız</label>
+                                <textarea id="msgText" class="form-control" rows="3" placeholder="Nasıl yardımcı olabiliriz?" required></textarea>
+                            </div>
+                            <div class="col-12 text-center pt-2">
+                                <button type="submit" class="btn btn-warning contact-submit fw-bold px-5 py-3">Mesajı Gönder</button>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">E-posta</label>
-                            <input type="email" id="msgEmail" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Telefon Numaranız</label>
-                            <input type="tel" id="msgPhone" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Mesajınız</label>
-                            <textarea id="msgText" class="form-control" rows="4" placeholder="Nasıl yardımcı olabiliriz?" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-warning w-100 fw-bold py-3">Mesajı Gönder</button>
                     </form>
                 </div>
             </div>
