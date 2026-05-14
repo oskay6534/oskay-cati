@@ -570,6 +570,173 @@ body.admin-logged-in li.admin-only {
     background: #fff;
 }
 
+/* Final mobile section composition */
+@media (max-width: 576px) {
+    .about-section .row,
+    #polyester-roof .row,
+    #winter-garden .row,
+    #steel-structure .row,
+    #steel-doors .row,
+    #kenet-roof .row {
+        display: grid !important;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr) !important;
+        gap: 10px !important;
+        align-items: stretch !important;
+    }
+
+    .about-section .col-lg-6:first-child,
+    #polyester-roof .col-lg-6,
+    #winter-garden .col-lg-6,
+    #steel-structure .col-lg-6,
+    #steel-doors .col-lg-6,
+    #kenet-roof .col-lg-6,
+    .about-section .col-lg-6.ps-lg-5,
+    #polyester-roof .polyester-right-panel,
+    #winter-garden .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel,
+    #kenet-roof .polyester-right-panel {
+        width: auto !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        flex: none !important;
+        margin: 0 !important;
+    }
+
+    .about-section .col-lg-6.ps-lg-5,
+    #polyester-roof .polyester-right-panel,
+    #winter-garden .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel,
+    #kenet-roof .polyester-right-panel {
+        grid-column: 1 !important;
+        order: 1 !important;
+        height: 270px !important;
+        min-height: 270px !important;
+        max-height: 270px !important;
+        padding: 12px !important;
+        overflow: hidden !important;
+        justify-content: flex-start !important;
+    }
+
+    .about-section .col-lg-6:first-child,
+    #polyester-roof .col-lg-6,
+    #winter-garden .col-lg-6,
+    #steel-structure .col-lg-6,
+    #steel-doors .col-lg-6,
+    #kenet-roof .col-lg-6 {
+        grid-column: 2 !important;
+        order: 2 !important;
+    }
+
+    .about-carousel-container,
+    .about-carousel,
+    #aboutCarousel,
+    #aboutCarousel .carousel-inner,
+    #aboutCarousel .carousel-item,
+    .polyester-card-wrapper,
+    #polyester-roof .carousel,
+    #winter-garden .carousel,
+    #steel-structure .carousel,
+    #steel-doors .carousel,
+    #kenet-roof .carousel,
+    #polyester-roof .carousel-inner,
+    #winter-garden .carousel-inner,
+    #steel-structure .carousel-inner,
+    #steel-doors .carousel-inner,
+    #kenet-roof .carousel-inner,
+    #polyester-roof .carousel-item,
+    #winter-garden .carousel-item,
+    #steel-structure .carousel-item,
+    #steel-doors .carousel-item,
+    #kenet-roof .carousel-item {
+        height: 270px !important;
+        min-height: 270px !important;
+        max-height: 270px !important;
+    }
+
+    .about-section h2,
+    .polyester-right-panel h2,
+    #steel-structure h2,
+    #steel-doors h2,
+    #kenet-roof h2 {
+        font-size: 1.08rem !important;
+        line-height: 1.04 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .about-section p,
+    .polyester-right-panel p,
+    #steel-structure p,
+    #steel-doors p,
+    #kenet-roof p {
+        font-size: 0.66rem !important;
+        line-height: 1.28 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .polyester-right-panel ul,
+    #steel-structure ul,
+    #steel-doors ul,
+    #kenet-roof ul {
+        margin-bottom: 8px !important;
+    }
+
+    .polyester-right-panel li,
+    #steel-structure li,
+    #steel-doors li,
+    #kenet-roof li {
+        padding: 3px 0 !important;
+        gap: 5px !important;
+        font-size: 0.58rem !important;
+        line-height: 1.14 !important;
+    }
+
+    .about-section .row.g-4.mb-4 {
+        gap: 3px !important;
+        margin-bottom: 7px !important;
+    }
+
+    .about-section .row.g-4.mb-4 .d-flex.align-items-center {
+        min-height: 26px !important;
+        padding: 3px 0 !important;
+    }
+
+    .about-section .row.g-4.mb-4 .d-flex.align-items-center i {
+        width: 18px !important;
+        margin-right: 6px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .about-section .row.g-4.mb-4 .d-flex.align-items-center span {
+        font-size: 0.58rem !important;
+    }
+
+    .about-section .experience-badge {
+        width: 100% !important;
+        margin: 0 0 7px !important;
+        padding: 7px 9px !important;
+    }
+
+    .about-section .experience-badge h2 {
+        font-size: 1.02rem !important;
+    }
+
+    .about-section .experience-badge p {
+        font-size: 0.56rem !important;
+    }
+
+    .about-section .btn,
+    .polyester-right-panel .btn,
+    #steel-structure .btn,
+    #steel-doors .btn,
+    #kenet-roof .btn {
+        padding: 6px 10px !important;
+        font-size: 0.66rem !important;
+        line-height: 1.1 !important;
+    }
+}
+
 .admin-thumb img {
     width: 100%;
     height: 86px;
