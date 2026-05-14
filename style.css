@@ -1767,3 +1767,148 @@ body.admin-logged-in li.admin-only {
         font-size: 0.62rem !important;
     }
 }
+
+/* Final mobile polish: balanced text cards beside fixed images */
+@media (max-width: 576px) {
+    .about-section .row,
+    #polyester-roof .row,
+    #winter-garden .row,
+    #steel-structure .row,
+    #steel-doors .row,
+    #kenet-roof .row {
+        grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr) !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .about-section .col-lg-6.ps-lg-5,
+    #polyester-roof .polyester-right-panel,
+    #winter-garden .polyester-right-panel,
+    #steel-structure .col-lg-5,
+    #steel-doors .polyester-right-panel,
+    #kenet-roof .polyester-right-panel {
+        grid-column: 1 !important;
+        order: 1 !important;
+        height: auto !important;
+        min-height: 240px !important;
+        max-height: none !important;
+        padding: 12px !important;
+        overflow: visible !important;
+        justify-content: center !important;
+    }
+
+    #steel-structure .col-lg-5 {
+        min-height: 260px !important;
+    }
+
+    .about-section .col-lg-6:first-child,
+    #polyester-roof .col-lg-6,
+    #winter-garden .col-lg-6,
+    #steel-structure .col-lg-6,
+    #steel-doors .col-lg-6,
+    #kenet-roof .col-lg-6 {
+        grid-column: 2 !important;
+        order: 2 !important;
+    }
+
+    .about-carousel-container,
+    .about-carousel,
+    #aboutCarousel,
+    #aboutCarousel .carousel-inner,
+    #aboutCarousel .carousel-item,
+    .polyester-card-wrapper,
+    #polyester-roof .carousel,
+    #winter-garden .carousel,
+    #steel-structure .carousel,
+    #steel-doors .carousel,
+    #kenet-roof .carousel,
+    #polyester-roof .carousel-inner,
+    #winter-garden .carousel-inner,
+    #steel-structure .carousel-inner,
+    #steel-doors .carousel-inner,
+    #kenet-roof .carousel-inner,
+    #polyester-roof .carousel-item,
+    #winter-garden .carousel-item,
+    #steel-structure .carousel-item,
+    #steel-doors .carousel-item,
+    #kenet-roof .carousel-item {
+        height: 240px !important;
+        min-height: 240px !important;
+        max-height: 240px !important;
+    }
+
+    .about-section h2,
+    .polyester-right-panel h2,
+    #steel-structure h2,
+    #steel-doors h2,
+    #kenet-roof h2 {
+        font-size: 1rem !important;
+        line-height: 1.04 !important;
+        margin-bottom: 7px !important;
+    }
+
+    .about-section p,
+    .polyester-right-panel p,
+    #steel-structure p,
+    #steel-doors p,
+    #kenet-roof p {
+        font-size: 0.61rem !important;
+        line-height: 1.28 !important;
+        margin-bottom: 7px !important;
+    }
+
+    .polyester-right-panel ul,
+    #steel-structure ul,
+    #steel-doors ul,
+    #kenet-roof ul {
+        margin-bottom: 7px !important;
+    }
+
+    .polyester-right-panel li,
+    #steel-structure li,
+    #steel-doors li,
+    #kenet-roof li {
+        display: grid !important;
+        grid-template-columns: 14px minmax(0, 1fr);
+        align-items: center !important;
+        gap: 5px !important;
+        padding: 3px 0 !important;
+        font-size: 0.55rem !important;
+        line-height: 1.15 !important;
+    }
+
+    .polyester-right-panel li i,
+    #steel-structure li i,
+    #steel-doors li i,
+    #kenet-roof li i {
+        width: 14px !important;
+        margin: 0 !important;
+        text-align: center !important;
+        font-size: 0.58rem !important;
+    }
+
+    .about-section .experience-badge {
+        margin-bottom: 7px !important;
+        padding: 7px 9px !important;
+    }
+
+    .about-section .experience-badge h2 {
+        font-size: 1rem !important;
+    }
+
+    .about-section .experience-badge p,
+    .about-section .row.g-4.mb-4 .d-flex.align-items-center span {
+        font-size: 0.55rem !important;
+    }
+
+    .about-section .btn,
+    .polyester-right-panel .btn,
+    #steel-structure .btn,
+    #steel-doors .btn,
+    #kenet-roof .btn {
+        align-self: flex-start !important;
+        padding: 6px 10px !important;
+        font-size: 0.64rem !important;
+        line-height: 1.1 !important;
+    }
+}
