@@ -53,7 +53,7 @@
     <!-- Font Awesome (İkonlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Özel CSS -->
-    <link rel="stylesheet" href="style.css?v=20260514-27">
+    <link rel="stylesheet" href="style.css?v=20260514-28">
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
 
@@ -480,6 +480,45 @@
                 </div>
             </div>
 
+            <!-- Uygulama Galerileri Yönetimi (Sadece Admin) -->
+            <div class="admin-only admin-panel mb-4">
+                <div class="admin-panel-title">
+                    <div>
+                        <span class="section-kicker">Yönetim</span>
+                        <h4 class="fw-bold mb-0"><i class="fas fa-photo-film me-2"></i>Uygulama Galerileri</h4>
+                    </div>
+                </div>
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold" for="galleryCategory">Galeri</label>
+                        <select id="galleryCategory" class="form-select" onchange="loadGalleryAdminList()">
+                            <option value="polyester">Polyester Çatı</option>
+                            <option value="winter">Kış Bahçesi & Merdiven</option>
+                            <option value="steel">Ağır Çelik Yapı</option>
+                            <option value="door">Lüks Çelik Kapı</option>
+                            <option value="kenet">Kenet Çatı</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold" for="newGalleryImg">Görsel Yolu</label>
+                        <input type="text" id="newGalleryImg" class="form-control" placeholder="img/uploads/ornek.jpg">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" onclick="addGalleryImage()" class="btn btn-success w-100 fw-bold"><i class="fas fa-plus me-2"></i>Ekle</button>
+                    </div>
+                </div>
+                <div class="upload-zone mt-3" data-target="newGalleryImg" data-auto-add-gallery="true">
+                    <input type="file" class="d-none image-upload-input" accept="image/*">
+                    <i class="fas fa-cloud-arrow-up"></i>
+                    <div>
+                        <strong>Galeri görseli yükle</strong>
+                        <span>Dosya seç veya görseli buraya sürükle bırak; yol otomatik doldurulur.</span>
+                    </div>
+                    <button type="button" class="btn btn-outline-dark btn-sm">Dosya Seç</button>
+                </div>
+                <div id="galleryImagesAdminList" class="row g-2 mt-3"></div>
+            </div>
+
             <!-- Proje Ekleme Formu (Sadece Admin) -->
             <div class="admin-only admin-panel mb-5">
                 <div class="admin-panel-title">
@@ -776,6 +815,31 @@ if (kenetContainer) {
         }
     } catch (err) { console.error("Kenet çatı hatası:", err); }
 }
+    await appendManagedGallery('polyester', polyContainer, 'Polyester Uygulama');
+    await appendManagedGallery('winter', winterContainer, 'Kış Bahçesi');
+    await appendManagedGallery('steel', steelContainer, 'Ağır Çelik Yapı');
+    await appendManagedGallery('door', doorContainer, 'Çelik Kapı Modelleri');
+    await appendManagedGallery('kenet', kenetContainer, 'Kenet Çatı Uygulaması');
+}
+
+async function appendManagedGallery(category, container, altText) {
+    if (!container) return;
+
+    try {
+        const res = await fetch(`api.php?action=gallery-images&category=${category}`);
+        if (!res.ok) return;
+        const images = await res.json();
+        if (!Array.isArray(images) || images.length === 0) return;
+
+        const hasActive = !!container.querySelector('.carousel-item.active');
+        container.insertAdjacentHTML('beforeend', images.map((img, index) => `
+            <div class="carousel-item ${!hasActive && index === 0 ? 'active' : ''}">
+                <img src="${img.img}" class="polyester-main-img" alt="${altText}">
+            </div>
+        `).join(''));
+    } catch (err) {
+        console.log('Ek galeri görselleri yüklenemedi.');
+    }
 }
 
     // --- SEO FONKSİYONLARI ---
@@ -842,6 +906,7 @@ if (kenetContainer) {
                     loginBtn.onclick = logout;
                 }
                 loadSeoSettings(true);
+                loadGalleryAdminList();
             }
 
             const carouselInner = document.getElementById('aboutCarouselInner');
@@ -1046,6 +1111,75 @@ if (kenetContainer) {
         }
     }
 
+    const galleryLabels = {
+        polyester: 'Polyester Çatı',
+        winter: 'Kış Bahçesi & Merdiven',
+        steel: 'Ağır Çelik Yapı',
+        door: 'Lüks Çelik Kapı',
+        kenet: 'Kenet Çatı'
+    };
+
+    async function loadGalleryAdminList() {
+        const select = document.getElementById('galleryCategory');
+        const list = document.getElementById('galleryImagesAdminList');
+        if (!select || !list) return;
+
+        const category = select.value;
+        try {
+            const images = await apiRequest(`api.php?action=gallery-images&category=${category}`);
+            list.innerHTML = images.length ? images.map(img => `
+                <div class="col-md-4">
+                    <div class="admin-thumb">
+                        <img src="${img.img}" alt="${galleryLabels[category]}">
+                        <small>${img.img}</small>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteGalleryImage(${img.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('') : '<div class="col-12"><p class="text-muted mb-0">Bu galeriye yönetimden eklenen görsel yok.</p></div>';
+        } catch (err) {
+            list.innerHTML = '<div class="col-12"><p class="text-danger mb-0">Galeri listesi yüklenemedi.</p></div>';
+        }
+    }
+
+    async function addGalleryImage() {
+        const select = document.getElementById('galleryCategory');
+        const input = document.getElementById('newGalleryImg');
+        const category = select?.value;
+        const img = input?.value.trim();
+        if (!category || !img) {
+            alert('Galeri ve görsel yolu zorunlu.');
+            return;
+        }
+
+        try {
+            await apiRequest(`api.php?action=gallery-images&category=${category}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ img })
+            });
+            if (input) input.value = '';
+            await loadGalleryAdminList();
+            await loadGalleries();
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    async function deleteGalleryImage(id) {
+        const category = document.getElementById('galleryCategory')?.value;
+        if (!category || !confirm('Bu galeri görselini silmek istiyor musunuz?')) return;
+
+        try {
+            await apiRequest(`api.php?action=gallery-images&category=${category}&id=${id}`, { method: 'DELETE' });
+            await loadGalleryAdminList();
+            await loadGalleries();
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
     function enableDragSort(container, itemSelector, reorderAction, afterSave) {
         let dragged = null;
         let moved = false;
@@ -1165,6 +1299,7 @@ if (kenetContainer) {
             const button = zone.querySelector('button');
             const targetId = zone.dataset.target;
             const useAbsoluteUrl = zone.dataset.absoluteUrl === 'true';
+            const autoAddGallery = zone.dataset.autoAddGallery === 'true';
 
             if (!input || !targetId) return;
 
@@ -1191,20 +1326,20 @@ if (kenetContainer) {
                 event.preventDefault();
                 zone.classList.remove('drag-over');
                 if (event.dataTransfer.files?.length) {
-                    uploadSelectedImage(event.dataTransfer.files[0], zone, targetId, useAbsoluteUrl);
+                    uploadSelectedImage(event.dataTransfer.files[0], zone, targetId, useAbsoluteUrl, autoAddGallery);
                 }
             });
 
             input.addEventListener('change', () => {
                 if (input.files?.length) {
-                    uploadSelectedImage(input.files[0], zone, targetId, useAbsoluteUrl);
+                    uploadSelectedImage(input.files[0], zone, targetId, useAbsoluteUrl, autoAddGallery);
                     input.value = '';
                 }
             });
         });
     }
 
-    async function uploadSelectedImage(file, zone, targetId, useAbsoluteUrl) {
+    async function uploadSelectedImage(file, zone, targetId, useAbsoluteUrl, autoAddGallery = false) {
         if (!file || !file.type.startsWith('image/')) {
             alert('Lütfen bir görsel seçin.');
             return;
@@ -1230,6 +1365,9 @@ if (kenetContainer) {
             if (target) target.value = path;
             zone.classList.add('uploaded');
             setTimeout(() => zone.classList.remove('uploaded'), 1200);
+            if (autoAddGallery) {
+                await addGalleryImage();
+            }
         } catch (err) {
             alert(err.message);
         } finally {

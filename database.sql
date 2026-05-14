@@ -47,9 +47,16 @@ CREATE TABLE IF NOT EXISTS about_images (
 );
 
 INSERT INTO about_images (img, sort_order) VALUES 
-('img/8.jpg', 1), 
-('img/9.jpg', 2), 
+('img/8.jpg', 1),
+('img/9.jpg', 2),
 ('img/1.jpg', 3);
+
+CREATE TABLE IF NOT EXISTS gallery_images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(80) NOT NULL,
+    img VARCHAR(255) NOT NULL,
+    sort_order INT DEFAULT 0
+);
 
 CREATE TABLE IF NOT EXISTS messages (
     id INT AUTO_INCREMENT PRIMARY KEY,

@@ -79,6 +79,89 @@ if ($action === 'logout') {
     exit;
 }
 
+function uploadSlugFileName($name) {
+    $name = strtolower(pathinfo($name, PATHINFO_FILENAME));
+    $name = preg_replace('/[^a-z0-9]+/', '-', $name);
+    $name = trim($name, '-');
+    return $name !== '' ? $name : 'gorsel';
+}
+
+if ($action === 'upload-image') {
+    if (!$isAdmin) {
+        http_response_code(403);
+        echo json_encode(['error' => 'Yetkisiz erişim']);
+        exit;
+    }
+
+    if ($method !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['error' => 'Geçersiz istek yöntemi']);
+        exit;
+    }
+
+    if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+        $uploadErrors = [
+            UPLOAD_ERR_INI_SIZE => 'Görsel sunucu yükleme limitinden büyük.',
+            UPLOAD_ERR_FORM_SIZE => 'Görsel form yükleme limitinden büyük.',
+            UPLOAD_ERR_PARTIAL => 'Görsel eksik yüklendi, tekrar deneyin.',
+            UPLOAD_ERR_NO_FILE => 'Görsel seçilmedi.',
+            UPLOAD_ERR_NO_TMP_DIR => 'Sunucuda geçici yükleme klasörü yok.',
+            UPLOAD_ERR_CANT_WRITE => 'Sunucu görseli diske yazamadı.',
+            UPLOAD_ERR_EXTENSION => 'Sunucu eklentisi yüklemeyi durdurdu.'
+        ];
+        $errorCode = $_FILES['image']['error'] ?? UPLOAD_ERR_NO_FILE;
+        http_response_code(400);
+        echo json_encode(['error' => $uploadErrors[$errorCode] ?? 'Görsel yüklenemedi.']);
+        exit;
+    }
+
+    if ($_FILES['image']['size'] > 6 * 1024 * 1024) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Görsel 6 MB üzerinde olamaz']);
+        exit;
+    }
+
+    $tmpPath = $_FILES['image']['tmp_name'];
+    $info = getimagesize($tmpPath);
+    $allowedTypes = [
+        IMAGETYPE_JPEG => 'jpg',
+        IMAGETYPE_PNG => 'png',
+        IMAGETYPE_WEBP => 'webp',
+        IMAGETYPE_GIF => 'gif'
+    ];
+
+    if (!$info || !isset($allowedTypes[$info[2]])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Sadece JPG, PNG, WEBP veya GIF yükleyebilirsiniz']);
+        exit;
+    }
+
+    $uploadDir = __DIR__ . '/img/uploads';
+    if (!is_dir($uploadDir) && !mkdir($uploadDir, 0775, true)) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Yükleme klasörü oluşturulamadı']);
+        exit;
+    }
+
+    if (!is_writable($uploadDir)) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Yükleme klasörü yazılabilir değil']);
+        exit;
+    }
+
+    $fileName = uploadSlugFileName($_FILES['image']['name']) . '-' . date('YmdHis') . '-' . bin2hex(random_bytes(4)) . '.' . $allowedTypes[$info[2]];
+    $targetPath = $uploadDir . '/' . $fileName;
+
+    if (!move_uploaded_file($tmpPath, $targetPath)) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Görsel kaydedilemedi']);
+        exit;
+    }
+
+    echo json_encode(['success' => true, 'path' => 'img/uploads/' . $fileName]);
+    exit;
+}
+
 // Veritabanına Bağlan (PDO)
 try {
     $pdo = new PDO("mysql:host=$dbHost;port=$dbPort;dbname=$dbName;charset=utf8mb4", $dbUser, $dbPass);
@@ -133,6 +216,15 @@ function ensureContentTables($pdo) {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS about_images (
             id INT AUTO_INCREMENT PRIMARY KEY,
+            img VARCHAR(255) NOT NULL,
+            sort_order INT DEFAULT 0
+        )
+    ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS gallery_images (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            category VARCHAR(80) NOT NULL,
             img VARCHAR(255) NOT NULL,
             sort_order INT DEFAULT 0
         )
@@ -243,7 +335,17 @@ switch ($action) {
 
         if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
             http_response_code(400);
-            echo json_encode(['error' => 'Görsel yüklenemedi']);
+            $uploadErrors = [
+                UPLOAD_ERR_INI_SIZE => 'Görsel sunucu yükleme limitinden büyük.',
+                UPLOAD_ERR_FORM_SIZE => 'Görsel form yükleme limitinden büyük.',
+                UPLOAD_ERR_PARTIAL => 'Görsel eksik yüklendi, tekrar deneyin.',
+                UPLOAD_ERR_NO_FILE => 'Görsel seçilmedi.',
+                UPLOAD_ERR_NO_TMP_DIR => 'Sunucuda geçici yükleme klasörü yok.',
+                UPLOAD_ERR_CANT_WRITE => 'Sunucu görseli diske yazamadı.',
+                UPLOAD_ERR_EXTENSION => 'Sunucu eklentisi yüklemeyi durdurdu.'
+            ];
+            $errorCode = $_FILES['image']['error'] ?? UPLOAD_ERR_NO_FILE;
+            echo json_encode(['error' => $uploadErrors[$errorCode] ?? 'Görsel yüklenemedi.']);
             break;
         }
 
@@ -272,6 +374,12 @@ switch ($action) {
         if (!is_dir($uploadDir) && !mkdir($uploadDir, 0775, true)) {
             http_response_code(500);
             echo json_encode(['error' => 'Yükleme klasörü oluşturulamadı']);
+            break;
+        }
+
+        if (!is_writable($uploadDir)) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Yükleme klasörü yazılabilir değil']);
             break;
         }
 
@@ -355,6 +463,41 @@ switch ($action) {
         }
         $pdo->commit();
         echo json_encode(['success' => true]);
+        break;
+
+    case 'gallery-images':
+        $allowedCategories = ['polyester', 'winter', 'steel', 'door', 'kenet'];
+        $category = trim($_GET['category'] ?? ($input['category'] ?? ''));
+        if (!in_array($category, $allowedCategories, true)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Geçersiz galeri']);
+            break;
+        }
+
+        if ($method === 'GET') {
+            $stmt = $pdo->prepare("SELECT * FROM gallery_images WHERE category = ? ORDER BY sort_order ASC, id ASC");
+            $stmt->execute([$category]);
+            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        } elseif ($method === 'POST') {
+            requireAdmin();
+            $img = htmlspecialchars(trim($input['img'] ?? ''), ENT_QUOTES, 'UTF-8');
+            if ($img === '') {
+                http_response_code(400);
+                echo json_encode(['error' => 'Görsel yolu zorunlu']);
+                break;
+            }
+            $stmt = $pdo->prepare("SELECT COALESCE(MAX(sort_order), 0) + 1 FROM gallery_images WHERE category = ?");
+            $stmt->execute([$category]);
+            $sortOrder = (int)$stmt->fetchColumn();
+            $stmt = $pdo->prepare("INSERT INTO gallery_images (category, img, sort_order) VALUES (?, ?, ?)");
+            $stmt->execute([$category, $img, $sortOrder]);
+            echo json_encode(['id' => $pdo->lastInsertId(), 'category' => $category, 'img' => $img, 'sort_order' => $sortOrder]);
+        } elseif ($method === 'DELETE') {
+            requireAdmin();
+            $stmt = $pdo->prepare("DELETE FROM gallery_images WHERE id = ? AND category = ?");
+            $stmt->execute([$_GET['id'] ?? 0, $category]);
+            echo json_encode(['success' => true]);
+        }
         break;
 
     case 'messages':

@@ -1,3 +1,4 @@
 .env
 mysql_data/
-img/uploads/
+img/uploads/*
+!img/uploads/.gitkeep
