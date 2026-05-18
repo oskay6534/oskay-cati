@@ -2261,6 +2261,11 @@ body.admin-logged-in li.admin-only {
         margin-bottom: 16px !important;
     }
 
+    #projectsContainer {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+    }
+
     #projects .section-kicker,
     .site-footer .section-kicker {
         font-size: 0.95rem !important;
@@ -2299,7 +2304,20 @@ body.admin-logged-in li.admin-only {
     }
 
     .contact-card {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+        gap: 10px !important;
+        width: min(100%, 360px);
+        min-height: 0 !important;
+        height: auto !important;
+        margin-inline: auto;
         padding: 14px !important;
+    }
+
+    .contact-card .mb-3 {
+        min-width: 0;
+        margin-bottom: 0 !important;
     }
 
     .contact-card .row {
@@ -2319,7 +2337,22 @@ body.admin-logged-in li.admin-only {
     }
 
     .contact-card textarea.form-control {
-        min-height: 64px;
+        min-height: 34px;
+        height: 34px;
+        resize: vertical;
+        line-height: 1.25;
+    }
+
+    .contact-card > button[type="submit"] {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: auto !important;
+        min-width: 170px;
+        margin-top: 4px;
+        padding: 9px 20px !important;
+        border-radius: 8px;
+        font-size: 0.78rem !important;
+        box-shadow: 0 10px 24px rgba(226, 172, 18, 0.24);
     }
 
     .contact-submit {
