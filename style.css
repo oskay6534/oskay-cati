@@ -919,6 +919,58 @@ body.admin-logged-in li.admin-only {
     padding-right: 0;
 }
 
+.admin-image-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px !important;
+}
+
+.admin-image-grid > [class*="col-"] {
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.admin-image-card {
+    height: 100%;
+    color: #eef5ff;
+    border-color: rgba(255, 255, 255, 0.14);
+    background:
+        linear-gradient(180deg, rgba(13, 27, 42, 0.16), rgba(13, 27, 42, 0.84)),
+        rgba(13, 27, 42, 0.72);
+    box-shadow: 0 12px 30px rgba(8, 12, 20, 0.22);
+}
+
+.admin-image-card img {
+    width: 100% !important;
+    height: 210px !important;
+    min-height: 210px;
+    object-fit: cover;
+    cursor: zoom-in;
+}
+
+.admin-thumb-meta {
+    display: grid;
+    gap: 4px;
+    padding: 10px 12px 12px;
+}
+
+.admin-thumb-meta strong {
+    font-size: 0.82rem;
+    line-height: 1.1;
+}
+
+.admin-thumb-meta small {
+    min-width: 0;
+    padding: 0 !important;
+    overflow: hidden;
+    color: rgba(238, 245, 255, 0.68) !important;
+    font-size: 0.68rem;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .seo-panel {
     background:
         linear-gradient(135deg, rgba(13, 27, 42, 0.78), rgba(27, 38, 59, 0.72)),
@@ -2354,5 +2406,27 @@ body.admin-logged-in li.admin-only {
         min-width: 170px;
         padding: 9px 18px !important;
         font-size: 0.78rem !important;
+    }
+
+    .admin-image-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+    }
+
+    .admin-image-card img {
+        height: 138px !important;
+        min-height: 138px !important;
+    }
+
+    .admin-thumb-meta {
+        padding: 8px;
+    }
+
+    .admin-thumb-meta strong {
+        font-size: 0.68rem;
+    }
+
+    .admin-thumb-meta small {
+        font-size: 0.55rem;
     }
 }

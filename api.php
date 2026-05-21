@@ -500,6 +500,26 @@ switch ($action) {
         }
         break;
 
+    case 'gallery-images-reorder':
+        requireAdmin();
+        $allowedCategories = ['polyester', 'winter', 'steel', 'door', 'kenet'];
+        $category = trim($_GET['category'] ?? ($input['category'] ?? ''));
+        if (!in_array($category, $allowedCategories, true)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Geçersiz galeri']);
+            break;
+        }
+
+        $ids = array_values(array_filter($input['ids'] ?? [], 'is_numeric'));
+        $pdo->beginTransaction();
+        $stmt = $pdo->prepare("UPDATE gallery_images SET sort_order = ? WHERE id = ? AND category = ?");
+        foreach ($ids as $index => $id) {
+            $stmt->execute([$index + 1, (int)$id, $category]);
+        }
+        $pdo->commit();
+        echo json_encode(['success' => true]);
+        break;
+
     case 'messages':
         if ($method === 'GET') {
             requireAdmin();

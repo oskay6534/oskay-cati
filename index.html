@@ -53,7 +53,7 @@
     <!-- Font Awesome (İkonlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Özel CSS -->
-    <link rel="stylesheet" href="style.css?v=20260518-32">
+    <link rel="stylesheet" href="style.css?v=20260521-33">
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
 
@@ -930,18 +930,16 @@ async function appendManagedGallery(category, container, altText) {
     function renderAboutAdminList(images) {
         const list = document.getElementById('aboutImagesAdminList');
         if (!list) return;
+        list.classList.add('admin-image-grid');
 
         list.innerHTML = images.map((img) => `
-            <div class="col-md-4 admin-sort-item" draggable="true" data-id="${img.id}">
-                <div class="admin-thumb sortable-thumb">
-                    <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
-                    <img src="${img.img}" alt="Hakkımızda görseli">
-                    <small>${img.img}</small>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteAboutImage(${img.id})">
-                        <i class="fas fa-trash"></i> Sil
-                    </button>
-                </div>
-            </div>
+            ${renderAdminImageCard({
+                id: img.id,
+                img: img.img,
+                alt: 'Hakkımızda görseli',
+                label: 'Hakkımızda Slider',
+                deleteAction: `deleteAboutImage(${img.id})`
+            })}
         `).join('');
 
         enableDragSort(list, '.admin-sort-item', 'about-images-reorder', loadAboutImages);
@@ -1122,25 +1120,50 @@ async function appendManagedGallery(category, container, altText) {
         kenet: 'Kenet Çatı'
     };
 
+    function renderAdminImageCard({ id, img, alt, label, deleteAction }) {
+        const safeImg = escapeHTML(img || '');
+        const safeAlt = escapeHTML(alt || 'Admin görseli');
+        const safeLabel = escapeHTML(label || 'Görsel');
+
+        return `
+            <div class="col-md-4 admin-sort-item" data-id="${id}">
+                <div class="admin-thumb sortable-thumb admin-image-card">
+                    <span class="drag-handle" title="Sürükle ve sırala"><i class="fas fa-grip-vertical"></i></span>
+                    <img src="${safeImg}" alt="${safeAlt}" onclick="viewImage(this.getAttribute('src'))">
+                    <div class="admin-thumb-meta">
+                        <strong>${safeLabel}</strong>
+                        <small>${safeImg}</small>
+                    </div>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="${deleteAction}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
     async function loadGalleryAdminList() {
         const select = document.getElementById('galleryCategory');
         const list = document.getElementById('galleryImagesAdminList');
         if (!select || !list) return;
+        list.classList.add('admin-image-grid');
 
         const category = select.value;
         try {
             const images = await apiRequest(`api.php?action=gallery-images&category=${category}`);
             list.innerHTML = images.length ? images.map(img => `
-                <div class="col-md-4">
-                    <div class="admin-thumb">
-                        <img src="${img.img}" alt="${galleryLabels[category]}">
-                        <small>${img.img}</small>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteGalleryImage(${img.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
+                ${renderAdminImageCard({
+                    id: img.id,
+                    img: img.img,
+                    alt: galleryLabels[category],
+                    label: galleryLabels[category],
+                    deleteAction: `deleteGalleryImage(${img.id})`
+                })}
             `).join('') : '<div class="col-12"><p class="text-muted mb-0">Bu galeriye yönetimden eklenen görsel yok.</p></div>';
+            enableDragSort(list, '.admin-sort-item', `gallery-images-reorder&category=${encodeURIComponent(category)}`, async () => {
+                await loadGalleryAdminList();
+                await loadGalleries();
+            });
         } catch (err) {
             list.innerHTML = '<div class="col-12"><p class="text-danger mb-0">Galeri listesi yüklenemedi.</p></div>';
         }
@@ -1222,7 +1245,7 @@ async function appendManagedGallery(category, container, altText) {
             });
         });
 
-        container.addEventListener('dragover', (event) => {
+        container.ondragover = (event) => {
             event.preventDefault();
             if (!dragged) return;
 
@@ -1247,7 +1270,7 @@ async function appendManagedGallery(category, container, altText) {
                 container.appendChild(dragged);
                 moved = true;
             }
-        });
+        };
     }
 
     async function login() {
