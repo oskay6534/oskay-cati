@@ -53,7 +53,7 @@
     <!-- Font Awesome (İkonlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Özel CSS -->
-    <link rel="stylesheet" href="style.css?v=20260521-33">
+    <link rel="stylesheet" href="style.css?v=20260521-34">
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
 
@@ -729,7 +729,7 @@ async function loadGalleries() {
             
             if (!res.ok) {
                 console.error("Kış bahçesi klasörü GitHub'da bulunamadı!");
-                return;
+                throw new Error('Kış bahçesi klasörü bulunamadı.');
             }
 
             const files = await res.json();
@@ -834,8 +834,12 @@ async function appendManagedGallery(category, container, altText) {
         const images = await res.json();
         if (!Array.isArray(images) || images.length === 0) return;
 
+        const existingSrcs = new Set(Array.from(container.querySelectorAll('img')).map(img => img.getAttribute('src')));
+        const newImages = images.filter(img => img.img && !existingSrcs.has(img.img));
+        if (newImages.length === 0) return;
+
         const hasActive = !!container.querySelector('.carousel-item.active');
-        container.insertAdjacentHTML('beforeend', images.map((img, index) => `
+        container.insertAdjacentHTML('beforeend', newImages.map((img, index) => `
             <div class="carousel-item ${!hasActive && index === 0 ? 'active' : ''}">
                 <img src="${img.img}" class="polyester-main-img" alt="${altText}">
             </div>
@@ -1120,6 +1124,14 @@ async function appendManagedGallery(category, container, altText) {
         kenet: 'Kenet Çatı'
     };
 
+    const galleryFolders = {
+        polyester: 'polyster_resimler',
+        winter: 'kisbahceleri_merdiven',
+        steel: 'celik_konstruksiyon',
+        door: 'celik_kapilar',
+        kenet: 'kenet_cati'
+    };
+
     function renderAdminImageCard({ id, img, alt, label, deleteAction }) {
         const safeImg = escapeHTML(img || '');
         const safeAlt = escapeHTML(alt || 'Admin görseli');
@@ -1129,7 +1141,7 @@ async function appendManagedGallery(category, container, altText) {
             <div class="col-md-4 admin-sort-item" data-id="${id}">
                 <div class="admin-thumb sortable-thumb admin-image-card">
                     <span class="drag-handle" title="Sürükle ve sırala"><i class="fas fa-grip-vertical"></i></span>
-                    <img src="${safeImg}" alt="${safeAlt}" onclick="viewImage(this.getAttribute('src'))">
+                    <img src="${safeImg}" alt="${safeAlt}">
                     <div class="admin-thumb-meta">
                         <strong>${safeLabel}</strong>
                         <small>${safeImg}</small>
@@ -1142,6 +1154,43 @@ async function appendManagedGallery(category, container, altText) {
         `;
     }
 
+    async function fetchGithubGalleryImages(category) {
+        const folder = galleryFolders[category];
+        if (!folder) return [];
+
+        try {
+            const res = await fetch(`https://api.github.com/repos/oskay6534/oskay-cati/contents/${folder}`);
+            if (!res.ok) return [];
+            const files = await res.json();
+            if (!Array.isArray(files)) return [];
+            return files
+                .filter(file => file.name && file.name.match(/\.(jpg|jpeg|png|webp|gif)$/i))
+                .map(file => file.download_url)
+                .filter(Boolean);
+        } catch (err) {
+            return [];
+        }
+    }
+
+    async function syncGithubGalleryImages(category, currentImages) {
+        const githubImages = await fetchGithubGalleryImages(category);
+        if (githubImages.length === 0) return currentImages;
+
+        const existing = new Set((currentImages || []).map(item => item.img));
+        const missing = githubImages.filter(src => !existing.has(src));
+        if (missing.length === 0) return currentImages;
+
+        for (const img of missing) {
+            await apiRequest(`api.php?action=gallery-images&category=${category}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ img })
+            });
+        }
+
+        return apiRequest(`api.php?action=gallery-images&category=${category}`);
+    }
+
     async function loadGalleryAdminList() {
         const select = document.getElementById('galleryCategory');
         const list = document.getElementById('galleryImagesAdminList');
@@ -1150,7 +1199,8 @@ async function appendManagedGallery(category, container, altText) {
 
         const category = select.value;
         try {
-            const images = await apiRequest(`api.php?action=gallery-images&category=${category}`);
+            let images = await apiRequest(`api.php?action=gallery-images&category=${category}`);
+            images = await syncGithubGalleryImages(category, images);
             list.innerHTML = images.length ? images.map(img => `
                 ${renderAdminImageCard({
                     id: img.id,
@@ -1211,11 +1261,13 @@ async function appendManagedGallery(category, container, altText) {
         let moved = false;
 
         container.querySelectorAll(itemSelector).forEach(item => {
-            item.setAttribute('draggable', 'false');
-            const handle = item.querySelector('.drag-handle') || item;
-            handle.setAttribute('draggable', 'true');
+            item.setAttribute('draggable', 'true');
 
-            handle.addEventListener('dragstart', (event) => {
+            item.addEventListener('dragstart', (event) => {
+                if (event.target.closest('input, textarea, select, button, a')) {
+                    event.preventDefault();
+                    return;
+                }
                 dragged = item;
                 moved = false;
                 item.classList.add('is-dragging');
@@ -1223,7 +1275,7 @@ async function appendManagedGallery(category, container, altText) {
                 event.dataTransfer.setData('text/plain', item.dataset.id || '');
             });
 
-            handle.addEventListener('dragend', async () => {
+            item.addEventListener('dragend', async () => {
                 item.classList.remove('is-dragging');
                 const shouldSave = moved;
                 dragged = null;

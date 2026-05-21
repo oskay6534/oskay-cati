@@ -868,6 +868,12 @@ body.admin-logged-in li.admin-only {
     cursor: grab;
 }
 
+.admin-sort-item img,
+.admin-image-card,
+body.admin-logged-in #projectsContainer .project-card {
+    cursor: grab !important;
+}
+
 .admin-sort-item.is-dragging {
     opacity: 0.55;
 }
@@ -946,7 +952,7 @@ body.admin-logged-in li.admin-only {
     height: 210px !important;
     min-height: 210px;
     object-fit: cover;
-    cursor: zoom-in;
+    cursor: grab !important;
 }
 
 .admin-thumb-meta {
