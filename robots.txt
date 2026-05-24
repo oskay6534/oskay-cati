@@ -3,5 +3,8 @@ Allow: /
 Disallow: /api.php
 Disallow: /hash.php
 Disallow: /generateHash.js
+Disallow: /.env
+Disallow: /database.sql
+Disallow: /docker-compose.yml
 
 Sitemap: https://www.oskaycati.com/sitemap.xml

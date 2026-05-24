@@ -3,12 +3,21 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.oskaycati.com/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://www.oskaycati.com/img/9.jpg</image:loc>
-      <image:title>Oskay Çatı Sistemleri</image:title>
+      <image:title>İstanbul çatı tamiri ve çatı yapımı</image:title>
+      <image:caption>Oskay Çatı İstanbul çatı tamiri, çatı yapımı ve izolasyon uygulamaları</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.oskaycati.com/img/1.jpg</image:loc>
+      <image:title>İstanbul çatı yapımı uygulaması</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.oskaycati.com/img/2.jpg</image:loc>
+      <image:title>Çatı bakımı ve izolasyon İstanbul</image:title>
     </image:image>
   </url>
 </urlset>

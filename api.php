@@ -192,13 +192,28 @@ function ensureSeoSettingsTable($pdo) {
         ON DUPLICATE KEY UPDATE id = id
     ");
     $stmt->execute([
-        'Oskay Çatı Sistemleri | İstanbul Çatı Tamiri ve İzolasyon Ustası',
-        "İstanbul'da profesyonel çatı tamiri, izolasyon ve yeni çatı yapımı hizmetleri. 10 yıllık tecrübe ile garantili işçilik. Ücretsiz keşif için hemen arayın!",
-        'çatı tamiri, istanbul çatı ustası, çatı izolasyon, yeni çatı yapımı, çelik çatı, oskay çatı',
-        'Oskay Çatı Sistemleri | İstanbul Çatı Tamiri',
-        'Profesyonel çatı çözümleri, tamir ve izolasyon hizmetleri.',
+        'İstanbul Çatı Tamiri, Çatı Yapımı ve Bakımı | Oskay Çatı',
+        'İstanbul çatı tamiri, yeni çatı yapımı, çatı bakımı, izolasyon, kenet çatı ve çelik çatı uygulamaları. Oskay Çatı ile ücretsiz keşif ve garantili işçilik.',
+        'istanbul çatı, istanbul çatı yapımı, istanbul çatı tamiri, çatı bakımı istanbul, çatı tamiri, çatı ustası istanbul, çatı izolasyon, kenet çatı, çelik çatı, oskay çatı',
+        'İstanbul Çatı Tamiri ve Çatı Yapımı | Oskay Çatı',
+        'İstanbul ve çevresinde çatı tamiri, çatı yapımı, bakım, izolasyon, kenet çatı ve çelik çatı uygulamaları.',
         'https://www.oskaycati.com/img/9.jpg',
         'https://www.oskaycati.com/'
+    ]);
+
+    $stmt = $pdo->prepare("
+        UPDATE seo_settings
+        SET meta_title = ?, meta_description = ?, meta_keywords = ?, og_title = ?, og_description = ?
+        WHERE id = 1 AND meta_title = ? AND meta_description = ?
+    ");
+    $stmt->execute([
+        'İstanbul Çatı Tamiri, Çatı Yapımı ve Bakımı | Oskay Çatı',
+        'İstanbul çatı tamiri, yeni çatı yapımı, çatı bakımı, izolasyon, kenet çatı ve çelik çatı uygulamaları. Oskay Çatı ile ücretsiz keşif ve garantili işçilik.',
+        'istanbul çatı, istanbul çatı yapımı, istanbul çatı tamiri, çatı bakımı istanbul, çatı tamiri, çatı ustası istanbul, çatı izolasyon, kenet çatı, çelik çatı, oskay çatı',
+        'İstanbul Çatı Tamiri ve Çatı Yapımı | Oskay Çatı',
+        'İstanbul ve çevresinde çatı tamiri, çatı yapımı, bakım, izolasyon, kenet çatı ve çelik çatı uygulamaları.',
+        'Oskay Çatı Sistemleri | İstanbul Çatı Tamiri ve İzolasyon Ustası',
+        "İstanbul'da profesyonel çatı tamiri, izolasyon ve yeni çatı yapımı hizmetleri. 10 yıllık tecrübe ile garantili işçilik. Ücretsiz keşif için hemen arayın!"
     ]);
 }
 
