@@ -331,6 +331,14 @@ a {
     color: rgba(255, 255, 255, 0.82);
 }
 
+.hero-seo-note {
+    max-width: 700px;
+    margin: -2px 0 28px;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
 .hero-metrics {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2265,7 +2273,14 @@ body.admin-logged-in #projectsContainer .project-card {
     .hero-content .lead {
         font-size: 0.76rem !important;
         line-height: 1.38 !important;
-        margin-bottom: 14px !important;
+        margin-bottom: 7px !important;
+    }
+
+    .hero-seo-note {
+        margin: 0 0 12px !important;
+        font-size: 0.58rem !important;
+        line-height: 1.3 !important;
+        color: rgba(255, 255, 255, 0.62);
     }
 
     .hero-actions {
