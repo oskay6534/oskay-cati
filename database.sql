@@ -17,11 +17,11 @@ CREATE TABLE IF NOT EXISTS seo_settings (
 INSERT INTO seo_settings (id, meta_title, meta_description, meta_keywords, og_title, og_description, og_image, canonical_url)
 VALUES (
     1,
-    'İstanbul Çatı Tamiri, Çatı Yapımı ve Bakımı | Oskay Çatı',
-    'İstanbul çatı tamiri, yeni çatı yapımı, çatı bakımı, izolasyon, kenet çatı ve çelik çatı uygulamaları. Oskay Çatı ile ücretsiz keşif ve garantili işçilik.',
-    'istanbul çatı, istanbul çatı yapımı, istanbul çatı tamiri, çatı bakımı istanbul, çatı tamiri, çatı ustası istanbul, çatı izolasyon, kenet çatı, çelik çatı, oskay çatı',
-    'İstanbul Çatı Tamiri ve Çatı Yapımı | Oskay Çatı',
-    'İstanbul ve çevresinde çatı tamiri, çatı yapımı, bakım, izolasyon, kenet çatı ve çelik çatı uygulamaları.',
+    'İstanbul Çatı Tamiri ve Çatı Sistemleri | Oskay Çatı',
+    'İstanbul''da çatı tamiri, yeni çatı yapımı, su yalıtımı, kenet çatı ve çelik çatı sistemleri. Ücretsiz keşif ve garantili işçilik için Oskay Çatı.',
+    'istanbul çatı firması, istanbul çatı tamiri, istanbul çatı sistemleri, çatı ustası, çatı yapımı, çatı izolasyonu, kenet çatı, çelik çatı, çelik konstrüksiyon, oskay çatı',
+    'İstanbul Çatı Tamiri ve Çatı Sistemleri | Oskay Çatı',
+    'İstanbul''da çatı tamiri, çatı yapımı, su yalıtımı, kenet ve çelik çatı çözümleri.',
     'https://www.oskaycati.com/img/9.jpg',
     'https://www.oskaycati.com/'
 )

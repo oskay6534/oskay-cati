@@ -39,11 +39,11 @@ function absoluteSiteUrl($value) {
 }
 
 $defaults = [
-    'meta_title' => 'Oskay Çatı Sistemleri | İstanbul Çatı Tamiri ve İzolasyon Ustası',
-    'meta_description' => "İstanbul'da profesyonel çatı tamiri, izolasyon ve yeni çatı yapımı hizmetleri. 10 yıllık tecrübe ile garantili işçilik. Ücretsiz keşif için hemen arayın!",
-    'meta_keywords' => 'çatı tamiri, istanbul çatı ustası, çatı izolasyon, yeni çatı yapımı, çelik çatı, oskay çatı',
-    'og_title' => 'Oskay Çatı Sistemleri | İstanbul Çatı Tamiri',
-    'og_description' => 'Profesyonel çatı çözümleri, tamir ve izolasyon hizmetleri.',
+    'meta_title' => 'İstanbul Çatı Tamiri ve Çatı Sistemleri | Oskay Çatı',
+    'meta_description' => "İstanbul'da çatı tamiri, yeni çatı yapımı, su yalıtımı, kenet çatı ve çelik çatı sistemleri. Ücretsiz keşif ve garantili işçilik için Oskay Çatı.",
+    'meta_keywords' => 'istanbul çatı firması, istanbul çatı tamiri, istanbul çatı sistemleri, çatı ustası, çatı yapımı, çatı izolasyonu, kenet çatı, çelik çatı, çelik konstrüksiyon, oskay çatı',
+    'og_title' => 'İstanbul Çatı Tamiri ve Çatı Sistemleri | Oskay Çatı',
+    'og_description' => "İstanbul'da çatı tamiri, çatı yapımı, su yalıtımı, kenet ve çelik çatı çözümleri.",
     'og_image' => 'https://www.oskaycati.com/img/9.jpg',
     'canonical_url' => 'https://www.oskaycati.com/'
 ];
