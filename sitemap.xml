@@ -3,8 +3,8 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.oskaycati.com/</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://www.oskaycati.com/img/9.jpg</image:loc>
