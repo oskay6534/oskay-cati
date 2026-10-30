@@ -38,76 +38,103 @@
     <!-- JSON-LD Yapılandırılmış Veri (Google için İşletme Bilgisi) -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@graph": [
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RoofingContractor",
+      "@id": "https://www.oskaycati.com/#business",
+      "name": "Oskay Çatı Sistemleri",
+      "url": "https://www.oskaycati.com/",
+      "image": "https://www.oskaycati.com/img/9.jpg",
+      "logo": "https://www.oskaycati.com/favicon.svg",
+      "description": "İstanbul'da çatı tamiri, çatı yapımı, çatı bakımı, izolasyon, kenet çatı ve çelik çatı uygulamaları.",
+      "telephone": [
+        "+905433588204",
+        "+905434037140"
+      ],
+      "priceRange": "$",
+      "areaServed": [
         {
-          "@type": "RoofingContractor",
-          "@id": "https://www.oskaycati.com/#business",
-          "name": "Oskay Çatı Sistemleri",
-          "url": "https://www.oskaycati.com/",
-          "image": "https://www.oskaycati.com/img/9.jpg",
-          "logo": "https://www.oskaycati.com/favicon.svg",
-          "description": "İstanbul'da çatı tamiri, çatı yapımı, çatı bakımı, izolasyon, kenet çatı ve çelik çatı uygulamaları.",
-          "telephone": ["+905433588204", "+905434037140"],
-          "priceRange": "$$",
-          "areaServed": [
-            { "@type": "City", "name": "İstanbul" },
-            { "@type": "AdministrativeArea", "name": "İstanbul ve çevresi" }
-          ],
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "İstanbul",
-            "addressCountry": "TR"
-          },
-          "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            "opens": "08:00",
-            "closes": "20:00"
-          },
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "İstanbul Çatı Hizmetleri",
-            "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "İstanbul çatı tamiri" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "İstanbul çatı yapımı" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Çatı bakımı ve izolasyon" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kenet çatı uygulaması" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Çelik çatı ve ağır çelik yapı" } }
-            ]
-          }
+          "@type": "City",
+          "name": "İstanbul"
         },
         {
-          "@type": "WebSite",
-          "@id": "https://www.oskaycati.com/#website",
-          "url": "https://www.oskaycati.com/",
-          "name": "Oskay Çatı Sistemleri",
-          "inLanguage": "tr-TR",
-          "publisher": { "@id": "https://www.oskaycati.com/#business" }
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://www.oskaycati.com/#sss",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "İstanbul'da çatı tamiri fiyatı nasıl belirlenir?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Çatı tamiri fiyatı; çatının alanı, hasarın türü, erişim koşulları ve kullanılacak malzemeye göre ücretsiz keşif sonrasında belirlenir." }
-            },
-            {
-              "@type": "Question",
-              "name": "Hangi çatı sistemleri uygulanır?",
-              "acceptedAnswer": { "@type": "Answer", "text": "İhtiyaca göre çatı tamiri, yeni çatı yapımı, su ve ısı yalıtımı, kenet çatı, çelik çatı ve çelik konstrüksiyon çözümleri uygulanır." }
-            },
-            {
-              "@type": "Question",
-              "name": "Ücretsiz keşif hizmeti var mı?",
-              "acceptedAnswer": { "@type": "Answer", "text": "İstanbul ve çevresindeki uygun projeler için ihtiyaç tespiti ve teklif hazırlığı amacıyla ücretsiz keşif planlanır." }
-            }
-          ]
+          "@type": "AdministrativeArea",
+          "name": "İstanbul ve çevresi"
         }
-      ]
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "İstanbul",
+        "addressCountry": "TR"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "08:00",
+        "closes": "20:00"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "İstanbul Çatı Hizmetleri",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "İstanbul çatı tamiri"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "İstanbul çatı yapımı"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Çatı bakımı ve izolasyon"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Kenet çatı uygulaması"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Çelik çatı ve ağır çelik yapı"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.oskaycati.com/#website",
+      "url": "https://www.oskaycati.com/",
+      "name": "Oskay Çatı Sistemleri",
+      "inLanguage": "tr-TR",
+      "publisher": {
+        "@id": "https://www.oskaycati.com/#business"
+      }
     }
+  ]
+}
     </script>
 
     <!-- Bootstrap 5 CSS -->
@@ -684,29 +711,6 @@
             </div>
         </div>
     </div>
-
-<section id="faq" class="faq-section">
-        <div class="container">
-            <div class="faq-shell">
-                <div class="row g-4 g-lg-5 align-items-start">
-                    <div class="col-lg-5">
-                        <span class="section-kicker">Sık sorulan sorular</span>
-                        <h2>Karar vermeden önce merak ettikleriniz</h2>
-                        <p>Her projeyi yerinde değerlendiriyor, ihtiyacınıza uygun uygulama ve net bir teklif hazırlıyoruz.</p>
-                        <a class="faq-contact-link" href="#contact"><i class="fas fa-phone-alt"></i> Başka bir sorunuz mu var?</a>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="accordion faq-accordion" id="faqAccordion">
-                            <article class="accordion-item faq-card"><h3 class="accordion-header" id="faqHeadingOne"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">Çatı tamiri fiyatı nasıl belirlenir?</button></h3><div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion"><div class="accordion-body">Fiyat; çatının alanı, hasarın türü, erişim koşulları ve kullanılacak malzemeye göre ücretsiz keşif sonrasında netleşir.</div></div></article>
-                            <article class="accordion-item faq-card"><h3 class="accordion-header" id="faqHeadingTwo"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">Hangi çatı sistemlerini uyguluyorsunuz?</button></h3><div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion"><div class="accordion-body">Çatı tamiri, yeni çatı yapımı, su ve ısı yalıtımı, kenet çatı, çelik çatı ve çelik konstrüksiyon çözümleri uyguluyoruz.</div></div></article>
-                            <article class="accordion-item faq-card"><h3 class="accordion-header" id="faqHeadingThree"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">Ücretsiz keşif hizmetiniz var mı?</button></h3><div id="faqThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion"><div class="accordion-body">İstanbul ve çevresindeki uygun projeler için ihtiyaç tespiti ve teklif hazırlığı amacıyla ücretsiz keşif planlıyoruz.</div></div></article>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- İletişim Bölümü -->
     <footer id="contact" class="site-footer text-white py-5">
         <div class="container">
