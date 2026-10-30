@@ -2451,3 +2451,20 @@ body.admin-logged-in #projectsContainer .project-card {
         font-size: 0.55rem;
     }
 }
+
+
+/* Sık sorulan sorular: iletişim alanına geçiş yapan, bağımsız ve okunaklı kartlar. */
+.faq-section { padding: 72px 0 0; background: var(--site-bg); }
+.faq-shell { padding: clamp(28px, 5vw, 56px); border: 1px solid rgba(216, 163, 26, 0.28); border-bottom: 0; border-radius: 18px 18px 0 0; color: #eef5ff; background: linear-gradient(135deg, rgba(27, 38, 59, 0.96), rgba(13, 27, 42, 0.98)); box-shadow: 0 -16px 42px rgba(8, 12, 20, 0.16); }
+.faq-section h2 { max-width: 11ch; margin: 0 0 18px; color: #fff; font-size: clamp(1.9rem, 3.1vw, 3rem); line-height: 1.1; }
+.faq-section p { max-width: 38rem; margin-bottom: 24px; color: rgba(238, 245, 255, 0.78); line-height: 1.7; }
+.faq-contact-link { display: inline-flex; align-items: center; gap: 10px; color: #ffe08a; font-weight: 700; text-decoration: none; }
+.faq-contact-link:hover { color: #fff4cf; }
+.faq-accordion { display: grid; gap: 12px; }
+.faq-card.accordion-item { overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; color: #eef5ff; background: rgba(255, 255, 255, 0.06); }
+.faq-card.accordion-item:has(.accordion-button:not(.collapsed)) { border-color: rgba(216, 163, 26, 0.7); background: rgba(216, 163, 26, 0.1); }
+.faq-card .accordion-button { padding: 20px 22px; color: #fff; background: transparent; box-shadow: none; font-weight: 700; }
+.faq-card .accordion-button::after { filter: brightness(0) saturate(100%) invert(78%) sepia(50%) saturate(490%) hue-rotate(358deg); }
+.faq-card .accordion-button:not(.collapsed) { color: #ffe08a; background: transparent; }
+.faq-card .accordion-body { padding: 0 22px 21px; color: rgba(238, 245, 255, 0.8); line-height: 1.65; }
+@media (max-width: 767.98px) { .faq-section { padding-top: 42px; } .faq-shell { padding: 26px 18px; border-radius: 14px 14px 0 0; } .faq-section h2 { max-width: none; font-size: 1.75rem; } .faq-card .accordion-button { padding: 17px 16px; font-size: 0.95rem; } .faq-card .accordion-body { padding: 0 16px 18px; font-size: 0.91rem; } }
